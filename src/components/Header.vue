@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import logo from '../assets/images/logo.jpg'
 
 const topBarOpen = ref(false)
 
@@ -22,27 +21,15 @@ function toggleTopBar() {
         <li><a href="#">Om ODEON</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Kontakt</a></li>
+        <li><a href="#">Kalender</a></li>
+        <li><a href="#">Ung i ODEON</a></li>
+        <li><a href="#">Mad & Drikke</a></li>
+        <li><a href="#">Konferencer & Møder</a></li>
       </ul>
     </div>
 
-    <!-- Divider/streg mellem topbar og navigation -->
+    <!-- Divider/streg mellem Navigation og searchbar-->
     <div class="divider"></div>
-
-    <!-- Logo og navigation på samme linje -->
-    <div class="nav-container container">
-      <div class="logo">
-        <img :src="logo" alt="ODEON logo" />
-      </div>
-
-      <nav class="main-nav">
-        <ul>
-          <li><a href="#">Kalender</a></li>
-          <li><a href="#">Ung i ODEON</a></li>
-          <li><a href="#">Mad & Drikke</a></li>
-          <li><a href="#">Konference & møder</a></li>
-        </ul>
-      </nav>
-    </div>
 
     <!-- Header-->
     <h1>
