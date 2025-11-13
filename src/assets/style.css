@@ -1,10 +1,4 @@
 /* Global Styles*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html, body {
   background-color: #EFEFEF;
   font-family: 'Open Sans', sans-serif;
