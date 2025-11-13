@@ -66,20 +66,6 @@ button:focus-visible {
 }
 
 
-/* Header titel */
-.main-header {
-  background: #0b0b0b;
-  color: #84754e;
-  text-align: left;
-  padding: 1rem 0;
-}
-
-.main-header h1 {
-  margin: 2rem 0;
-  margin-left: 1.5rem;
-  font-size: 1.5rem;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
