@@ -1,19 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 
-const topBarOpen = ref(false)
+const headerOpen = ref(false)
 
-function toggleTopBar() {
-  topBarOpen.value = !topBarOpen.value
+function toggleHeader() {
+  headerOpen.value = !headerOpen.value
 }
 </script>
 
 <template>
   <header class="main-header">
-    <div class="top-bar container">
-      <button class="burger" @click="toggleTopBar">☰</button>
+    <div class="header container">
+      <button class="burger" @click="toggleHeader">☰</button>
 
-      <ul :class="{ open: topBarOpen }">
+      <ul :class="{ open: headerOpen }">
         <li><a href="#">Nyheder/nyhedsbrev</a></li>
         <li><a href="#">Hotel</a></li>
         <li><a href="#">Venue Specs</a></li>
@@ -28,10 +28,6 @@ function toggleTopBar() {
       </ul>
     </div>
 
-    <!-- Divider/streg mellem Navigation og searchbar-->
-    <div class="divider"></div>
-
-    <!-- Header-->
     <h1>
       UNG i ODEON samler alle de fedeste events for dig – koncerter, foredrag, workshops og meget mere.
       <br>
@@ -51,27 +47,20 @@ function toggleTopBar() {
   cursor: pointer;
 }
 
-/* === Topbar === */
-.top-bar {
+/* === Header === */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.top-bar ul {
+.header ul {
   display: flex;
   justify-content: flex-end;
   list-style: none;
   gap: 1.5rem;
   margin-left: auto;
   padding: 0;
-}
-
-/* === Divider === */
-.divider {
-  height: 1px;
-  background-color: #433719;
-  margin: 0.6rem 0;
 }
 
 /* === Navigation === */
@@ -92,15 +81,15 @@ function toggleTopBar() {
 /* === Mobilvisning === */
 @media (max-width: 768px) {
   /* Burgeren synlig */
-.burger {
+  .burger {
     display: block;
     position: absolute;
     top: 1rem;
     right: 1rem;
   }
 
-  /* Skjul topbar-menu som standard */
-  .top-bar ul {
+  /* Skjul header-menu som standard */
+  .header ul {
     display: none;
     flex-direction: column;
     gap: 0.3rem;
@@ -110,22 +99,22 @@ function toggleTopBar() {
   }
 
   /* Når menuen er åben */
-  .top-bar ul.open {
+  .header ul.open {
     display: flex;
   }
 
-  .top-bar ul.open li a {
+  .header ul.open li a {
     font-size: 1.2rem;
     text-align: left;
     width: 100%;
   }
 
-    .top-bar ul li a {
+  .header ul li a {
     position: relative;
     display: inline-block;
   }
 
-  .top-bar ul li a::after {
+  .header ul li a::after {
     content: "";
     position: absolute;
     left: 0;
@@ -136,24 +125,9 @@ function toggleTopBar() {
     transition: width 0.3s ease;
   }
 
-  .top-bar ul li a:hover::after,
-  .top-bar ul li a:focus::after {
+  .header ul li a:hover::after,
+  .header ul li a:focus::after {
     width: 100%;
-  }
-
-  /* Skjul divider under topbar */
-  .divider {
-    display: none;
-  }
-
-  /* Tilføj ny divider under nav-container */
-  .nav-container::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #433719;
-    margin-top: 0.6rem;
   }
 
   /* Stabel logo og navigation vertikalt */

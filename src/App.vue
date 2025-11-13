@@ -10,10 +10,6 @@
 
 <script setup>
 import Header from './components/Header.vue'
-import Seachbar from ',components/Searchbar.vue'
-import Hero from './components/Hero.vue'
-import Infoboxes from ',/components/InfoBoxes.vue'
-import EventFooter from './components/Footer.vue'
 </script>
 
 <style scoped>
