@@ -12,7 +12,7 @@ function toggleHeader() {
 <template>
   <header class="main-header">
 
-    <!--Topbar -->
+    <!-- Topbar -->
     <div class="topbar">
       <ul class="topbar-links">
         <li><a href="#">Log in</a></li>
@@ -26,7 +26,7 @@ function toggleHeader() {
 
       <!-- Divider i topbar -->
       <div class="header-divider"></div>
-  
+
       <!-- Nye links under de eksisterende links i topbar-->
       <ul class="topbar-links second-row">
         <li><a href="#">Kalender</a></li>
@@ -60,7 +60,6 @@ function toggleHeader() {
       <li><a href="#">Mad & Drikke</a></li>
       <li><a href="#">Konference & Møde</a></li>
     </ul>
-
   </header>
 </template>
 
@@ -73,7 +72,6 @@ function toggleHeader() {
   flex-direction: column;
 }
 
-/* Topbar (desktop) */
 .topbar {
   width: 100%;
   background-color: #EFEFEF;
@@ -100,14 +98,12 @@ function toggleHeader() {
   color: #7d6a3e;
 }
 
-/* Divider */
 .header-divider {
   width: 100%;
   height: 1px;
   background-color: #947E4A;
 }
 
-/* Main row: logo / burger-knap */
 .main-row {
   display: flex;
   justify-content: space-between;
@@ -116,17 +112,14 @@ function toggleHeader() {
   box-sizing: border-box;
 }
 
-/* Logo */
 .logo-container {
   flex-shrink: 0;
-  margin-top: -4rem;
 }
 
 .header-logo {
   height: 60px;
 }
 
-/* Burger-knap */
 .burger {
   display: none;
   background: none;
@@ -144,7 +137,6 @@ function toggleHeader() {
     display: none;
   }
 
-  /* Main row: logo + burger */
   .main-row {
     display: flex;
     flex-direction: row;
@@ -156,7 +148,6 @@ function toggleHeader() {
     position: relative;
   }
 
-  /* Burger-knap */
   .burger {
     display: block;
     font-size: 1.7rem;
@@ -166,7 +157,6 @@ function toggleHeader() {
     margin-left: 10rem;
   }
 
-  /* Logo container */
   .logo-container {
     display: flex;
     align-items: center;
@@ -178,14 +168,12 @@ function toggleHeader() {
     height: 70px;
   }
 
-  /* Skjul divider på mobil */
   .header-divider {
     display: none;
   }
 
-  /* Topbar-links på mobil */
   .topbar-links.mobile {
-    display: none; /* Skjult som standard */
+    display: none;
     flex-direction: column;
     width: 100%;
     background-color: #EFEFEF;
@@ -193,7 +181,7 @@ function toggleHeader() {
   }
 
   .topbar-links.mobile.open {
-    display: flex; /* Vis links når burger-menuen er åben */
+    display: flex;
   }
 
   .topbar-links.mobile li {
@@ -207,12 +195,21 @@ function toggleHeader() {
   }
 }
 
-/* ==== Desktop styling ==== */
+/* ==== Ekstra Desktop styling ==== */
 @media (min-width: 769px) {
 
   /* Skjul topbar-links mobile på desktop */
   .topbar-links.mobile {
     display: none;
+  }
+
+  /* Tættere på divideren kun i desktop */
+  .main-row {
+    margin-top: -10px;
+  }
+
+  .logo-container {
+    margin-top: -50px;
   }
 }
 </style>
