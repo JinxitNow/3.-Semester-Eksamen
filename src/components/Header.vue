@@ -12,7 +12,7 @@ function toggleHeader() {
 <template>
   <header class="main-header">
 
-    <!-- Topbar: Første række med links -->
+    <!--Topbar -->
     <div class="topbar">
       <ul class="topbar-links">
         <li><a href="#">Log in</a></li>
@@ -22,120 +22,111 @@ function toggleHeader() {
         <li><a href="#">Praktisk Info</a></li>
         <li><a href="#">Om ODEON</a></li>
         <li><a href="#">FAQ</a></li>
-        <li><a href="#">Kontakt</a></li>
+      </ul>
+
+      <!-- Divider i topbar -->
+      <div class="header-divider"></div>
+  
+      <!-- Nye links under de eksisterende links i topbar-->
+      <ul class="topbar-links second-row">
+        <li><a href="#">Kalender</a></li>
+        <li><a href="#">Ung i ODEON</a></li>
+        <li><a href="#">Mad & Drikke</a></li>
+        <li><a href="#">Konference & Møde</a></li>
       </ul>
     </div>
 
-    <!-- Divider -->
-    <div class="header-divider"></div>
-
-    <!-- Main header: anden række + logo -->
-    <div class="main-header-row">
-      <button class="burger" @click="toggleHeader">☰</button>
-
-      <div :class="['nav-container', { open: headerOpen }]">
-        <div class="logo-container">
-          <img class="header-logo" :src="Logo" alt="ODEON logo" />
-        </div>
-        <ul class="nav-links">
-          <li><a href="#">Kalender</a></li>
-          <li><a href="#">Ung i ODEON</a></li>
-          <li><a href="#">Mad & Drikke</a></li>
-          <li><a href="#">Konferencer & Møder</a></li>
-        </ul>
+    <!-- Main row med logo + burger-knap -->
+    <div class="main-row">
+      <div class="logo-container">
+        <img class="header-logo" :src="Logo" alt="ODEON logo" />
       </div>
+
+      <!-- Burger-knap til mobil -->
+      <button class="burger" @click="toggleHeader">☰</button>
     </div>
+
+    <!-- Links container (topbar-links kun synlige på mobil når burger-menuen er åben) -->
+    <ul class="topbar-links mobile" :class="{ open: headerOpen }">
+      <li><a href="#">Log in</a></li>
+      <li><a href="#">Nyheder/nyhedsbrev</a></li>
+      <li><a href="#">Hotel</a></li>
+      <li><a href="#">Venue Specs</a></li>
+      <li><a href="#">Praktisk Info</a></li>
+      <li><a href="#">Om ODEON</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Kalender</a></li>
+      <li><a href="#">Ung i ODEON</a></li>
+      <li><a href="#">Mad & Drikke</a></li>
+      <li><a href="#">Konference & Møde</a></li>
+    </ul>
 
   </header>
 </template>
 
 <style scoped>
 .main-header {
+  background-color: #EFEFEF;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 }
 
+/* Topbar (desktop) */
 .topbar {
   width: 100%;
   background-color: #EFEFEF;
-  box-sizing: border-box;
 }
 
 .topbar-links {
   display: flex;
   justify-content: flex-end;
-  gap: 1.2rem;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.5rem 1rem;
+  gap: 2rem;
 }
 
 .topbar-links li a {
   color: #947E4A;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
   font-size: 0.85rem;
+  transition: color 0.2s ease;
 }
 
 .topbar-links li a:hover {
   color: #7d6a3e;
 }
 
+/* Divider */
 .header-divider {
-  width: 100vw;
+  width: 100%;
   height: 1px;
   background-color: #947E4A;
-  margin: 0;
 }
 
-.main-header-row {
-  width: 100vw;
-  background-color: #EFEFEF;
-  box-sizing: border-box;
-  position: relative;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-}
-
-.nav-container {
+/* Main row: logo / burger-knap */
+.main-row {
   display: flex;
-  justify-content: space-between; /* logo til venstre, links til højre */
-  align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
-  margin-top: 0;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
 }
 
+/* Logo */
 .logo-container {
-  display: flex;
-  align-items: center;
+  flex-shrink: 0;
+  margin-top: -4rem;
 }
 
 .header-logo {
   height: 60px;
 }
 
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0; /* fjern margin */
-}
-
-.nav-links li a {
-  color: #947E4A;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-  font-size: 0.85rem;
-}
-
-.nav-links li a:hover {
-  color: #7d6a3e;
-}
-
-/* Burger skjules på desktop*/
+/* Burger-knap */
 .burger {
   display: none;
   background: none;
@@ -143,60 +134,85 @@ function toggleHeader() {
   font-size: 1.7rem;
   color: #947E4A;
   cursor: pointer;
-  align-self:flex-end;
 }
 
-/* ===============================
-   MOBILE STYLING
-================================ */
+/* ==== Mobil styling ==== */
 @media (max-width: 768px) {
-  .topbar {
-    display: none; /* skjul topbar */
+
+  /* Skjul topbar links på mobil - de skal kun vises i burger-menuen */
+  .topbar-links {
+    display: none;
   }
 
-  .header-divider {
-    display: none; /* skjul divider */
+  /* Main row: logo + burger */
+  .main-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
   }
 
+  /* Burger-knap */
   .burger {
     display: block;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    font-size: 1.7rem;
+    color: #947E4A;
+    cursor: pointer;
     z-index: 10;
+    margin-left: 10rem;
   }
 
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-    display: none;
-    width: 100%;
-  }
-
-  .nav-container.open {
-    display: flex;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  .nav-links li a {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1.1rem;
-    display: block;
-  }
-
+  /* Logo container */
   .logo-container {
-    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 2rem;
   }
 
   .header-logo {
-    height: 35px;
+    height: 70px;
+  }
+
+  /* Skjul divider på mobil */
+  .header-divider {
+    display: none;
+  }
+
+  /* Topbar-links på mobil */
+  .topbar-links.mobile {
+    display: none; /* Skjult som standard */
+    flex-direction: column;
+    width: 100%;
+    background-color: #EFEFEF;
+    padding: 1rem 0;
+  }
+
+  .topbar-links.mobile.open {
+    display: flex; /* Vis links når burger-menuen er åben */
+  }
+
+  .topbar-links.mobile li {
+    width: 100%;
+  }
+
+  .topbar-links.mobile li a {
+    font-size: 1rem;
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ==== Desktop styling ==== */
+@media (min-width: 769px) {
+
+  /* Skjul topbar-links mobile på desktop */
+  .topbar-links.mobile {
+    display: none;
   }
 }
 </style>
