@@ -15,7 +15,7 @@ function toggleHeader() {
     <!-- Topbar -->
     <div class="topbar">
       <ul class="topbar-links">
-        <li><a href="#">Log in</a></li>
+        <li><router-link to="/login">Log in</router-link></li>
         <li><a href="#">Nyheder/nyhedsbrev</a></li>
         <li><a href="#">Hotel</a></li>
         <li><a href="#">Venue Specs</a></li>
@@ -43,12 +43,13 @@ function toggleHeader() {
       </div>
 
       <!-- Burger-knap til mobil -->
-      <button class="burger" @click="toggleHeader">☰</button>
+      <button class="burger" @click="toggleHeader" aria-label="Menu">☰</button>
+
     </div>
 
     <!-- Links container (topbar-links kun synlige på mobil når burger-menuen er åben) -->
     <ul class="topbar-links mobile" :class="{ open: headerOpen }">
-      <li><a href="#">Log in</a></li>
+      <li><router-link to="/login">Log in</router-link></li>
       <li><a href="#">Nyheder/nyhedsbrev</a></li>
       <li><a href="#">Hotel</a></li>
       <li><a href="#">Venue Specs</a></li>

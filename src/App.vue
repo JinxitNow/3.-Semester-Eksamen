@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div id="app">
     <Header />
-    <Hero />
-    <InfobBoxes />
-    <router-view />
-    <Footer />
-  </div>
+    <router-view /> <!--//Her vises Eventlisten via Eventfeed-view -->
+    </div>
 </template>
 
+
+
 <script setup>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue';
+    import Header from './components/Header.vue'
 </script>
