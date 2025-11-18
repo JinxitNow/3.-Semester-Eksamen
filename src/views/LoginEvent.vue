@@ -116,16 +116,13 @@ onMounted(() => {
   <section class="login-event-page">
     <div class="container">
 
-      <!-- Kolonne 1: Links/genveje -->
-      <div class="column links-column">
-        <h4>Genveje</h4>
-        <div class="link-buttons">
-          <div class="link-btn"><a href="#">Medlemsinformationer</a></div>
-          <div class="link-btn"><a href="#">Statistik</a></div>
-          <div class="link-btn"><a href="#">Brugervejledninger</a></div>
-          <div class="link-btn"><a href="#">Indstillinger</a></div>
-        </div>
-      </div>
+<div class="link-buttons">
+  <div class="link-btn"><router-link to="/dashboard">Forside</router-link></div>
+  <div class="link-btn"><router-link to="/medlems">Medlemsinformationer</router-link></div>
+  <div class="link-btn"><router-link to="/statistik">Statistik</router-link></div>
+  <div class="link-btn"><router-link to="/vejledninger">Brugervejledninger</router-link></div>
+</div>
+
 
       <!-- Kolonne 2: Opret/rediger event -->
       <div class="column form-column">

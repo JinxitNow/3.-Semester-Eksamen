@@ -1,5 +1,4 @@
 <script setup>
-// Ingen data eller Firebase – kun navigation
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -13,29 +12,37 @@ function goTo(path) {
   <section class="dashboard-page">
     <h2 class="dashboard-title">Dashboard</h2>
     <div class="dashboard-grid">
-      
-      <!-- Boks 1: Eventoprettelse -->
-      <div class="dashboard-box" @click="goTo('/login-event')">
-        <h3>Opret Event</h3>
-        <p>Opret og administrer dine events.</p>
+
+          <!-- Kolonne 1: Genveje -->
+      <div class="column links-column">
+        <h3>Genveje</h3>
+        <div class="link-buttons">
+          <button class="link-btn" @click="goTo('/dashboard')">Forside</button>
+          <button class="link-btn" @click="goTo('/medlems')">Medlemsinformationer</button>
+          <button class="link-btn" @click="goTo('/statistik')">Statistik</button>
+          <button class="link-btn" @click="goTo('/vejledninger')">Brugervejledninger</button>
+        </div>
       </div>
 
-      <!-- Boks 2: Medlemskab -->
-      <div class="dashboard-box" @click="goTo('/medlems')">
-        <h3>Medlemskab</h3>
-        <p>Se og opdater dine medlemsoplysninger.</p>
+      <!-- Kolonne 2: Opret Events -->
+      <div class="column">
+        <h3>Opret Events</h3>
+        <p>Her kan du oprette og administrere events.</p>
+        <button class="primary-btn" @click="goTo('/login-event')">Gå til Eventoprettelse</button>
       </div>
 
-      <!-- Boks 3: Vejledninger -->
-      <div class="dashboard-box" @click="goTo('/vejledninger')">
-        <h3>Brugervejledninger</h3>
-        <p>Få hjælp og tutorials til systemet.</p>
+      <!-- Kolonne 3: Medlemsskaber -->
+      <div class="column">
+        <h3>Se Medlemsskaber</h3>
+        <p>Få overblik over medlemsoplysninger.</p>
+        <button class="primary-btn" @click="goTo('/medlems')">Gå til Medlemsskab</button>
       </div>
 
-      <!-- Boks 4: Indstillinger -->
-      <div class="dashboard-box" @click="goTo('/indstillinger')">
-        <h3>Indstillinger</h3>
-        <p>Tilpas dine præferencer.</p>
+      <!-- Kolonne 4: Vejledninger -->
+      <div class="column">
+        <h3>Vejledninger & Tutorials</h3>
+        <p>Læs brugervejledninger og se tutorials.</p>
+        <button class="primary-btn" @click="goTo('/vejledninger')">Gå til Vejledninger</button>
       </div>
 
     </div>
@@ -56,32 +63,71 @@ function goTo(path) {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
-.dashboard-box {
+.column {
   background-color: #f5f5f5;
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.dashboard-box h3 {
-  margin: 0 0 0.5rem 0;
+.column h3 {
+  margin-bottom: 1rem;
   color: #84754e;
 }
 
-.dashboard-box p {
+.column p {
   font-size: 0.9rem;
   color: #555;
+  margin-bottom: 1rem;
 }
 
-.dashboard-box:hover {
-  transform: translateY(-4px);
-  background-color: #eaeaea;
+/* Genveje */
+.link-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-btn {
+  padding: 0.6rem;
+  background-color: #84754e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.link-btn:hover {
+  background-color: #a49364;
+}
+
+/* Primære knapper */
+.primary-btn {
+  padding: 0.6rem 1rem;
+  background-color: #84754e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.primary-btn:hover {
+  background-color: #a49364;
+}
+
+/* Responsiv */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
