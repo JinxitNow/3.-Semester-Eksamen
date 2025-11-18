@@ -57,8 +57,8 @@
 
 <script setup>
 import { ref } from "vue";
-import emailjs from "emailjs-com";
-import { db } from "../firebase";
+import emailjs from "@emailjs/browser";
+import { database } from "../firebase";
 import { ref as dbRef, push, set } from "firebase/database";
 
 // Form felter
@@ -90,8 +90,10 @@ async function onSubmit() {
   }
 
   try {
-    const membersRef = dbRef(db, "members");
-    const newMemberRef = push(membersRef);
+    console.log("🔹 Starter Firebase submit");
+
+    const membersRef = dbRef(database, "members");  
+    const newMemberRef = push(membersRef);  
     const code = generateCode(6);
 
     // Gem i Firebase
@@ -106,6 +108,8 @@ async function onSubmit() {
       createdAt: Date.now(),
     });
 
+    console.log("✅ Firebase gemt! Key:", newMemberRef.key);
+
     const memberId = newMemberRef.key;
 
     // EmailJS params
@@ -116,15 +120,19 @@ async function onSubmit() {
       member_id: memberId,
     };
 
-    await emailjs.send(
-      "service_viiagc2",
-      "template_eh1z8l6",
-      templateParams,
-      "NBxFLic-Wi_ObTiV8"
-    );
+    try {
+      await emailjs.send(
+        "service_viiagc2",
+        "template_eh1z8l6",
+        templateParams,
+        "NBxFLic-Wi_ObTiV8"
+      );
+      console.log("✅ Email sendt!");
+    } catch (emailErr) {
+      console.error("❌ EmailJS-fejl:", emailErr);
+    }
 
-    message.value =
-      "Du er nu medlem! Der er sendt en email med medlemskort.";
+    message.value = "Du er nu medlem! Der er sendt en email med medlemskort.";
 
     // Reset
     fullName.value = "";
@@ -135,9 +143,10 @@ async function onSubmit() {
     phone.value = "";
     acceptTerms.value = false;
     acceptPolicy.value = false;
+
   } catch (err) {
-    console.error(err);
-    message.value = "Der skete en fejl.";
+    console.error("❌ Firebase-fejl:", err);
+    message.value = `Der skete en fejl ved registreringen: ${err.message}`;
   }
 }
 </script>
