@@ -37,7 +37,24 @@ function toggleFavorite() {
 }
 
 function addToCalendar() {
-  alert(`Tilføj event: ${props.event.title} den ${props.event.date}`);
+  alert(`Tilføj event: ${props.event.title} den ${formatDate(props.event.date)}`);
+}
+
+// Helper til stort begyndelsesbogstav
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Formatter dato til ugedag + dag/måned/år
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const formatted = date.toLocaleDateString("da-DK", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+  return capitalize(formatted);
 }
 </script>
 
@@ -67,7 +84,8 @@ function addToCalendar() {
 
     <div class="event-info">
       <div class="event-date-container">
-        <p class="event-date">{{ event.date }}</p>
+        <!-- Brug formatDate i stedet for event.date -->
+        <p class="event-date">{{ formatDate(event.date) }}</p>
 
         <div v-if="event.specialLabel?.length" class="special-label">
           {{ event.specialLabel.join(', ') }}

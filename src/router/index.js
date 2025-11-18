@@ -5,14 +5,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import Eventfeed from "../views/Eventfeed.vue";
 import Favorit from "../views/Favorit.vue";
 import Login from "../views/Login.vue";
-import LoginEvent from "../views/LoginEvent.vue"; // <-- NYT
+import LoginEvent from "../views/LoginEvent.vue";
+import LoginDashboard from "../views/LoginDashboard.vue";
 
 const routes = [
   { path: "/", component: Eventfeed },
   { path: "/favoritter", component: Favorit },
   { path: "/login", component: Login },
-  { path: "/login-event", component: LoginEvent },
-,
+  { path: "/dashboard", component: LoginDashboard }, // <--- ændret til /dashboard
+  { path: "/login-event", component: LoginEvent }
 ];
 
 const router = createRouter({
@@ -21,4 +22,3 @@ const router = createRouter({
 });
 
 export default router;
-

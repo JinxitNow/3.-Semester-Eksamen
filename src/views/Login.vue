@@ -5,7 +5,7 @@ const router = useRouter()
 
 // Når brugeren klikker på knappen, naviger til LoginEvent.vue
 function goToAdmin() {
-  router.push('/login-event')
+    router.push('/dashboard') 
 }
 </script>
 
