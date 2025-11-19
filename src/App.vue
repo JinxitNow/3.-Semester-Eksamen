@@ -3,6 +3,7 @@
     <Header />
     <Hero />
     <router-view /> <!--//Her vises Eventlisten via Eventfeed-view -->
+  
      <Registration />
     
     </div>
