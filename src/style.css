@@ -1,25 +1,25 @@
-/* Global Styles*/
+/* ===== Global Styles ===== */
 html, body {
   background-color: #EFEFEF;
   font-family: 'Open Sans', sans-serif;
-  }
+  margin: 0;
+  padding: 0;
+}
 
-/* ===== Typography ===== JUSTINE RETTER*/ 
+/* ===== Typography ===== */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700; /* Bold */
   font-size: 40px;
   line-height: 1.2;
   color: #947E4A;
-  margin-bottom: 20px;
-  padding: 2rem;
+  margin-bottom: 10px;
 }
 
 p, span, li, a {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400; /* Regular */
-  font-size: 24px;
-  line-height: 1.5;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
   color: #947E4A;
 }
 
@@ -29,10 +29,10 @@ button {
   color: #FBFBFB;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
@@ -53,22 +53,47 @@ button:active {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 24px 16px;
 }
 
+/* ===== Responsive Typography ===== */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 36px;
+  }
 
-/* ===== Responsiv typografi ===== */
-@media (max-width: 1024px) {
-  h1, h2, h3 {
-    font-size: 32px;
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 
   p {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   button {
     font-size: 18px;
-    padding: 10px 20px;
+    padding: 12px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 20px;
   }
 }
