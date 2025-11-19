@@ -1,5 +1,8 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
+import { useRouter } from "vue-router";   // ← VIGTIGT
+
+const router = useRouter();               // ← VIGTIGT
 
 const props = defineProps({
   event: { type: Object, required: true },
@@ -36,16 +39,16 @@ function toggleFavorite() {
   }
 }
 
+/* ⭐ ÅBN Reminder-siden når man trykker på kalender-ikonet ⭐ */
 function addToCalendar() {
-  alert(`Tilføj event: ${props.event.title} den ${formatDate(props.event.date)}`);
+  router.push("/reminder");    // ← ÅBNER Reminder.vue
 }
 
-// Helper til stort begyndelsesbogstav
+/* Date helpers */
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Formatter dato til ugedag + dag/måned/år
 function formatDate(dateString) {
   const date = new Date(dateString);
   const formatted = date.toLocaleDateString("da-DK", {
@@ -84,13 +87,13 @@ function formatDate(dateString) {
 
     <!-- Info-sektion med to kolonner -->
     <div class="event-info">
-      <!-- Kolonne 1: titel og dato -->
+      <!-- Kolonne 1 -->
       <div class="event-main">
         <p class="event-date">{{ formatDate(event.date) }}</p>
         <h3 class="event-title">{{ event.title }}</h3>
-        </div>
+      </div>
 
-      <!-- Kolonne 2: special label -->
+      <!-- Kolonne 2 -->
       <div v-if="event.specialLabel?.length" class="special-label">
         {{ event.specialLabel.join(', ') }}
       </div>
@@ -98,17 +101,15 @@ function formatDate(dateString) {
   </div>
 </template>
 
-
 <style scoped>
 .event-card {
-   padding: 1.7rem;
+  padding: 1.7rem;
   text-align: left;
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Fyld mere på desktop */
 @media (min-width: 1024px) {
   .event-card {
     padding: 1rem;
@@ -124,7 +125,7 @@ function formatDate(dateString) {
   width: 100%;
   height: 250px;
   object-fit: cover;
- }
+}
 
 /* Hjerte */
 .favorite-btn {
@@ -137,9 +138,6 @@ function formatDate(dateString) {
   font-size: 1.5rem;
   cursor: pointer;
   color: #84754e;
-  transition: transform 0.2s ease;
-
-  /* Nyt: gør knappen klikbar */
   width: 40px;
   height: 40px;
   display: flex;
@@ -151,19 +149,17 @@ function formatDate(dateString) {
   transform: scale(1.2);
 }
 
-/* Kalender-ikon */
+/* Kalenderikon */
 .calendar-btn {
   position: absolute;
   top: 8px;
-  right: 56px; /* lidt afstand fra hjertet */
+  right: 56px;
   z-index: 10;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   color: #84754e;
-
-  /* Nyt: gør knappen klikbar */
   width: 40px;
   height: 40px;
   display: flex;
@@ -182,7 +178,7 @@ function formatDate(dateString) {
   margin-top: 1rem;
 }
 
-..event-main {
+.event-main {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
@@ -203,8 +199,6 @@ function formatDate(dateString) {
   margin: 0;
 }
 
-  
-
 .special-label {
   background-color: #84754e;
   color: white;
@@ -217,10 +211,5 @@ function formatDate(dateString) {
   white-space: normal;
   word-wrap: break-word;
   line-height: 1.4;
-
-  /* Sørg for at ligge ovenpå billedet */
-  position: relative;
-  z-index: 1;
 }
-
 </style>

@@ -1,28 +1,33 @@
-<template>
-  <div class="ungiodeon-page">
-
-    <Hero />
-
-    <JoinUsSection />
-
-    <section class="event-feed">
-      <EventKalender :showYouthEvents="showYouthEvents" />
-    </section>
-
-    <Registration />
-
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue";
 import Hero from "../components/Hero.vue";
 import JoinUsSection from "../components/JoinUsSection.vue";
 import EventKalender from "../components/Eventkalender.vue";
+import GratisSection from "../components/GratisSection.vue";   
 import Registration from "../components/Registration.vue";
-
 const showYouthEvents = ref(true);
 </script>
+
+
+<template>
+  <div id="app">
+    <Hero />
+
+    <!-- Join Us Section -->
+    <JoinUsSection />                <!-- <-- tilføjet her -->
+
+
+
+    <section class="event-feed">
+      <EventKalender :showYouthEvents="showYouthEvents" />
+    </section>
+    <!-- Gratis Section -->
+  <GratisSection />
+    <Registration />
+    
+    
+  </div>
+</template>
 
 <style scoped>
 .event-feed {
