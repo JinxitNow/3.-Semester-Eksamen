@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <router-view /> <!--//Her vises Eventlisten via Eventfeed-view -->
-    
+    <FooterComponent />
     </div>
 
 </template>

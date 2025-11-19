@@ -18,7 +18,7 @@
     <!-- Text content -->
     <div class="hero-content">
       <h1>UNG I ODEON</h1>
-      <button>SE VALGTE EVENTS</button>
+      <button>SE UDVALGTE EVENTS</button>
     </div>
   </div>
 </template>
