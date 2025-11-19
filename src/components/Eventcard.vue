@@ -82,27 +82,27 @@ function formatDate(dateString) {
       </button>
     </div>
 
+    <!-- Info-sektion med to kolonner -->
     <div class="event-info">
-      <div class="event-date-container">
-        <!-- Brug formatDate i stedet for event.date -->
+      <!-- Kolonne 1: titel og dato -->
+      <div class="event-main">
         <p class="event-date">{{ formatDate(event.date) }}</p>
-
-        <div v-if="event.specialLabel?.length" class="special-label">
-          {{ event.specialLabel.join(', ') }}
-        </div>
-      </div>
-
-      <div class="event-title-container">
         <h3 class="event-title">{{ event.title }}</h3>
+        </div>
+
+      <!-- Kolonne 2: special label -->
+      <div v-if="event.specialLabel?.length" class="special-label">
+        {{ event.specialLabel.join(', ') }}
       </div>
     </div>
   </div>
 </template>
 
+
 <style scoped>
 .event-card {
   background-color: #efefef;
-  padding: 1.2rem;
+  padding: 1.7rem;
   text-align: left;
   border-radius: 6px;
   width: 100%;
@@ -112,8 +112,8 @@ function formatDate(dateString) {
 /* Fyld mere på desktop */
 @media (min-width: 1024px) {
   .event-card {
-    padding: 1.5rem;
-    min-height: 320px; /* kortet fylder lidt mere */
+    padding: 1rem;
+    min-height: 320px;
   }
 }
 
@@ -177,54 +177,50 @@ function formatDate(dateString) {
 }
 
 .event-info {
-  margin-top: 0.4rem;
-}
-
-.event-date-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+}
+
+..event-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;   /* meget lille afstand */
+  flex: 1;
+}
+
+.event-title {
+  align-items: flex-start;
+  font-size: 1.2rem;
+  color: #84754e;
+  font-weight: bold;
+  margin-top: -1rem;
 }
 
 .event-date {
   font-size: 0.9rem;
   color: #84754e;
-  margin-bottom: 0.5rem;
+  margin: 0;     /* fjern standard margin */
 }
-
-.event-title-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.event-title {
-  font-size: 1.2rem;
-  color: #84754e;
-  font-weight: bold;
-  margin: 0;
-}
+  
 
 .special-label {
   background-color: #84754e;
   color: white;
-  font-size: 0.65rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 2px;
+  font-size: 1rem;
+  border-radius: 4px;
   text-align: center;
   font-weight: bold;
-  white-space: nowrap;
-  display: inline-block;
-  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  max-width: 30%;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.4;
+
+  /* Sørg for at ligge ovenpå billedet */
+  position: relative;
+  z-index: 1;
 }
 
-/* Mobiltilpasning */
-@media (max-width: 480px) {
-  .special-label {
-    font-size: 0.40rem;
-    padding: 0.05rem 0.3rem;
-    margin-left: 0.3rem;
-  }
-}
 </style>
