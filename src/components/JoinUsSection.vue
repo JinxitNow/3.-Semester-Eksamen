@@ -25,7 +25,7 @@
       </div>
 
       <!-- IMAGE -->
-      <img src="/img/Fakta.webp" alt="Join Us" class="joinus-img" />
+      <img src="/img/fakta.webp" alt="Join Us" class="joinus-img" />
 
     </div>
 
@@ -55,6 +55,8 @@ function scrollToBottom() {
   position: relative;
   width: calc(80% - 20px);
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* IMAGE (BAGGRUND) — Ryk billedet her */
@@ -84,15 +86,10 @@ function scrollToBottom() {
 }
 
 /* OVERSKRIFT — Open Sans Semibold 40px */
-.text-box h2 {
+.text-box h1 {
   width: 100%;
-  margin-top: 0px;
-  margin-left: 0px;
-
-  color: #84754E;            /* ← Guld farve */
-  font-size: 40px;           /* ← Overskrift størrelse */
-  font-family: "Open Sans";  /* ← Font */
-  font-weight: 600;          /* ← Semibold */
+  margin-top: -10px;
+  margin-left: 50px;
   margin-bottom: 0px;
 
 }
@@ -100,10 +97,6 @@ function scrollToBottom() {
 /* BRØDTEKST — Open Sans Regular 24px */
 .text-box p {
     width: 100%;
-  color: #84754E;
-  font-size: 24px;           /* ← Tekst størrelse */
-  font-family: "Open Sans";  /* ← Font */
-  font-weight: 400;          /* ← Regular */
   
 }
 
@@ -133,11 +126,14 @@ function scrollToBottom() {
   }
 
   .joinus-img {
+    margin-top: 100px;
     height: 250px;     /* ← Billedhøjde på mobil */
     width: 100%;
     left: 0;
     object-fit: cover;
     margin-bottom: 20px;
+    z-index: 2;
+    order: -1;         /* ← Billedet kommer først */
   }
 
   .text-box {
@@ -145,9 +141,11 @@ function scrollToBottom() {
     top: 0;
     left: 0;
     transform: none;
-    width: 100%;        /* ← Boks bredde på mobil */
+    width: calc(100% - 60px);        /* ← Fylder hele bredden minus padding */
     padding: 30px;
     margin-bottom: 20px;
+    order: 0;          /* ← Teksten kommer efter */
+    height: auto;      /* ← Auto højde på mobil */
   }
 }
 </style>
