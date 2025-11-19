@@ -101,8 +101,7 @@ function formatDate(dateString) {
 
 <style scoped>
 .event-card {
-  background-color: #efefef;
-  padding: 1.7rem;
+   padding: 1.7rem;
   text-align: left;
   border-radius: 6px;
   width: 100%;
@@ -180,28 +179,30 @@ function formatDate(dateString) {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 ..event-main {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;   /* meget lille afstand */
+  margin-bottom: 0.5rem;
   flex: 1;
 }
 
 .event-title {
-  align-items: flex-start;
   font-size: 1.2rem;
   color: #84754e;
   font-weight: bold;
- }
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
 
 .event-date {
   font-size: 0.9rem;
   color: #84754e;
-  margin: 0; 
+  margin: 0;
 }
+
   
 
 .special-label {
