@@ -87,13 +87,13 @@ function scrollToBottom() {
 .text-box h2 {
   width: 100%;
   margin-top: 0px;
-  margin-left: -33px;
+  margin-left: 0px;
 
   color: #84754E;            /* ← Guld farve */
   font-size: 40px;           /* ← Overskrift størrelse */
   font-family: "Open Sans";  /* ← Font */
   font-weight: 600;          /* ← Semibold */
-  margin-bottom: -40px;
+  margin-bottom: 0px;
 
 }
 
