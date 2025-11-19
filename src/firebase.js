@@ -9,7 +9,7 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyAQbtEVEz_2F3emfO7b9YkG1gssh5P9R1c",
   authDomain: "sem-eksamen-adb47.firebaseapp.com",
-    databaseURL: "https://sem-eksamen-adb47-default-rtdb.europe-west1.firebasedatabase.app/",
+    databaseURL: "https://sem-eksamen-adb47-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "sem-eksamen-adb47",
   storageBucket: "sem-eksamen-adb47.firebasestorage.app",
   messagingSenderId: "60747001285",
