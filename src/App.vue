@@ -10,4 +10,5 @@
 
 <script setup>
 import Header from './components/Header.vue'
+import FooterComponent from './components/Footer.vue'
 </script>
