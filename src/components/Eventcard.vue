@@ -195,13 +195,12 @@ function formatDate(dateString) {
   font-size: 1.2rem;
   color: #84754e;
   font-weight: bold;
-  margin-top: -1rem;
-}
+ }
 
 .event-date {
   font-size: 0.9rem;
   color: #84754e;
-  margin: 0;     /* fjern standard margin */
+  margin: 0; 
 }
   
 
