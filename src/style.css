@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   color: #947E4A;
   margin-bottom: 20px;
+  padding: 2rem;
 }
 
 p, span, li, a {

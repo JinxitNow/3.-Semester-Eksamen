@@ -2,14 +2,14 @@
 der skal vises, når brugeren går til en bestemt URL.*/
 
 import { createRouter, createWebHistory } from "vue-router";
-import Eventfeed from "../views/Eventfeed.vue";
+import UngIOdeon from "../views/UngIOdeon.vue";
 import Favorit from "../views/Favorit.vue";
 import Login from "../views/Login.vue";
 import LoginEvent from "../views/LoginEvent.vue";
 import LoginDashboard from "../views/LoginDashboard.vue";
 
 const routes = [
-  { path: "/", component: Eventfeed },
+  { path: "/", component: UngIOdeon },
   { path: "/favoritter", component: Favorit },
   { path: "/login", component: Login },
   { path: "/dashboard", component: LoginDashboard }, // <--- ændret til /dashboard
