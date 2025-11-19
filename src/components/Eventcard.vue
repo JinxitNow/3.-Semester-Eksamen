@@ -125,14 +125,13 @@ function formatDate(dateString) {
   width: 100%;
   height: 250px;
   object-fit: cover;
-  border-radius: 6px;
-}
+ }
 
 /* Hjerte */
 .favorite-btn {
   position: absolute;
-  top: 2px;
-  right: 0;
+  top: 8px;
+  right: 8px;
   z-index: 10;
   background: none;
   border: none;
@@ -140,6 +139,13 @@ function formatDate(dateString) {
   cursor: pointer;
   color: #84754e;
   transition: transform 0.2s ease;
+
+  /* Nyt: gør knappen klikbar */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .favorite-btn:hover {
@@ -149,14 +155,21 @@ function formatDate(dateString) {
 /* Kalender-ikon */
 .calendar-btn {
   position: absolute;
-  top: 2px;
-  right: 2.5rem;
-  z-index: 5;
+  top: 8px;
+  right: 56px; /* lidt afstand fra hjertet */
+  z-index: 10;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   color: #84754e;
+
+  /* Nyt: gør knappen klikbar */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .calendar-btn:hover {
