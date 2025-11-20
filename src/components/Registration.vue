@@ -1,77 +1,78 @@
 <template>
-  <!-- ❗ Fjern .container rundt om hele component -->
-  <section class="registration-section">
-    <!-- FORMULAREN -->
-    <div class="form-column">
-      <div class="form-wrapper">
-        <h2>Bliv en del af UNG I ODEON</h2>
-        <p class="subtitle">Tilmeldt dig nu</p>
+  <!-- Wrapper der sikrer fuld bredde baggrund -->
+  <div class="registration-wrapper">
+    <section class="registration-section">
+      <!-- FORMULAREN -->
+      <div class="form-column">
+        <div class="form-wrapper">
+          <h2>Bliv en del af UNG I ODEON</h2>
+          <p class="subtitle">Tilmeldt dig nu</p>
 
-        <form @submit.prevent="onSubmit" class="form-grid">
-          <div class="input-group">
-            <label for="fullName">Navn og efternavn *</label>
-            <input id="fullName" v-model="fullName" required />
-          </div>
+          <form @submit.prevent="onSubmit" class="form-grid">
+            <div class="input-group">
+              <label for="fullName">Navn og efternavn *</label>
+              <input id="fullName" v-model="fullName" required />
+            </div>
 
-          <div class="input-group">
-            <label for="birthday">Fødselsdag *</label>
-            <input id="birthday" v-model="birthday" type="date" required />
-          </div>
+            <div class="input-group">
+              <label for="birthday">Fødselsdag *</label>
+              <input id="birthday" v-model="birthday" type="date" required />
+            </div>
 
-          <div class="input-group">
-            <label for="address1">Gade og Nummer *</label>
-            <input id="address1" v-model="address1" required />
-          </div>
+            <div class="input-group">
+              <label for="address1">Gade og Nummer *</label>
+              <input id="address1" v-model="address1" required />
+            </div>
 
-          <div class="input-group">
-            <label for="address2">Postnummer og By *</label>
-            <input id="address2" v-model="address2" required />
-          </div>
+            <div class="input-group">
+              <label for="address2">Postnummer og By *</label>
+              <input id="address2" v-model="address2" required />
+            </div>
 
-          <div class="input-group">
-            <label for="email">Email *</label>
-            <input id="email" v-model="email" type="email" required />
-          </div>
+            <div class="input-group">
+              <label for="email">Email *</label>
+              <input id="email" v-model="email" type="email" required />
+            </div>
 
-          <div class="input-group">
-            <label for="phone">Mobilnummer *</label>
-            <input id="phone" v-model="phone" type="tel" required />
-          </div>
+            <div class="input-group">
+              <label for="phone">Mobilnummer *</label>
+              <input id="phone" v-model="phone" type="tel" required />
+            </div>
 
-          <div class="form-bottom">
-            <label class="checkbox">
-              <input type="checkbox" v-model="acceptTerms" />
-              Accepter Handelsbetingelser
-            </label>
+            <div class="form-bottom">
+              <label class="checkbox">
+                <input type="checkbox" v-model="acceptTerms" />
+                Accepter Handelsbetingelser
+              </label>
 
-            <label class="checkbox">
-              <input type="checkbox" v-model="acceptPolicy" />
-              Vil have nyhedsbrev
-            </label>
+              <label class="checkbox">
+                <input type="checkbox" v-model="acceptPolicy" />
+                Vil have nyhedsbrev
+              </label>
 
-            <button type="submit">TILMELD</button>
-          </div>
-        </form>
+              <button type="submit">TILMELD</button>
+            </div>
+          </form>
 
-        <p v-if="message" class="message">{{ message }}</p>
-      </div>
-    </div>
-
-    <!-- BILLEDERNE -->
-    <div class="image-column">
-      <div class="image-wrapper">
-        <div class="top-image">
-          <img src="/img/event1.webp" alt="Medlemskort" />
-        </div>
-        <div class="bottom-images">
-          <img src="/img/choir.jpg" alt="Unge synger" />
-          <img src="/img/cafe3.jpg" alt="Café Odeon" />
+          <p v-if="message" class="message">{{ message }}</p>
         </div>
       </div>
-    </div>
-  </section>
+
+      <!-- BILLEDERNE -->
+      <div class="image-column">
+        <div class="image-wrapper">
+          <div class="top-image">
+            <img src="/img/event1.webp" alt="Medlemskort" />
+          </div>
+          <div class="bottom-images">
+            <img src="/img/choir.jpg" alt="Unge synger" />
+            <img src="/img/cafe3.jpg" alt="Café Odeon" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
-
 
 <script setup>
 import { ref } from "vue";
@@ -138,11 +139,19 @@ async function onSubmit() {
 </script>
 
 <style scoped>
-/* === Kun top/bund padding. Ikke sider. === */
+/* Wrapper der sikrer fuld bredde baggrund */
+.registration-wrapper {
+  background-color: #E4E3E1;
+  width: 100vw;
+  margin-left: -3.8rem; /* trækker ud under body padding */
+  margin-right: -3.8rem;
+  padding-left: 3.8rem; /* bevarer tekstens startpunkt */
+  padding-right: 3.8rem; /* bevarer tekstens slutpunkt */
+}
+
 .registration-section {
   display: flex;
   flex-direction: column;
-  background-color: #EFEFEF;
   padding-top: 2rem;
   padding-bottom: 2rem;
   gap: 2rem;
@@ -202,6 +211,7 @@ input {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 8px;
 }
 
 button {
@@ -254,7 +264,7 @@ button {
   .registration-section {
     flex-direction: row;
     align-items: stretch;
-    justify-content: left;
+    justify-content: space-between;
     gap: 3rem;
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -274,5 +284,4 @@ button {
     grid-column: span 2;
   }
 }
-
 </style>

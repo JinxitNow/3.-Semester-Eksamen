@@ -1,6 +1,6 @@
 <template>
-  <div class="hero-container">
-    <!-- Slideshow -->
+  <div class="hero-wrapper">
+    <!-- Slideshow i fuld bredde -->
     <div class="slideshow">
       <transition name="fade" mode="out-in">
         <img
@@ -12,16 +12,19 @@
       </transition>
     </div>
 
-    <!-- White fade overlay -->
+    <!-- Overlay i fuld bredde -->
     <div class="hero-overlay"></div>
 
-    <!-- Text content -->
-    <div class="hero-content">
-      <h1>UNG I ODEON</h1>
-      <button>SE UDVALGTE EVENTS</button>
+    <!-- Indhold med korrekt padding -->
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>UNG I ODEON</h1>
+        <button>SE UDVALGTE EVENTS</button>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -54,38 +57,31 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-
-/* ============ MOBILE-FIRST ============ */
-
-.hero-container {
+/* Wrapper der sikrer fuld bredde baggrund */
+.hero-wrapper {
   position: relative;
-  width: 100%;
-  height: 420px; /* Mobil-højde */
+  width: 100vw;
+  margin-left: -3.8rem;
+  margin-right: -3.8rem;
+  padding-left: 3.8rem;
+  padding-right: 3.8rem;
+  height: 420px;
   overflow: hidden;
 }
 
+/* Slideshow og overlay fylder hele wrapperen */
 .slideshow,
-.slide-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-}
-
-/* Fade animation */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1.2s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/* White overlay */
+.slide-image,
 .hero-overlay {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.55),
@@ -94,16 +90,21 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
-/* Text content – mobile version */
+/* Indhold ligger ovenpå */
+.hero-container {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Tekst og knap */
 .hero-content {
-  position: absolute;
-  top: 55%;
-  left: 22px;          /* Rykker alt til venstre på mobil */
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 260px;    /* Giver en flot smal kolonne på mobil */
+  max-width: 260px;
 }
 
 .hero-content h1 {
@@ -123,17 +124,13 @@ onBeforeUnmount(() => {
   cursor: pointer;
 }
 
-
-/* ============ DESKTOP (min-width: 768px) ============ */
+/* DESKTOP */
 @media (min-width: 768px) {
-  .hero-container {
+  .hero-wrapper {
     height: 480px;
   }
 
   .hero-content {
-    left: 80px;            /* Rykker teksten længere mod venstre på desktop */
-    top: 50%;
-    transform: translateY(-50%);
     max-width: 600px;
   }
 
@@ -147,11 +144,4 @@ onBeforeUnmount(() => {
   }
 }
 
-/* ============ LARGE DESKTOP (min-width: 1200px) ============ */
-@media (min-width: 1200px) {
-  .hero-content {
-    left: calc((100vw - 1100px) / 2); 
-    /* Matcher centrering fra din prototype, men stadig venstrestillet */
-  }
-}
 </style>
