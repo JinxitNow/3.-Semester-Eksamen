@@ -24,17 +24,13 @@ const goBack = () => {
   router.push('/');
 };
 
-// Send favoritter til email (dummy)
-const sendEmail = () => {
-  alert('Denne funktion virker desværre ikke endnu.');
-};
 </script>
 
 <template>
   <section class="favorite-feed">
     <div class="favorites-header">
       <h2>❤️ Mine favoritter</h2>
-      <h3>Du kan sende dine favoritter til din email</h3>
+      <p>Her kan du se dine gemte favorit-events.</p>
     </div>
 
     <div v-if="favorites.length" class="event-grid">
@@ -54,13 +50,8 @@ const sendEmail = () => {
 
     <p v-else class="no-favorites">Du har ingen favoritter endnu.</p>
 
-    <form @submit.prevent="sendEmail" class="email-form">
-      <input type="email" v-model="email" placeholder="Din email" />
-      <button type="submit">Send favoritter</button>
-    </form> 
-
     <div class="back-btn-container">
-      <button @click="goBack" class="back-btn">Tilføj favoritter</button>
+      <button @click="goBack" class="back-btn">Tilføj flere favoritter</button>
     </div>
   </section>
 </template>
@@ -71,7 +62,7 @@ const sendEmail = () => {
 }
 
 .favorites-header {
-  text-align: center;
+  text-align: Center;
   margin-bottom: 2rem;
 }
 
@@ -117,8 +108,8 @@ const sendEmail = () => {
 }
 
 .back-btn-container {
-  text-align: center;
-  margin-top: -2rem;
+  text-align: right;
+  margin-top: 1rem;
 }
 
 .back-btn {
@@ -136,38 +127,6 @@ const sendEmail = () => {
   color: #0b0b0b;
 }
 
-/* Email form */
-.email-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  align-items: center;
-}
-
-.email-form input {
-  padding: 0.5rem;
-  border: 1px solid #84754e;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 300px;
-}
-
-.email-form button {
-  padding: 0.5rem 1rem;
-  background-color: #84754e;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-.email-form button:hover {
-  background-color: #a49364;
-}
-
 /* --- DESKTOP / TABLET --- */
 @media (min-width: 768px) {
   .event-grid {
@@ -178,12 +137,7 @@ const sendEmail = () => {
   .event-wrapper {
     width: 90%;
   }
-
-  .email-form {
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-  }
+ 
 }
 
 @media (min-width: 1024px) {

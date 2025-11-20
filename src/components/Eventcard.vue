@@ -205,7 +205,6 @@ function formatDate(dateString) {
   font-size: 1rem;
   border-radius: 4px;
   text-align: center;
-  font-weight: bold;
   padding: 0.4rem 0.8rem;
   max-width: 30%;
   white-space: normal;
