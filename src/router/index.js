@@ -10,19 +10,31 @@ import EventDetail from "../views/EventDetail.vue";
 import Terms from "../views/Terms.vue"; 
 
 const routes = [
-  { path: "/", component: UngIOdeon },
-  { path: "/favoritter", component: Favorit },
-  { path: "/login", component: Login },
-  { path: "/dashboard", component: LoginDashboard },
-  { path: "/login-event", component: LoginEvent },
-  { path: "/reminder", component: Reminder },
+  { path: "/", name: "UngIOdeon", component: UngIOdeon },
+  { path: "/favoritter", name: "Favoritter", component: Favorit },
+  { path: "/login", name: "Login", component: Login },
+  { path: "/dashboard", name: "LoginDashboard", component: LoginDashboard },
+  { path: "/login-event", name: "LoginEvent", component: LoginEvent },
+  { path: "/reminder", name: "Reminder", component: Reminder },
   { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true },
-  { path: "/handelsbetingelser", name: "Terms", component: Terms }
-]
+  { path: "/handelsbetingelser", name: "Terms", component: Terms },
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: "smooth",
+      };
+    }
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { top: 0 };
+  },
+});
 
-export default router
+export default router;

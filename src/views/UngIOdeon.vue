@@ -18,9 +18,11 @@ const showYouthEvents = ref(true);
 
 
 
-    <section class="event-feed">
-      <EventKalender :showYouthEvents="showYouthEvents" />
+   <!-- Event feed med id -->
+    <section id="event-feed" class="event-feed">
+    <EventKalender :showYouthEvents="showYouthEvents" />
     </section>
+
     <!-- Gratis Section -->
   <GratisSection />
     <Registration />
