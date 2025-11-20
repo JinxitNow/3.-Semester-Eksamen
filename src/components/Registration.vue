@@ -160,11 +160,12 @@ async function onSubmit() {
 }
 
 h2 {
-  margin-bottom: 0.2rem; /* tættere på undertitel */
+  margin-bottom: 0.01rem; /* tættere på undertitel */
 }
 
 .subtitle {
-  margin-bottom: 0.6rem; /* mindre afstand til felterne */
+    margin-top: 0.1rem;
+  margin-bottom: 2rem; /* mindre afstand til felterne */
 }
 
 .form-grid {
@@ -176,7 +177,7 @@ h2 {
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 0.01rem;
 }
 
 input {
