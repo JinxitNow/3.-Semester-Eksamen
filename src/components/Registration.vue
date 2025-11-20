@@ -1,4 +1,5 @@
 <template>
+  <!-- ❗ Fjern .container rundt om hele component -->
   <section class="registration-section">
     <!-- FORMULAREN -->
     <div class="form-column">
@@ -37,7 +38,6 @@
             <input id="phone" v-model="phone" type="tel" required />
           </div>
 
-          <!-- Nederste del af formularen -->
           <div class="form-bottom">
             <label class="checkbox">
               <input type="checkbox" v-model="acceptTerms" />
@@ -71,6 +71,7 @@
     </div>
   </section>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
@@ -137,11 +138,13 @@ async function onSubmit() {
 </script>
 
 <style scoped>
+/* === Kun top/bund padding. Ikke sider. === */
 .registration-section {
   display: flex;
   flex-direction: column;
   background-color: #EFEFEF;
-  padding: 2rem 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   gap: 2rem;
 }
 
@@ -160,39 +163,36 @@ async function onSubmit() {
 }
 
 h2 {
-  margin-bottom: 0.01rem; /* tættere på undertitel */
+  margin-bottom: 0.01rem;
 }
 
 .subtitle {
-    margin-top: 0.1rem;
-  margin-bottom: 2rem; /* mindre afstand til felterne */
+  margin-top: 0.1rem;
+  margin-bottom: 2rem;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem 0.5rem; /* <--- her! */
+  gap: 1rem 0.5rem;
   flex: 1;
 }
-
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem; /* reducerer afstand mellem label og input */
-  margin-bottom: 0.1rem; /* reducerer afstand mellem felter */
+  gap: 0.1rem;
 }
 
 input {
-  padding: 10px; /* lidt mindre padding */
+  padding: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 0;
 }
 
-
 .form-bottom {
-  margin-top: auto; /* skubber denne del ned */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 0.01rem;
@@ -231,7 +231,8 @@ button {
   margin-bottom: 0.3rem;
 }
 
-.top-image img {
+.top-image img,
+.bottom-images img {
   width: 100%;
   object-fit: cover;
   border-radius: 0;
@@ -246,8 +247,6 @@ button {
 .bottom-images img {
   width: 50%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 0;
 }
 
 /* DESKTOP */
@@ -255,9 +254,10 @@ button {
   .registration-section {
     flex-direction: row;
     align-items: stretch;
-    justify-content: center;
+    justify-content: left;
     gap: 3rem;
-    padding: 4rem 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .form-column,
@@ -266,15 +266,13 @@ button {
   }
 
   .form-grid {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem 2rem;
-    flex: 1;
   }
 
   .form-bottom {
     grid-column: span 2;
-    margin-top: auto;
   }
 }
+
 </style>

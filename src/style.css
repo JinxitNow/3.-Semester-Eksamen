@@ -4,7 +4,19 @@ html, body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
+
+/* ===== Global spacing ===== */
+body {
+  padding-left: 3.8rem;
+  padding-right: 3.8rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 
 /* ===== Typography ===== */
 h1 {
@@ -74,10 +86,10 @@ button:active {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px;
+  padding: 24px 0; /* behold top/bund padding */
 }
+
+
 
 /* ===== Responsive Typography ===== */
 @media (min-width: 768px) {
