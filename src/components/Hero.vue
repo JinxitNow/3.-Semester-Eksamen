@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
   background: linear-gradient(
     to left,
     rgba(255, 255, 255, 0.25), /* højre side let lys */
-    rgba(239, 239, 239, 0.90)  /* venstre side lidt kraftigere */
+    rgba(239, 239, 239, 0.87)  /* venstre side lidt kraftigere */
   );
   pointer-events: none;
 }

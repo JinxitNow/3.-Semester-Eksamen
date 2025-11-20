@@ -7,11 +7,14 @@ const headerOpen = ref(false)
 function toggleHeader() {
   headerOpen.value = !headerOpen.value
 }
+
+function closeHeader() {
+  headerOpen.value = false
+}
 </script>
 
 <template>
   <header class="main-header">
-
     <!-- Topbar -->
     <div class="topbar">
       <ul class="topbar-links">
@@ -24,10 +27,8 @@ function toggleHeader() {
         <li><a href="#">FAQ</a></li>
       </ul>
 
-      <!-- Divider i topbar -->
       <div class="header-divider"></div>
 
-      <!-- Nye links under de eksisterende links i topbar-->
       <ul class="topbar-links second-row">
         <li><a href="#">Kalender</a></li>
         <li><a href="#">Ung i ODEON</a></li>
@@ -36,46 +37,53 @@ function toggleHeader() {
       </ul>
     </div>
 
-    <!-- Main row med logo + burger-knap -->
+    <!-- Main row -->
     <div class="main-row">
       <div class="logo-container">
         <img class="header-logo" :src="Logo" alt="ODEON logo" />
       </div>
-
-      <!-- Burger-knap til mobil -->
       <button class="burger" @click="toggleHeader" aria-label="Menu">☰</button>
-
     </div>
 
-    <!-- Links container (topbar-links kun synlige på mobil når burger-menuen er åben) -->
+    <!-- Mobile menu -->
     <ul class="topbar-links mobile" :class="{ open: headerOpen }">
-      <li><router-link to="/login">Log in</router-link></li>
-      <li><a href="#">Nyheder/nyhedsbrev</a></li>
-      <li><a href="#">Hotel</a></li>
-      <li><a href="#">Venue Specs</a></li>
-      <li><a href="#">Praktisk Info</a></li>
-      <li><a href="#">Om ODEON</a></li>
-      <li><a href="#">FAQ</a></li>
-      <li><a href="#">Kalender</a></li>
-      <li><a href="#">Ung i ODEON</a></li>
-      <li><a href="#">Mad & Drikke</a></li>
-      <li><a href="#">Konference & Møde</a></li>
+      <li><router-link to="/login" @click="closeHeader">Log in</router-link></li>
+      <li><a href="#" @click="closeHeader">Nyheder/nyhedsbrev</a></li>
+      <li><a href="#" @click="closeHeader">Hotel</a></li>
+      <li><a href="#" @click="closeHeader">Venue Specs</a></li>
+      <li><a href="#" @click="closeHeader">Praktisk Info</a></li>
+      <li><a href="#" @click="closeHeader">Om ODEON</a></li>
+      <li><a href="#" @click="closeHeader">FAQ</a></li>
+      <li><a href="#" @click="closeHeader">Kalender</a></li>
+      <li><a href="#" @click="closeHeader">Ung i ODEON</a></li>
+      <li><a href="#" @click="closeHeader">Mad & Drikke</a></li>
+      <li><a href="#" @click="closeHeader">Konference & Møde</a></li>
     </ul>
   </header>
 </template>
 
 <style scoped>
 .main-header {
-  background-color: #EFEFEF;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
   width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
+  /* fade starter tidligere, så links "svæver" */
+  background: linear-gradient(
+    to bottom,
+    #EFEFEF 40%,               /* solid farve kun til ca. under teksten */
+    rgba(239, 239, 239, 0) 100% /* fade resten */
+  );
+
+  box-sizing: border-box;
+  padding-right: 8.7rem;
 }
 
 .topbar {
   width: 100%;
-  background-color: #EFEFEF;
 }
 
 .topbar-links {
@@ -115,10 +123,14 @@ function toggleHeader() {
 
 .logo-container {
   flex-shrink: 0;
+  display: flex;
+  align-items: flex-end; /* presser logoet ned mod linjen */
 }
 
 .header-logo {
-  height: 60px;
+  height: 90px;
+  margin-top: -60px; /* flytter logoet lidt op */
+  margin-left: -45px;
 }
 
 .burger {
@@ -131,86 +143,66 @@ function toggleHeader() {
 }
 
 /* ==== Mobil styling ==== */
-@media (max-width: 768px) {
+@media (max-width: 861px) {
+  .topbar-links { display: none; }
 
-  /* Skjul topbar links på mobil - de skal kun vises i burger-menuen */
-  .topbar-links {
-    display: none;
-  }
+  .main-row { padding: 1rem 0; }
+  .burger { display: block; font-size: 1.8rem; }
 
-  .main-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
-    position: relative;
-  }
+  .logo-container { margin-right: 1rem; }
+  .header-logo { height: 65px; margin-top: -4px; }
+  .header-divider { display: none; }
 
-  .burger {
-    display: block;
-    font-size: 1.7rem;
-    color: #947E4A;
-    cursor: pointer;
-    z-index: 10;
-    margin-left: 10rem;
-  }
+  /* Burger menu container */
+.topbar-links.mobile {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background-color: #EFEFEF;
+  padding: 0.5rem 0;
+  border-top: 1px solid #947E4A;
 
-  .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-right: 2rem;
-  }
+  max-height: 80vh;          /* fylder max 80% af skærmhøjden */
+  overflow-y: auto;          /* gør det muligt at scrolle */
+  -webkit-overflow-scrolling: touch; /* smooth scroll på iOS */
+}
 
-  .header-logo {
-    height: 70px;
-  }
 
-  .header-divider {
-    display: none;
-  }
+.topbar-links.mobile.open {
+  display: flex;
+}
 
-  .topbar-links.mobile {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: #EFEFEF;
-    padding: 1rem 0;
-  }
 
-  .topbar-links.mobile.open {
-    display: flex;
-  }
+  /* Menu items */
+ .topbar-links.mobile li {
+  width: 100%;
+  padding: 0.5rem 1rem; /* mindre padding */
+}
 
-  .topbar-links.mobile li {
-    width: 100%;
+  .topbar-links.mobile li:last-child {
+    border-bottom: none;
   }
 
   .topbar-links.mobile li a {
-    font-size: 1rem;
+    font-size: 0.85rem; /* lidt mindre tekst */
+    font-weight: 600;
+    color: #947E4A;
     display: block;
     width: 100%;
+    text-decoration: none; 
+    line-height: 0.7;     /* tættere linjeafstand */
+  }
+
+
+  .topbar-links.mobile li a:hover {
+    background-color: rgba(148, 126, 74, 0.1); /* diskret hover */
+    border-radius: 4px;
   }
 }
 
-/* ==== Ekstra Desktop styling ==== */
-@media (min-width: 769px) {
 
-  /* Skjul topbar-links mobile på desktop */
-  .topbar-links.mobile {
-    display: none;
-  }
-
-  /* Tættere på divideren kun i desktop */
-  .main-row {
-    margin-top: -10px;
-  }
-
-  .logo-container {
-    margin-top: -50px;
-  }
+/* ==== Desktop styling ==== */
+@media (min-width: 861px) {
+  .topbar-links.mobile { display: none; }
 }
 </style>

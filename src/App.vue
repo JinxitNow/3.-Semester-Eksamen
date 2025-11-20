@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <Header />
-    <router-view /> <!--//Her vises Eventlisten via Eventfeed-view -->
+    <div class="header-spacer"></div> <!-- giver plads under headeren -->
+    
+    <router-view /> <!-- her vises dine views -->
     <FooterComponent />
-    </div>
-
+  </div>
 </template>
 
 
@@ -12,3 +13,5 @@
 import Header from './components/Header.vue'
 import FooterComponent from './components/Footer.vue'
 </script>
+
+
