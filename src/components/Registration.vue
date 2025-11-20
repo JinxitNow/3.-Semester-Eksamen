@@ -169,29 +169,33 @@ h2 {
 }
 
 .form-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 0.5rem; /* <--- her! */
   flex: 1;
 }
+
 
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.01rem;
+  gap: 0.1rem; /* reducerer afstand mellem label og input */
+  margin-bottom: 0.1rem; /* reducerer afstand mellem felter */
 }
 
 input {
-  padding: 10px;
+  padding: 10px; /* lidt mindre padding */
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 0;
 }
 
+
 .form-bottom {
   margin-top: auto; /* skubber denne del ned */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.01rem;
 }
 
 .checkbox {
