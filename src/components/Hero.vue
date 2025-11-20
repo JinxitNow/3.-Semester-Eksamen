@@ -2,7 +2,7 @@
   <div class="hero-wrapper">
     <!-- Slideshow i fuld bredde -->
     <div class="slideshow">
-      <transition name="fade" mode="out-in">
+      <transition name="fade">
         <img
           :src="images[currentIndex]"
           :key="images[currentIndex]"
@@ -25,7 +25,6 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
@@ -37,9 +36,9 @@ const images = [
   img("hero1.jpg"),
   img("hero2.webp"),
   img("hero3.webp"),
-  img("hero4.webp"),
+  img("hero7.webp"),
   img("hero5.webp"),
-  img("hero6.webp"),
+  img("julemarked.jpeg"),
 ];
 
 const currentIndex = ref(0);
@@ -48,7 +47,7 @@ let interval;
 onMounted(() => {
   interval = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % images.length;
-  }, 5000);
+  }, 5000); // skifter hvert 5. sekund
 });
 
 onBeforeUnmount(() => {
@@ -83,11 +82,27 @@ onBeforeUnmount(() => {
 
 .hero-overlay {
   background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.55),
-    rgba(255, 255, 255, 0.92)
+    to left,
+    rgba(255, 255, 255, 0.25), /* højre side let lys */
+    rgba(239, 239, 239, 0.90)  /* venstre side lidt kraftigere */
   );
   pointer-events: none;
+}
+
+/* Fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.2s ease; /* blød overgang */
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
 }
 
 /* Indhold ligger ovenpå */
@@ -143,5 +158,4 @@ onBeforeUnmount(() => {
     font-size: 1.05rem;
   }
 }
-
 </style>
