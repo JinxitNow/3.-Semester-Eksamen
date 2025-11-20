@@ -29,38 +29,50 @@ onMounted(async () => {
 </script>
 
 <template>
-     <!-- Event info -->
-<div v-if="event" class="event-info">
-  <div class="event-image-wrapper">
-    <img v-if="event.image" :src="`/img/${event.image}`" :alt="event.title" class="event-img" />
-  </div>
+  <!-- Event info -->
+  <div v-if="event" class="event-info">
+    <div class="event-image-wrapper">
+      <img v-if="event.image" :src="`/img/${event.image}`" :alt="event.title" class="event-img" />
+    </div>
 
-  <div class="event-details-box">
-    <h2>{{ event.title }}</h2>
-    <p><b>Kunstner:</b> {{ event.Kunstner }}</p>
-    <p><b>Lokation:</b> {{ event.Sted }}</p>
-    <p><b>Dato:</b> {{ event.date }}</p>
-    <p><b>Pris:</b> {{ event.Pris }}</p>
-    <p v-if="event.description"><b>Om eventet:</b> {{ event.description }}</p>
-    <p v-if="event.specialLabel?.length"><b>Bemærk:</b> {{ event.specialLabel.join(', ') }}</p>
-
-    <!-- Knappen flyttet ind i boksen -->
-    <router-link to="/" class="back-btn">⬅ Tilbage til forsiden</router-link>
-  </div>
-</div>
-
-    <!-- Relaterede events -->
-    <div v-if="relatedEvents.length" class="related">
-      <h3>Måske er disse events noget for dig …</h3>
-      <div class="related-list">
-        <div v-for="ev in relatedEvents" :key="ev.id" class="related-item">
-          <img v-if="ev.image" :src="`/img/${ev.image}`" :alt="ev.title" />
-          <p>{{ ev.title }}</p>
-          <router-link :to="{ name: 'EventDetail', params: { id: ev.id } }">Se mere</router-link>
+      <div class="event-details-box">
+        <h2>{{ event.title }}</h2>
+        <p><b>Kunstner:</b> {{ event.kunstner }}</p>
+        <p><b>Lokation:</b> {{ event.sted }}</p>
+        <p><b>Dato:</b> {{ event.date }} <span v-if="event.time">kl. {{ event.time }}</span></p>
+        <p><b>Pris:</b> {{ event.pris }}</p>
+        <p v-if="event.om"><b>Om eventet:</b> {{ event.om }}</p>
+        <div v-if="event.specialLabel?.length" class="labels-container">
+          <b>Bemærk:</b>
+          <div class="labels-list">
+            <span
+              v-for="lab in event.specialLabel"
+              :key="lab"
+              class="special-label"
+            >
+            {{ lab }}
+          </span>
         </div>
       </div>
+
+      <!-- Knappen flyttet ind i boksen -->
+      <router-link to="/" class="back-btn">⬅ Tilbage til forsiden</router-link>
     </div>
-    </template>
+  </div>
+
+  <!-- Relaterede events -->
+  <div v-if="relatedEvents.length" class="related">
+    <h3>Måske er disse events noget for dig …</h3>
+    <div class="related-list">
+      <div v-for="ev in relatedEvents" :key="ev.id" class="related-item">
+        <img v-if="ev.image" :src="`/img/${ev.image}`" :alt="ev.title" />
+        <p>{{ ev.title }}</p>
+        <router-link :to="{ name: 'EventDetail', params: { id: ev.id } }">Se mere</router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .event-detail {
