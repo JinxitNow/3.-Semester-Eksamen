@@ -4,14 +4,14 @@ import Eventcard from './Eventcard.vue'
 import { database } from '../firebase.js'
 import { getDatabase, ref as dbRef, onValue } from "firebase/database"
 
-const showYouthEvents = ref(true)
+const showYouthEvents = ref(false)
 const currentPage = ref(0)
 const eventsPerPage = 6
 
 // Dropdown
 const showDropdown = ref(false)
 const selectedCategory = ref(null)
-const dropdownRef = ref(null) // reference til dropdown container
+const dropdownRef = ref(null)
 
 // Events fra Firebase
 const events = ref([])
@@ -97,12 +97,13 @@ function goToPage(page) {
 
 <template>
   <div class="event-kalender-container">
-    <h2 class="event-section-title">Kommende events</h2>
+    <h2>Kommende events</h2>
+    <p>Her finder du spændende events særligt for unge</p>
 
     <div class="filters-container">
       <label class="checkbox-container">
         <input type="checkbox" v-model="showYouthEvents" />
-        <span class="checkbox-text">Vis alle</span>
+        <span class="checkbox-text">Vis alle events</span>
       </label>
 
       <div class="buttons-right" ref="dropdownRef">
@@ -226,7 +227,7 @@ function goToPage(page) {
 }
 
 .checkbox-container .checkbox-text {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #84754e;
 }
 
@@ -240,7 +241,7 @@ function goToPage(page) {
 .event-link {
   text-decoration: none;
   color: inherit;
-  display: block; /* så kortet fylder hele linkets areal */
+  display: block;
 }
 
 
