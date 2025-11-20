@@ -20,8 +20,9 @@ const removeFavorite = (id) => {
 };
 
 // Tilbage-knap
+// Tilbage-knap: gå til UngIOdeon med hash/lande på det rigtige sted på siden
 const goBack = () => {
-  router.push('/');
+  router.push({ name: 'UngIOdeon', hash: '#event-feed' });
 };
 
 </script>
