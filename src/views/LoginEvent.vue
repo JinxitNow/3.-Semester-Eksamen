@@ -135,11 +135,14 @@ onMounted(() => {
           <label>Kunstner</label>
           <input v-model="Kunstner" placeholder="Kunstner" required />
 
-          <label>Sted</label>
+          <label>Lokation</label>
           <input v-model="Sted" placeholder="Sted" required />
 
           <label>Dato</label>
           <input v-model="date" type="date" required />
+
+          <label>Om eventet</label>
+          <input v-model="Om" type="Om eventet" required />
 
           <label>Pris</label>
           <input v-model="Pris" placeholder="Pris" required />
