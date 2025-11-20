@@ -7,6 +7,7 @@ import LoginEvent from "../views/LoginEvent.vue";
 import LoginDashboard from "../views/LoginDashboard.vue";
 import Reminder from "../views/Reminder.vue";
 import EventDetail from "../views/EventDetail.vue";
+import Terms from "../views/Terms.vue"; 
 
 const routes = [
   { path: "/", component: UngIOdeon },
@@ -15,7 +16,8 @@ const routes = [
   { path: "/dashboard", component: LoginDashboard },
   { path: "/login-event", component: LoginEvent },
   { path: "/reminder", component: Reminder },
-  { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true }
+  { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true },
+  { path: "/handelsbetingelser", name: "Terms", component: Terms }
 ]
 
 const router = createRouter({

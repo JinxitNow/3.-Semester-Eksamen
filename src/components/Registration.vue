@@ -39,19 +39,21 @@
               <input id="phone" v-model="phone" type="tel" required />
             </div>
 
-            <div class="form-bottom">
-              <label class="checkbox">
-                <input type="checkbox" v-model="acceptTerms" />
-                Accepter Handelsbetingelser
-              </label>
+          <div class="form-bottom">
+     <label class="checkbox">
+    <input type="checkbox" v-model="acceptTerms" />
+    Accepter 
+    <router-link to="/handelsbetingelser">Handelsbetingelser</router-link>
+     </label>
 
-              <label class="checkbox">
-                <input type="checkbox" v-model="acceptPolicy" />
-                Vil have nyhedsbrev
-              </label>
+    <label class="checkbox">
+    <input type="checkbox" v-model="acceptPolicy" />
+    Vil have nyhedsbrev
+    </label>
 
-              <button type="submit">TILMELD</button>
-            </div>
+  <button type="submit">TILMELD</button>
+</div>
+
           </form>
 
           <p v-if="message" class="message">{{ message }}</p>
