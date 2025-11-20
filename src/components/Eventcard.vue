@@ -202,13 +202,16 @@ function formatDate(dateString) {
 .special-label {
   background-color: #84754e;
   color: white;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 30px;
   text-align: center;
-  padding: 0.4rem 0.8rem;
-  max-width: 30%;
-  white-space: normal;
-  word-wrap: break-word;
-  line-height: 1.4;
+  padding: 0.4rem;
+  line-height: 1.2;
 }
+
 </style>
