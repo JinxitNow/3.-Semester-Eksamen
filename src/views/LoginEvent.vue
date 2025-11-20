@@ -14,6 +14,7 @@ const availableImages = [
 // Form fields
 const title = ref('')
 const date = ref('')
+const time = ref('')
 const image = ref('')
 const selectedCategories = ref([])
 const selectedLabels = ref([])
@@ -38,6 +39,7 @@ function fetchEvents() {
           id: key,
           title: val.title || '',
           date: val.date || '',
+          time: val.time || '',
           image: val.image || availableImages[0],
           categories: Array.isArray(val.categories) ? val.categories : [],
           specialLabel: Array.isArray(val.specialLabel) ? val.specialLabel : []
@@ -53,6 +55,7 @@ async function createEvent() {
   const payload = {
     title: title.value,
     date: date.value,
+    time: time.value,
     image: image.value,
     categories: selectedCategories.value,
     specialLabel: selectedLabels.value
@@ -76,6 +79,7 @@ async function createEvent() {
 function resetForm() {
   title.value = ''
   date.value = ''
+  time.value = ''
   image.value = availableImages[0]
   selectedCategories.value = []
   selectedLabels.value = []
@@ -93,6 +97,7 @@ function updateEvent(event) {
   try {
     title.value = event.title || ''
     date.value = event.date || ''
+    time.value = event.time || '' 
     image.value = event.image || availableImages[0]
     selectedCategories.value = Array.isArray(event.categories) ? [...event.categories] : []
     selectedLabels.value = Array.isArray(event.specialLabel) ? [...event.specialLabel] : []
@@ -140,6 +145,9 @@ onMounted(() => {
 
           <label>Dato</label>
           <input v-model="date" type="date" required />
+
+          <label>Klokken</label>
+          <input v-model="time" type="time" required />
 
           <label>Om eventet</label>
           <input v-model="Om" type="Om eventet" required />

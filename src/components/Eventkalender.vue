@@ -130,12 +130,16 @@ function goToPage(page) {
     </div>
 
     <div class="event-list" v-if="paginatedEvents.length">
-      <Eventcard
-        v-for="event in paginatedEvents"
-        :key="event.id"
-        :event="event"
-      />
-    </div>
+  <router-link
+    v-for="event in paginatedEvents"
+    :key="event.id"
+    :to="{ name: 'EventDetail', params: { id: event.id } }"
+    class="event-link"
+  >
+    <Eventcard :event="event" />
+  </router-link>
+</div>
+
 
     <p v-else class="no-events">Der desværre ikke nogle events at vise, kom igen senere</p>
 
@@ -232,6 +236,13 @@ function goToPage(page) {
   gap: 1rem;
   padding: 0 1rem;
 }
+
+.event-link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* så kortet fylder hele linkets areal */
+}
+
 
 /* --- DESKTOP --- */
 @media (min-width: 768px) {
