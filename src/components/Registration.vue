@@ -1,78 +1,74 @@
 <template>
   <section class="registration-section">
+    <!-- FORMULAREN -->
+    <div class="form-column">
+      <div class="form-wrapper">
+        <h2>Bliv en del af UNG I ODEON</h2>
+        <p class="subtitle">Tilmeldt dig nu</p>
 
-    <div class="left-column">
-      <h2>Bliv en del af UNG I ODEON</h2>
-      <p class="subtitle">Tilmeldt dig nu</p>
+        <form @submit.prevent="onSubmit" class="form-grid">
+          <div class="input-group">
+            <label for="fullName">Navn og efternavn *</label>
+            <input id="fullName" v-model="fullName" required />
+          </div>
 
-      <form @submit.prevent="onSubmit" class="form-grid">
+          <div class="input-group">
+            <label for="birthday">Fødselsdag *</label>
+            <input id="birthday" v-model="birthday" type="date" required />
+          </div>
 
-        <div class="input-group">
-          <label>Navn og efternavn</label>
-          <input v-model="fullName" required>
-        </div>
+          <div class="input-group">
+            <label for="address1">Gade og Nummer *</label>
+            <input id="address1" v-model="address1" required />
+          </div>
 
-        <div class="input-group">
-          <label>Fødselsdag</label>
-          <input v-model="birthday" type="date" required>
-        </div>
+          <div class="input-group">
+            <label for="address2">Postnummer og By *</label>
+            <input id="address2" v-model="address2" required />
+          </div>
 
-        <div class="input-group">
-          <label>Adresse 1</label>
-          <input v-model="address1" required>
-        </div>
+          <div class="input-group">
+            <label for="email">Email *</label>
+            <input id="email" v-model="email" type="email" required />
+          </div>
 
-        <div class="input-group">
-          <label>Adresse 2</label>
-          <input v-model="address2">
-        </div>
+          <div class="input-group">
+            <label for="phone">Mobilnummer *</label>
+            <input id="phone" v-model="phone" type="tel" required />
+          </div>
 
-        <div class="input-group">
-          <label>Email</label>
-          <input v-model="email" type="email" required>
-        </div>
+          <!-- Nederste del af formularen -->
+          <div class="form-bottom">
+            <label class="checkbox">
+              <input type="checkbox" v-model="acceptTerms" />
+              Accepter Handelsbetingelser
+            </label>
 
-        <div class="input-group">
-          <label>Mobilnummer</label>
-          <input v-model="phone" type="tel" required>
-        </div>
+            <label class="checkbox">
+              <input type="checkbox" v-model="acceptPolicy" />
+              Vil have nyhedsbrev
+            </label>
 
-        <label class="checkbox">
-          <input type="checkbox" v-model="acceptTerms">
-          Accepter Handelsbetingelser
-        </label>
+            <button type="submit">TILMELD</button>
+          </div>
+        </form>
 
-        <label class="checkbox">
-          <input type="checkbox" v-model="acceptPolicy">
-          Vil have nyhedsbrev
-        </label>
-
-        <button type="submit" class="submit-btn">
-          TILMELD
-        </button>
-
-      </form>
-
-      <p v-if="message" class="message">{{ message }}</p>
-    </div>
-
-    <div class="right-column">
-
-      <!-- Medlemskort -->
-      <img
-        class="membership-card"
-        src="/img/event1.webp"
-        alt="Medlemskort"
-      />
-
-      <!-- To billeder nederst -->
-      <div class="bottom-images">
-        <img src="/img/choir.jpg" alt="">
-        <img src="/img/cafe3.jpg" alt="">
+        <p v-if="message" class="message">{{ message }}</p>
       </div>
-
     </div>
 
+    <!-- BILLEDERNE -->
+    <div class="image-column">
+      <div class="image-wrapper">
+        <div class="top-image">
+          <img src="/img/event1.webp" alt="Medlemskort" />
+        </div>
+        <div class="bottom-images">
+          <img src="/img/choir.jpg" alt="Unge synger" />
+          <img src="/img/cafe3.jpg" alt="Café Odeon" />
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -108,7 +104,6 @@ async function onSubmit() {
   try {
     const membersRef = dbRef(database, "members");
     const newMember = push(membersRef);
-
     const code = generateCode();
 
     await set(newMember, {
@@ -142,119 +137,139 @@ async function onSubmit() {
 </script>
 
 <style scoped>
-
-/* ----------- MOBILE FIRST ----------- */
-
 .registration-section {
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
-  background: #ffffff;
+  background-color: #EFEFEF;
+  padding: 2rem 1rem;
+  gap: 2rem;
 }
 
-.left-column {
+/* FORMULAREN */
+.form-column {
   width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 h2 {
-  font-size: 1.8rem;
-  color: #7c6a55;
-  margin-bottom: 5px;
+  margin-bottom: 0.2rem; /* tættere på undertitel */
 }
 
 .subtitle {
-  color: #7c6a55;
-  margin-bottom: 25px;
+  margin-bottom: 0.6rem; /* mindre afstand til felterne */
 }
 
 .form-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 input {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  border-radius: 0;
+}
+
+.form-bottom {
+  margin-top: auto; /* skubber denne del ned */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .checkbox {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: #7c6a55;
+  gap: 8px;
 }
 
-.submit-btn {
-  background: #b49a6b;
-  border: none;
-  padding: 10px 0;
-  font-weight: bold;
-  color: #fff;
-  margin-top: 10px;
+button {
+  margin-top: 1rem;
 }
 
-.right-column {
-  margin-top: 40px;
+.message {
+  margin-top: 1rem;
 }
 
-.membership-card {
+/* BILLEDERNE */
+.image-column {
   width: 100%;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-image {
+  flex: 0 0 auto;
+  margin-bottom: 0.3rem;
+}
+
+.top-image img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0;
 }
 
 .bottom-images {
+  flex: 1;
   display: flex;
-  gap: 10px;
+  gap: 0.3rem;
 }
 
 .bottom-images img {
   width: 50%;
-  border-radius: 8px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 0;
 }
 
-/* ----------- DESKTOP ----------- */
-
+/* DESKTOP */
 @media (min-width: 900px) {
   .registration-section {
     flex-direction: row;
+    align-items: stretch;
     justify-content: center;
-    gap: 80px;
-    padding: 60px;
+    gap: 3rem;
+    padding: 4rem 3rem;
   }
 
-  .left-column {
-    width: 500px;
+  .form-column,
+  .image-column {
+    width: 45%;
   }
 
   .form-grid {
+    display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    flex: 1;
   }
 
-  .checkbox,
-  .submit-btn {
+  .form-bottom {
     grid-column: span 2;
-  }
-
-  .right-column {
-    width: 380px;
-  }
-
-  .membership-card {
-    height: 215px;
-    object-fit: cover;
-  }
-
-  .bottom-images img {
-    height: 140px;
+    margin-top: auto;
   }
 }
 </style>
