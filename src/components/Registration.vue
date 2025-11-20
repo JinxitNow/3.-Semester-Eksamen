@@ -163,6 +163,7 @@ async function onSubmit() {
   max-width: 600px;
   display: flex;
   flex-direction: column;
+  color: #796535;
 }
 
 .form-wrapper {
@@ -198,6 +199,18 @@ input {
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 0;
+  color: #4B4B4B; /* lysere tekstfarve */
+  background-color: #fff;
+}
+
+/* Placeholder-tekst (hvis du bruger det) */
+input::placeholder {
+  color: #b8a989;
+}
+
+/* Kalender-ikonet i date-feltet */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0.6); /* gør ikonet lidt lysere/brunere */
 }
 
 .form-bottom {
@@ -207,11 +220,14 @@ input {
   gap: 0.01rem;
 }
 
+
 .checkbox {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
+  border-color: #84754e;
+   accent-color: #84754e;
 }
 
 button {
@@ -281,7 +297,7 @@ button {
   }
 
   .form-bottom {
-    grid-column: span 2;
+    grid-column: span 1;
   }
 }
 </style>

@@ -110,13 +110,13 @@ onBeforeUnmount(() => {
 .hero-content h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #5e4a22;
+  color: #796535;
   line-height: 1.1;
 }
 
 .hero-content button {
   padding: 12px 24px;
-  background-color: #8c7a52;
+  background-color: #947e4a;
   color: white;
   border: none;
   font-size: 0.95rem;
