@@ -132,8 +132,17 @@ onMounted(() => {
           <label>Titel</label>
           <input v-model="title" placeholder="Event titel" required />
 
+          <label>Kunstner</label>
+          <input v-model="Kunstner" placeholder="Kunstner" required />
+
+          <label>Sted</label>
+          <input v-model="Sted" placeholder="Sted" required />
+
           <label>Dato</label>
           <input v-model="date" type="date" required />
+
+          <label>Pris</label>
+          <input v-model="Pris" placeholder="Pris" required />
 
           <label>Billede (vælg fra dropdown)</label>
           <select v-model="image">
@@ -157,8 +166,12 @@ onMounted(() => {
           <button type="submit" class="primary-btn">
             {{ editingEventId ? 'Gem ændringer' : 'Opret event' }}
           </button>
-          <!-- Midlertidig debug-indikator (kan fjernes) -->
-          <!-- <small style="margin-left:8px;">[editing: {{ editingEventId }}]</small> -->
+
+           <!-- Ny annuller-knap -->
+          <button type="button" class="secondary-btn" @click="resetForm">
+           Annuller
+          </button>
+          
         </form>
       </div>
 
@@ -261,6 +274,23 @@ onMounted(() => {
 .primary-btn:hover {
   background-color: #a49364;
 }
+
+.secondary-btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background-color: #ccc;   /* neutral farve */
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.secondary-btn:hover {
+  background-color: #aaa;
+}
+
 
 /* Checkbox grupper */
 .checkbox-group {
