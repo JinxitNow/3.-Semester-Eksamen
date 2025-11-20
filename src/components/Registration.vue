@@ -42,8 +42,7 @@
           <div class="form-bottom">
      <label class="checkbox">
     <input type="checkbox" v-model="acceptTerms" />
-    Accepter 
-    <router-link to="/handelsbetingelser">Handelsbetingelser</router-link>
+    Accepter<router-link to="/handelsbetingelser">Handelsbetingelser</router-link>
      </label>
 
     <label class="checkbox">
