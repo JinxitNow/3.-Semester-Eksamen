@@ -173,6 +173,7 @@
 
               <label>Pris</label>
               <input v-model="pris" placeholder="pris" required />
+              <span class="pris-label">kr.</span>
 
               <label>Billede (vælg fra dropdown)</label>
               <select v-model="image">
@@ -321,6 +322,22 @@
       background-color: #aaa;
     }
 
+    .pris-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+    .pris-wrapper input {
+    padding-right: 2.5rem; /* plads til 'kr.' */
+    }
+
+    .pris-label {
+      position: absolute;
+      right: 10px;
+      color: #333;
+      font-size: 0.85rem;
+    }
 
     /* Checkbox grupper */
     .checkbox-group {

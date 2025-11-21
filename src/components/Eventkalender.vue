@@ -1,98 +1,59 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import Eventcard from './Eventcard.vue'
-import { database } from '../firebase.js'
-import { getDatabase, ref as dbRef, onValue } from "firebase/database"
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import EventCard from './Eventcard.vue';
+import { database } from '../firebase.js';
+import { getDatabase, ref as dbRef, onValue } from "firebase/database";
 
-const showYouthEvents = ref(false)
-const currentPage = ref(0)
-const eventsPerPage = 6
+// state
+const showYouthEvents = ref(false);
+const currentPage = ref(0);
+const eventsPerPage = 6;
+const showDropdown = ref(false);
+const selectedCategory = ref(null);
+const dropdownRef = ref(null);
+const events = ref([]);
+const categories = ref([]);
 
-// Dropdown
-const showDropdown = ref(false)
-const selectedCategory = ref(null)
-const dropdownRef = ref(null)
-
-// Events fra Firebase
-const events = ref([])
-
-// Dynamiske kategorier
-const categories = ref([])
-
-// Dropdown-funktioner
-function toggleDropdown() {
-  showDropdown.value = !showDropdown.value
-}
-
-function selectCategory(cat) {
-  selectedCategory.value = cat
-  showDropdown.value = false
-  currentPage.value = 0
-}
-
-// Luk dropdown hvis klik udenfor
+// dropdown
+function toggleDropdown() { showDropdown.value = !showDropdown.value; }
+function selectCategory(cat) { selectedCategory.value = cat; showDropdown.value = false; currentPage.value = 0; }
 function handleClickOutside(event) {
-  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
-    showDropdown.value = false
-  }
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) showDropdown.value = false;
 }
 
-// Hent events fra Firebase
+// Firebase
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
+  document.addEventListener('click', handleClickOutside);
+  const eventsRef = dbRef(database, 'events');
+  onValue(eventsRef, snapshot => {
+    const data = snapshot.val() || {};
+    events.value = Object.keys(data).map(id => ({ id, ...data[id] }));
+    const cats = new Set();
+    events.value.forEach(e => e.categories?.forEach(c => cats.add(c)));
+    categories.value = Array.from(cats).sort();
+  });
+});
 
-  const eventsRef = dbRef(database, 'events')
-  onValue(eventsRef, (snapshot) => {
-    const data = snapshot.val() || {}
-    events.value = Object.keys(data).map(id => ({
-      id,
-      ...data[id]
-    }))
+onUnmounted(() => { document.removeEventListener('click', handleClickOutside); });
 
-    // Opdater kategorier dynamisk
-    const cats = new Set()
-    events.value.forEach(e => e.categories?.forEach(c => cats.add(c)))
-    categories.value = Array.from(cats).sort()
-  })
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
-
-// Filtrer events
+// filtrering
 const filteredEvents = computed(() => {
-  let filtered = events.value
+  let filtered = events.value;
+  if (!showYouthEvents.value) filtered = filtered.filter(e => e.categories?.includes('Unge'));
+  if (selectedCategory.value) filtered = filtered.filter(e => e.categories?.includes(selectedCategory.value));
+  return filtered.sort((a,b)=> new Date(a.dateForSort||a.date) - new Date(b.dateForSort||b.date));
+});
 
-  if (!showYouthEvents.value) {
-    filtered = filtered.filter(e => e.categories?.includes('Unge'))
-  }
-
-  if (selectedCategory.value) {
-    filtered = filtered.filter(e => e.categories?.includes(selectedCategory.value))
-  }
-
-  return filtered.sort((a, b) => new Date(a.dateForSort || a.date) - new Date(b.dateForSort || b.date))
-})
-
-// Pagination
-const maxPage = computed(() => Math.ceil(filteredEvents.value.length / eventsPerPage))
+// pagination
+const maxPage = computed(() => Math.ceil(filteredEvents.value.length / eventsPerPage));
 const paginatedEvents = computed(() => {
-  const start = currentPage.value * eventsPerPage
-  return filteredEvents.value.slice(start, start + eventsPerPage)
-})
+  const start = currentPage.value * eventsPerPage;
+  return filteredEvents.value.slice(start, start + eventsPerPage);
+});
 
-function nextPage() {
-  if (currentPage.value < maxPage.value - 1) currentPage.value++
-}
-
-function prevPage() {
-  if (currentPage.value > 0) currentPage.value--
-}
-
-function goToPage(page) {
-  currentPage.value = page
-}
+function nextPage() { if(currentPage.value < maxPage.value - 1) currentPage.value++; }
+function prevPage() { if(currentPage.value > 0) currentPage.value--; }
+function goToPage(page) { currentPage.value = page; }
 </script>
 
 <template>
@@ -108,69 +69,38 @@ function goToPage(page) {
 
       <div class="buttons-right" ref="dropdownRef">
         <div class="filter-dropdown">
-          <button class="action-btn" @click.stop="toggleDropdown">
-            FILTER ▼
-          </button>
-
+          <button class="action-btn" @click.stop="toggleDropdown">FILTER ▼</button>
           <div v-if="showDropdown" class="dropdown-menu">
-            <div
-              v-for="cat in categories"
-              :key="cat"
-              class="dropdown-item"
-              @click="selectCategory(cat)"
-            >
+            <div v-for="cat in categories" :key="cat" class="dropdown-item" @click="selectCategory(cat)">
               {{ cat }}
             </div>
           </div>
         </div>
 
-        <router-link to="/favoritter" class="favorites-btn action-btn">
-          ❤️ MINE FAVORITTER
-        </router-link>
+        <router-link to="/favoritter" class="favorites-btn action-btn">❤️ MINE FAVORITTER</router-link>
       </div>
     </div>
 
     <div class="event-list" v-if="paginatedEvents.length">
-  <router-link
-    v-for="event in paginatedEvents"
-    :key="event.id"
-    :to="{ name: 'EventDetail', params: { id: event.id } }"
-    class="event-link"
-  >
-    <Eventcard :event="event" />
-  </router-link>
-</div>
+      <EventCard
+        v-for="event in paginatedEvents"
+        :key="event.id"
+        :event="event"
+      />
+    </div>
 
-
-    <p v-else class="no-events">Der desværre ikke nogle events at vise, kom igen senere</p>
+    <p v-else class="no-events">Der er desværre ikke nogle events at vise, kom igen senere</p>
 
     <div class="pagination" v-if="paginatedEvents.length">
-      <span
-        @click="prevPage"
-        :class="{ disabled: currentPage === 0 }"
-        class="arrow-left"
-      ></span>
-
+      <span @click="prevPage" :class="{ disabled: currentPage === 0 }" class="arrow-left"></span>
       <div class="page-numbers">
-        <span
-          v-for="page in maxPage"
-          :key="page"
-          @click="goToPage(page - 1)"
-          :class="{ active: currentPage === page - 1 }"
-          class="page-num"
-        >
-          {{ page }}
-        </span>
+        <span v-for="page in maxPage" :key="page" @click="goToPage(page-1)" :class="{ active: currentPage === page-1 }" class="page-num">{{ page }}</span>
       </div>
-
-      <span
-        @click="nextPage"
-        :class="{ disabled: currentPage >= maxPage - 1 }"
-        class="arrow-right"
-      ></span>
+      <span @click="nextPage" :class="{ disabled: currentPage >= maxPage-1 }" class="arrow-right"></span>
     </div>
   </div>
 </template>
+
 
 <style>
 /* --- MOBILE FIRST --- */

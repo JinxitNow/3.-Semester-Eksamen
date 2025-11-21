@@ -1,101 +1,138 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { useRouter } from "vue-router";   // ← VIGTIGT
+import { ref, onMounted, watch, toRefs } from "vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter();               // ← VIGTIGT
+const router = useRouter();
 
 const props = defineProps({
   event: { type: Object, required: true },
   hideFavorite: { type: Boolean, default: false },
-  showCalendar: { type: Boolean, default: true }   
+  showCalendar: { type: Boolean, default: true }
 });
+
+const { event } = toRefs(props);
 
 const isFavorite = ref(false);
 
+/* FAVORITSTATUS */
 onMounted(() => {
-  const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  isFavorite.value = savedFavorites.some(ev => ev.id === props.event.id);
+  try {
+    const saved = JSON.parse(localStorage.getItem("favorites")) || [];
+    isFavorite.value = saved.some(ev => ev.id === event.value?.id);
+  } catch {
+    isFavorite.value = false;
+  }
 });
 
 watch(
   () => localStorage.getItem("favorites"),
   (newVal) => {
-    const savedFavorites = JSON.parse(newVal) || [];
-    isFavorite.value = savedFavorites.some(ev => ev.id === props.event.id);
+    try {
+      const saved = JSON.parse(newVal) || [];
+      isFavorite.value = saved.some(ev => ev.id === event.value?.id);
+    } catch {
+      isFavorite.value = false;
+    }
   }
 );
 
+/* FAVORIT → Favorit.vue */
 function toggleFavorite() {
-  const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  try {
+    const saved = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  if (isFavorite.value) {
-    const updated = savedFavorites.filter(ev => ev.id !== props.event.id);
-    localStorage.setItem("favorites", JSON.stringify(updated));
-    isFavorite.value = false;
-  } else {
-    savedFavorites.push(props.event);
-    localStorage.setItem("favorites", JSON.stringify(savedFavorites));
-    isFavorite.value = true;
+    if (isFavorite.value) {
+      const updated = saved.filter(ev => ev.id !== event.value.id);
+      localStorage.setItem("favorites", JSON.stringify(updated));
+      isFavorite.value = false;
+    } else {
+      saved.push(event.value);
+      localStorage.setItem("favorites", JSON.stringify(saved));
+      isFavorite.value = true;
+    }
+  } catch (e) {
+    console.error("Fejl ved opdatering af favorites:", e);
   }
+
+  router.push("/favoritter");
 }
 
-/* ⭐ ÅBN Reminder-siden når man trykker på kalender-ikonet ⭐ */
+/* KALENDER → Reminder.vue */
 function addToCalendar() {
-  router.push("/reminder");    // ← ÅBNER Reminder.vue
+  router.push("/reminder");
 }
 
-/* Date helpers */
-function capitalize(str) {
+/* NAVIGATION TIL EventDetail */
+function goToDetail() {
+  router.push({ name: "EventDetail", params: { id: event.value.id } });
+}
+
+/* FORMATERING */
+function capitalize(str = "") {
+  if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function formatDate(dateString) {
+  if (!dateString) return "";
   const date = new Date(dateString);
-  const formatted = date.toLocaleDateString("da-DK", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  });
-  return capitalize(formatted);
+  if (isNaN(date)) return dateString;
+  return capitalize(
+    date.toLocaleDateString("da-DK", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    })
+  );
 }
 </script>
 
 <template>
-  <div class="event-card">
-    <div class="image-wrapper">
-      <img :src="`/img/${event.image}`" :alt="event.title" class="event-image" />
+  <div v-if="event" class="event-card">
+    <!-- BILLEDE → EventDetail -->
+    <div class="image-wrapper" @click="goToDetail">
+      <img
+        v-if="event.image"
+        :src="`/img/${event.image}`"
+        :alt="event.title"
+        class="event-image"
+      />
+      <div v-else class="event-image placeholder">Ingen billede</div>
 
-      <!-- Hjerte -->
+      <!-- FAVORITKNAP → Favorit.vue -->
       <button
         v-if="!hideFavorite"
         class="favorite-btn"
         @click.stop="toggleFavorite"
+        aria-label="Favorit"
+        type="button"
       >
         {{ isFavorite ? "❤️" : "🤍" }}
       </button>
 
-      <!-- Kalender-ikon -->
+      <!-- KALENDERKNAP → Reminder.vue -->
       <button
         v-if="showCalendar"
         class="calendar-btn"
         @click.stop="addToCalendar"
+        aria-label="Tilføj til kalender"
+        type="button"
       >
         📅
       </button>
     </div>
 
-    <!-- Info-sektion med to kolonner -->
-    <div class="event-info">
-      <!-- Kolonne 1 -->
+    <!-- TEKST → EventDetail -->
+    <div class="event-info" @click="goToDetail">
       <div class="event-main">
         <p class="event-date">{{ formatDate(event.date) }}</p>
         <h3 class="event-title">{{ event.title }}</h3>
+        <p v-if="event.kunstner" class="event-artist">{{ event.kunstner }}</p>
       </div>
 
-      <!-- Kolonne 2 -->
       <div v-if="event.specialLabel?.length" class="special-label">
-        {{ event.specialLabel.join(', ') }}
+        {{ event.specialLabel.join(", ") }}
       </div>
     </div>
   </div>
@@ -108,17 +145,12 @@ function formatDate(dateString) {
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
-}
-
-@media (min-width: 1024px) {
-  .event-card {
-    padding: 1rem;
-    min-height: 320px;
-  }
+  cursor: default;
 }
 
 .image-wrapper {
   position: relative;
+  cursor: pointer;
 }
 
 .event-image {
@@ -127,7 +159,16 @@ function formatDate(dateString) {
   object-fit: cover;
 }
 
-/* Hjerte */
+.event-image.placeholder {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  color: #666;
+}
+
 .favorite-btn {
   position: absolute;
   top: 8px;
@@ -144,12 +185,8 @@ function formatDate(dateString) {
   align-items: center;
   justify-content: center;
 }
+.favorite-btn:hover { transform: scale(1.15); }
 
-.favorite-btn:hover {
-  transform: scale(1.2);
-}
-
-/* Kalenderikon */
 .calendar-btn {
   position: absolute;
   top: 8px;
@@ -166,16 +203,14 @@ function formatDate(dateString) {
   align-items: center;
   justify-content: center;
 }
-
-.calendar-btn:hover {
-  transform: scale(1.2);
-}
+.calendar-btn:hover { transform: scale(1.15); }
 
 .event-info {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .event-main {
@@ -189,8 +224,7 @@ function formatDate(dateString) {
   font-size: 1.2rem;
   color: #84754e;
   font-weight: bold;
-  margin: 0;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem;
 }
 
 .event-date {
@@ -199,19 +233,20 @@ function formatDate(dateString) {
   margin: 0;
 }
 
+.event-artist {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
 .special-label {
   background-color: #84754e;
   color: white;
   font-size: 0.8rem;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 30px;
-  text-align: center;
   padding: 0.4rem;
-  line-height: 1.2;
+  height: fit-content;
+  max-width: 120px;
+  text-align: center;
 }
-
 </style>

@@ -19,7 +19,6 @@ const removeFavorite = (id) => {
   localStorage.setItem('favorites', JSON.stringify(favorites.value));
 };
 
-// Tilbage-knap
 // Tilbage-knap: gå til UngIOdeon med hash/lande på det rigtige sted på siden
 const goBack = () => {
   router.push({ name: 'UngIOdeon', hash: '#event-feed' });

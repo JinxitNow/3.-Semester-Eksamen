@@ -1,27 +1,34 @@
 <script setup>
 import { ref, onMounted } from "vue"
+import { useRouter } from "vue-router"
 import { database } from "../firebase.js"
 import { ref as dbRef, get } from "firebase/database"
 
-// Vi får id fra routeren som prop (fordi du har sat props: true i routeren)
+// Vi får ID fra routeren (props: true i router/index.js)
 const props = defineProps({ id: String })
 
 const event = ref(null)
 const relatedEvents = ref([])
+const router = useRouter()
 
 onMounted(async () => {
   // Hent det valgte event
   const snapshot = await get(dbRef(database, "events/" + props.id))
   event.value = snapshot.val()
 
-  // Hent relaterede events fra samme kategori
+  // Hent relaterede events
   if (event.value?.categories?.length) {
     const allSnapshot = await get(dbRef(database, "events"))
     const allEvents = allSnapshot.val()
+
     if (allEvents) {
       relatedEvents.value = Object.entries(allEvents)
         .map(([id, val]) => ({ id, ...val }))
-        .filter(ev => ev.id !== props.id && ev.categories?.some(cat => event.value.categories.includes(cat)))
+        .filter(
+          ev =>
+            ev.id !== props.id &&
+            ev.categories?.some(cat => event.value.categories.includes(cat))
+        )
         .slice(0, 3)
     }
   }
@@ -32,30 +39,42 @@ onMounted(async () => {
   <!-- Event info -->
   <div v-if="event" class="event-info">
     <div class="event-image-wrapper">
-      <img v-if="event.image" :src="`/img/${event.image}`" :alt="event.title" class="event-img" />
+      <img
+        v-if="event.image"
+        :src="`/img/${event.image}`"
+        :alt="event.title"
+        class="event-img"
+      />
     </div>
 
-      <div class="event-details-box">
-        <h2>{{ event.title }}</h2>
-        <p><b>Kunstner:</b> {{ event.kunstner }}</p>
-        <p><b>Lokation:</b> {{ event.sted }}</p>
-        <p><b>Dato:</b> {{ event.date }} <span v-if="event.time">kl. {{ event.time }}</span></p>
-        <p><b>Pris:</b> {{ event.pris }}</p>
-        <p v-if="event.om"><b>Om eventet:</b> {{ event.om }}</p>
-        <div v-if="event.specialLabel?.length" class="labels-container">
-          <b>Bemærk:</b>
-          <div class="labels-list">
-            <span
-              v-for="lab in event.specialLabel"
-              :key="lab"
-              class="special-label"
-            >
+    <div class="event-details-box">
+      <h2>{{ event.title }}</h2>
+      <p><b>Kunstner:</b> {{ event.kunstner }}</p>
+      <p><b>Lokation:</b> {{ event.sted }}</p>
+
+      <p>
+        <b>Dato:</b> {{ event.date }}
+        <span v-if="event.time"> kl. {{ event.time }}</span>
+      </p>
+
+      <p><b>Pris:</b> {{ event.pris }}</p>
+
+      <p v-if="event.om"><b>Om eventet:</b> {{ event.om }}</p>
+
+      <div v-if="event.specialLabel?.length" class="labels-container">
+        <b>Bemærk:</b>
+        <div class="labels-list">
+          <span
+            v-for="lab in event.specialLabel"
+            :key="lab"
+            class="special-label"
+          >
             {{ lab }}
           </span>
         </div>
       </div>
 
-      <!-- Knappen flyttet ind i boksen -->
+      <!-- Tilbage-knap -->
       <router-link to="/" class="back-btn">⬅ Tilbage til forsiden</router-link>
     </div>
   </div>
@@ -67,12 +86,16 @@ onMounted(async () => {
       <div v-for="ev in relatedEvents" :key="ev.id" class="related-item">
         <img v-if="ev.image" :src="`/img/${ev.image}`" :alt="ev.title" />
         <p>{{ ev.title }}</p>
-        <router-link :to="{ name: 'EventDetail', params: { id: ev.id } }">Se mere</router-link>
+
+        <router-link
+          :to="{ name: 'EventDetail', params: { id: ev.id } }"
+        >
+          Se mere
+        </router-link>
       </div>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .event-detail {
@@ -104,7 +127,7 @@ onMounted(async () => {
   max-width: 800px;
   width: 100%;
   height: auto;
- }
+}
 
 .event-details-box {
   background-color: #f5f5f5;
@@ -138,8 +161,6 @@ onMounted(async () => {
 .back-btn:hover {
   background: #a49364;
 }
-
-
 
 .related {
   margin-top: 2rem;
@@ -186,5 +207,4 @@ onMounted(async () => {
 .related-item a:hover {
   text-decoration: underline;
 }
-
 </style>

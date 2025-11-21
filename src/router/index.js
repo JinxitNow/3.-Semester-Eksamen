@@ -11,7 +11,7 @@ import Terms from "../views/Terms.vue";
 
 const routes = [
   { path: "/", name: "UngIOdeon", component: UngIOdeon },
-  { path: "/favoritter", name: "Favoritter", component: Favorit },
+  { path: "/favoritter", name: "Favoritter", component: Favorit},
   { path: "/login", name: "Login", component: Login },
   { path: "/dashboard", name: "LoginDashboard", component: LoginDashboard },
   { path: "/login-event", name: "LoginEvent", component: LoginEvent },
