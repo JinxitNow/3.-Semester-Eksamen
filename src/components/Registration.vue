@@ -6,11 +6,11 @@
       <div class="form-column">
         <div class="form-wrapper">
           <h2>Bliv en del af UNG I ODEON</h2>
-          <p class="subtitle">Tilmeldt dig nu</p>
+          <p class="subtitle">Tilmeld dig gratis nu</p>
 
           <form @submit.prevent="onSubmit" class="form-grid">
             <div class="input-group">
-              <label for="fullName">Navn og efternavn *</label>
+              <label for="fullName">Navn og Efternavn *</label>
               <input id="fullName" v-model="fullName" required />
             </div>
 
@@ -20,7 +20,7 @@
             </div>
 
             <div class="input-group">
-              <label for="address1">Gade og Nummer *</label>
+              <label for="address1">Adresse *</label>
               <input id="address1" v-model="address1" required />
             </div>
 
@@ -42,12 +42,12 @@
           <div class="form-bottom">
      <label class="checkbox">
     <input type="checkbox" v-model="acceptTerms" />
-    Accepter<router-link to="/handelsbetingelser">Handelsbetingelser</router-link>
+    Accepter<router-link to="/handelsbetingelser">handelsbetingelser</router-link>
      </label>
 
     <label class="checkbox">
     <input type="checkbox" v-model="acceptPolicy" />
-    Vil have nyhedsbrev
+    Ja tak til nyhedsbrev
     </label>
 
   <button type="submit">TILMELD</button>
