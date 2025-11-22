@@ -111,7 +111,7 @@ function goToPage(page) {
   <!-- Titel uden global padding -->
   <div class="eventkalender-title-wrapper">
     <h2>Kommende events</h2>
-    <p>Hvor unge mødes og minder skabes. Koncerter, workshops og oplevelser du ikke vil gå glip af. Her finder ud de kommende events særligt for unge i alderen 18-35 år.</p>
+    <p>Hvor unge mødes og minder skabes. Koncerter, workshops og oplevelser du ikke vil gå glip af. <br>Her finder ud de kommende events særligt for unge i alderen 18-35 år.</br> </p>
   </div>
 
   <div class="filters-container">
