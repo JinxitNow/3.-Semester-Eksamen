@@ -88,6 +88,7 @@ const removeFavorite = (eventId) => {
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
+
 }
 
 .remove-btn:hover {

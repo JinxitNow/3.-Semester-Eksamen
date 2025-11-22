@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import EventCard from '../components/Eventcard.vue';
+import EventCard from '../components/EventCard.vue';
 
 const router = useRouter();
 const favorites = ref([]);

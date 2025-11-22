@@ -45,9 +45,3 @@ Få rabatter på events, mad og drikkevarer i cafeen, og mange andre ting som me
     
   </div>
 </template>
-
-<style scoped>
-.event-feed {
-  padding: 2rem;
-}
-</style>

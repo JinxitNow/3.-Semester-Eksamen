@@ -53,8 +53,6 @@ function toggleFavorite() {
   } catch (e) {
     console.error("Fejl ved opdatering af favorites:", e);
   }
-
-  router.push("/favoritter");
 }
 
 /* KALENDER → Reminder.vue */
@@ -132,36 +130,45 @@ function formatDate(dateString) {
       </div>
 
       <div v-if="event.specialLabel?.length" class="special-label">
-        {{ event.specialLabel.join(", ") }}
+        {{ event.specialLabel
+          .filter(label => !["Kørestolsegnet", "Nummererede siddepladser"].includes(label))
+          .join(", ") 
+        }}
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+/* --- MOBILE FIRST --- */
+
 .event-card {
-  padding: 1.7rem;
   text-align: left;
-  border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
   cursor: default;
+  margin-bottom: 1rem;
 }
 
 .image-wrapper {
   position: relative;
   cursor: pointer;
+  width: 100%;
+  overflow: hidden;
 }
 
+/* --- MOBILE FIRST --- */
 .event-image {
   width: 100%;
-  height: 250px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .event-image.placeholder {
   width: 100%;
-  height: 250px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,84 +176,125 @@ function formatDate(dateString) {
   color: #666;
 }
 
-.favorite-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 10;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #84754e;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.favorite-btn:hover { transform: scale(1.15); }
 
+.favorite-btn,
 .calendar-btn {
   position: absolute;
   top: 8px;
-  right: 56px;
-  z-index: 10;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
   color: #84754e;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
+
+.favorite-btn { right: 10px; }
+.calendar-btn { right: 38px; }
+
+.favorite-btn:hover,
 .calendar-btn:hover { transform: scale(1.15); }
 
+/* --- TEKST + SPECIAL LABEL --- */
 .event-info {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
+  margin-left: 0.5rem;
   cursor: pointer;
+  gap: 0.5rem;
 }
 
 .event-main {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.5rem;
   flex: 1;
 }
 
 .event-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #84754e;
   font-weight: bold;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.25rem;
 }
 
-.event-date {
-  font-size: 0.9rem;
-  color: #84754e;
-  margin: 0;
-}
-
+.event-date,
 .event-artist {
-  margin: 0.25rem 0 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  margin: 0;
   color: #555;
 }
 
 .special-label {
   background-color: #84754e;
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   border-radius: 4px;
-  padding: 0.4rem;
-  height: fit-content;
-  max-width: 120px;
+  padding: 0.3rem 0.5rem;
+  width: 100px;
+  height: 40px;
+  align-content: center;
   text-align: center;
+  flex-shrink: 0;
 }
+
+/* --- TABLET / DESKTOP --- */
+@media (min-width: 768px) {
+  .event-card { padding: 1.5rem; }
+
+  @media (min-width: 768px) {
+  .event-image {
+    height: 220px;
+    object-fit: cover;
+  }
+}
+  .favorite-btn,
+  .calendar-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .event-title { font-size: 1.2rem; }
+  .event-date,
+  .event-artist { font-size: 0.9rem; }
+
+  .special-label {
+    width: 120px;
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .event-card { padding: 0rem; }
+
+  .event-image {
+  width: 440px;
+  height: 300px;
+  display: block;
+}
+
+  .favorite-btn { right: 10px; }
+  .calendar-btn { right: 48px; }
+
+  .favorite-btn:hover,
+  .calendar-btn:hover { transform: scale(1.15); }
+
+  .special-label {
+    width: 110px;
+    height: 45px;
+    font-size: 0.8rem;
+    align-content: center;
+    margin-right: 10px;
+  }
+}
+
 </style>
