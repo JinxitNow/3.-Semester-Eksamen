@@ -124,23 +124,23 @@ export default {
   .info-box-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;   /* centrér indhold horisontalt */
+    align-items: center;
     min-height: unset;
     margin-bottom: 2rem;
   }
 
   .image-side {
-    position: relative !important;   /* fjern absolute */
-    order: -1;                       /* billedet før boksen */
+    position: relative !important;
+    order: -1;
     left: auto !important;
     right: auto !important;
     top: auto !important;
     bottom: auto !important;
 
     width: 100%;
-    max-width: 420px;                /* samme som infoboks */
-    height: auto;                    /* højde følger indhold */
-    margin: 0 auto 12px;             /* centrer + afstand */
+    max-width: 420px;
+    height: 200px; /* 👈 FIX – giver plads til billedet */
+    margin: 0 auto 12px;
 
     background-size: cover;
     background-position: center;
@@ -153,15 +153,14 @@ export default {
     position: absolute;
     inset: 0;
     background-color: rgba(255, 255, 255, 0.55);
-    pointer-events: none;
   }
 
   .info-box {
-    position: static !important;     /* fjern absolute */
+    position: static !important;
     transform: none !important;
     width: 100%;
-    max-width: 420px;                /* match billedets bredde */
-    margin: 0 auto;                  /* centrér */
+    max-width: 420px;
+    margin: 0 auto;
     padding: 1.4rem;
   }
 }
