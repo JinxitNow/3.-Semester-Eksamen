@@ -1,428 +1,543 @@
-    <script setup>
-    import { ref, onMounted } from 'vue'
-    import { database } from '../firebase.js'
-    import { ref as dbRef, push, set, onValue, remove, update } from 'firebase/database'
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { database } from '../firebase.js'
+import { ref as dbRef, push, set, onValue, remove, update } from 'firebase/database'
 
-    // Liste over billeder i public/img
-    const availableImages = [
-      'barselskomik.webp','cafe.webp','cafe2.webp','cafe3.jpg','choir.jpg',
-      'event1.webp','event2.webp','event3.webp','hero1.jpg','hero2.webp',
-      'hero3.webp','hero4.webp','hero5.webp','hero6.webp','magtenskorridorer.webp',
-      'simontalbot.webp','tinka.webp','wallmans.webp','wordfestival.webp',
-    ]
+// Dagens dato uden klokkeslæt
+const today = new Date().setHours(0, 0, 0, 0)
 
-    // Form fields
-    const title = ref('')
-    const date = ref('')
-    const time = ref('')
-    const image = ref('')
-    const kunstner = ref('')
-    const sted = ref('')
-    const om = ref('')
-    const pris = ref('')
-    const selectedCategories = ref([])
-    const selectedLabels = ref([])
-    const editingEventId = ref(null) // Holder ID for redigering
+// Events liste
+const eventsList = ref([])
 
-    // Mulige kategorier og speciallabels
-    const possibleCategories = ['Comedy', 'Familie', 'Foredrag', 'Musical', 'Musik', 'Teater', 'Unge', 'Andet']
-    const possibleLabels = ['Udsolgt', 'Få pladser tilbage', 'Ung i ODEON rabat', 'Gratis']
+// Labels
+const visibleLabels = ['Udsolgt','Få pladser tilbage','Ung i ODEON rabat','Gratis']
+const detailLabels = ['Kørestolsegnet','Nummererede siddepladser']
+const possibleLabels = [...visibleLabels, ...detailLabels]
 
-    // Events liste
-    const eventsList = ref([])
+// Sorterede views
+const upcomingEvents = computed(() =>
+  eventsList.value
+    .filter(event => event.date && new Date(event.date).setHours(0,0,0,0) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+)
 
-    // Firebase reference
-    const eventsRef = dbRef(database, 'events')
+const expiredEvents = computed(() =>
+  eventsList.value
+    .filter(event => event.date && new Date(event.date).setHours(0,0,0,0) < today)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+)
 
-    // Hent events
-    function fetchEvents() {
-      onValue(eventsRef, (snapshot) => {
-        const data = snapshot.val()
-        eventsList.value = data
-  ?        Object.entries(data).map(([key, val]) => ({
-              id: key,
-              title: val.title || '',
-              date: val.date || '',
-              time: val.time || '',
-              image: val.image || availableImages[0],
-              kunstner: val.kunstner || '',
-              sted: val.sted || '',
-              om: val.om || '',
-              pris: val.pris || '',
-              categories: Array.isArray(val.categories) ? val.categories : [],
-              specialLabel: Array.isArray(val.specialLabel) ? val.specialLabel : []
-            }))
-          : []
+// Liste af billeder
+const availableImages = [
+  'barselskomik.webp','cafe.webp','cafe2.webp','cafe3.jpg','choir.jpg',
+  'event1.webp','event2.webp','event3.webp','hero1.jpg','hero2.webp',
+  'hero3.webp','hero4.webp','hero5.webp','hero6.webp','magtenskorridorer.webp',
+  'simontalbot.webp','tinka.webp','wallmans.webp','wordfestival.webp',
+]
 
-      })
-    }
+// Form fields
+const title = ref('')
+const date = ref('')
+const time = ref('')
+const image = ref('') // blank start
+const kunstner = ref('')
+const sted = ref('')
+const om = ref('')
+const pris = ref('')
+const selectedCategories = ref([])
+const selectedLabels = ref([])
+const editingEventId = ref(null)
+const possibleCategories = ['Comedy','Familie','Foredrag','Musical','Musik','Teater','Unge','Andet']
 
-    // Opret eller opdater event
-    async function createEvent() {
-      if (!title.value || !date.value) return
+// Firebase reference
+const eventsRef = dbRef(database, 'events')
 
-      const payload = {
-      title: title.value,
-      date: date.value,
-      time: time.value,
-      image: image.value,
-      kunstner: kunstner.value,
-      sted: sted.value,
-      om: om.value,
-      pris: pris.value,
-      categories: selectedCategories.value,
-      specialLabel: selectedLabels.value
+// Hent events
+function fetchEvents() {
+  onValue(eventsRef, snapshot => {
+    const data = snapshot.val()
+    eventsList.value = data ? Object.entries(data).map(([key, val]) => ({
+      id: key,
+      title: val.title || '',
+      date: val.date || '',
+      time: val.time || '',
+      image: val.image || '',
+      kunstner: val.kunstner || '',
+      sted: val.sted || '',
+      om: val.om || '',
+      pris: val.pris || '',
+      categories: Array.isArray(val.categories) ? val.categories : [],
+      specialLabel: Array.isArray(val.specialLabel) ? val.specialLabel : []
+    })) : []
+  })
 }
 
-      try {
-        if (editingEventId.value) {
-          const eventRef = dbRef(database, 'events/' + editingEventId.value)
-          await update(eventRef, payload)
-          resetForm() // nulstil efter succes
-        } else {
-          const newEventRef = push(eventsRef)
-          await set(newEventRef, payload)
-          resetForm()
-        }
-      } catch (err) {
-        console.error('Gemning fejlede:', err)
-      }
-    }
+// Opret/Opdater event
+async function submitEvent() {
+  if (!title.value || !date.value) return
 
-    function resetForm() {
-      title.value = ''
-      date.value = ''
-      time.value = ''
-      image.value = availableImages[0]
-      selectedCategories.value = []
-      selectedLabels.value = []
-      editingEventId.value = null
-    }
+  const payload = {
+    title: title.value,
+    date: date.value,
+    time: time.value,
+    image: image.value,
+    kunstner: kunstner.value,
+    sted: sted.value,
+    om: om.value,
+    pris: pris.value,
+    categories: selectedCategories.value,
+    specialLabel: selectedLabels.value
+  }
 
-    // Slet event
-    function deleteEvent(id) {
-      const eventRef = dbRef(database, 'events/' + id)
-      remove(eventRef)
+  try {
+    if (editingEventId.value) {
+      await update(dbRef(database, 'events/' + editingEventId.value), payload)
+    } else {
+      await set(push(eventsRef), payload)
     }
-
-    // Pop event ind i formular for redigering (robust mod manglende arrays)
-    function updateEvent(event) {
-      try {
-        title.value = event.title || ''
-        date.value = event.date || ''
-        time.value = event.time || ''
-        image.value = event.image || availableImages[0]
-        kunstner.value = event.kunstner || ''
-        sted.value = event.sted || ''
-        om.value = event.om || ''
-        pris.value = event.pris || ''
-        selectedCategories.value = Array.isArray(event.categories) ? [...event.categories] : []
-        selectedLabels.value = Array.isArray(event.specialLabel) ? [...event.specialLabel] : []
-        editingEventId.value = event.id
-      } catch (err) {
-        console.error('Kunne ikke indlæse event til redigering:', err)
+    resetForm()
+  } catch (err) {
+    console.error('Gemning fejlede:', err)
   }
 }
 
+// Slet event
+function deleteEvent(id) {
+  remove(dbRef(database, 'events/' + id))
+}
 
-    // Utility: url til public/img
-    function imageUrl(filename) {
-      return filename ? `/img/${filename}` : ''
-    }
+// Rediger event
+function updateEvent(event) {
+  title.value = event.title || ''
+  date.value = event.date || ''
+  time.value = event.time || ''
+  image.value = event.image || ''
+  kunstner.value = event.kunstner || ''
+  sted.value = event.sted || ''
+  om.value = event.om || ''
+  pris.value = event.pris || ''
+  selectedCategories.value = Array.isArray(event.categories) ? [...event.categories] : []
+  selectedLabels.value = Array.isArray(event.specialLabel) ? [...event.specialLabel] : []
+  editingEventId.value = event.id
+}
 
-    onMounted(() => {
-      fetchEvents()
-    })
-    </script>
+// Nulstil formular
+function resetForm() {
+  title.value = ''
+  date.value = ''
+  time.value = ''
+  image.value = ''
+  kunstner.value = ''
+  sted.value = ''
+  om.value = ''
+  pris.value = ''
+  selectedCategories.value = []
+  selectedLabels.value = []
+  editingEventId.value = null
+}
 
-    <template>
-      <section class="login-event-page">
-        <div class="container">
+// Hjælpefunktion
+function imageUrl(filename) {
+  return filename ? `/img/${filename}` : ''
+}
 
-    <div class="link-buttons">
-      <div class="link-btn"><router-link to="/dashboard">Forside</router-link></div>
-      <div class="link-btn"><router-link to="/medlems">Medlemsinformationer</router-link></div>
-      <div class="link-btn"><router-link to="/statistik">Statistik</router-link></div>
-      <div class="link-btn"><router-link to="/vejledninger">Brugervejledninger</router-link></div>
-    </div>
+onMounted(fetchEvents)
+</script>
 
+<template>
+  <section class="login-event-page">
+    <div class="container">
 
-          <!-- Kolonne 2: Opret/rediger event -->
-          <div class="column form-column">
-            <h4>{{ editingEventId ? 'Rediger event' : 'Opret nyt event' }}</h4>
+      <!-- Links kolonne -->
+      <div class="link-buttons">
+        <div class="link-btn"><router-link to="/dashboard">Forside</router-link></div>
+        <div class="link-btn"><router-link to="/medlems">Medlemsinformationer</router-link></div>
+        <div class="link-btn"><router-link to="/statistik">Statistik</router-link></div>
+        <div class="link-btn"><router-link to="/vejledninger">Brugervejledninger</router-link></div>
+      </div>
 
-            <form @submit.prevent="createEvent">
-              <label>Titel</label>
-              <input v-model="title" placeholder="Event titel" required />
+      <!-- Formular kolonne -->
+      <div class="column form-column">
+        <h4>{{ editingEventId ? 'Rediger event' : 'Opret nyt event' }}</h4>
+        <form @submit.prevent="submitEvent">
+          <label>Titel</label>
+          <input v-model="title" placeholder="Event titel" required />
 
-              <label>Kunstner</label>
-              <input v-model="kunstner" placeholder="kunstner" required />
+          <label>Kunstner</label>
+          <input v-model="kunstner" placeholder="Kunstner" required />
 
-              <label>Lokation</label>
-              <input v-model="sted" placeholder="sted" required />
+          <label>Lokation</label>
+          <input v-model="sted" placeholder="Sted" required />
 
+          <div class="date-time-wrapper">
+            <div class="date-field">
               <label>Dato</label>
               <input v-model="date" type="date" required />
-
+            </div>
+            <div class="time-field">
               <label>Klokken</label>
               <input v-model="time" type="time" required />
-
-              <label>Om eventet</label>
-              <input v-model="om" type="text" placeholder="Beskriv kort eventet" required />
-
-
-              <label>Pris</label>
-              <input v-model="pris" placeholder="pris" required />
-              <span class="pris-label">kr.</span>
-
-              <label>Billede (vælg fra dropdown)</label>
-              <select v-model="image">
-                <option v-for="img in availableImages" :key="img" :value="img">{{ img }}</option>
-              </select>
-
-              <label><b>Kategorier:</b></label>
-              <div class="checkbox-group">
-                <label v-for="cat in possibleCategories" :key="cat">
-                  <input type="checkbox" :value="cat" v-model="selectedCategories" /> {{ cat }}
-                </label>
-              </div>
-
-              <label><b>Speciallabels:</b></label>
-              <div class="checkbox-group">
-                <label v-for="lab in possibleLabels" :key="lab">
-                  <input type="checkbox" :value="lab" v-model="selectedLabels" /> {{ lab }}
-                </label>
-              </div>
-
-              <button type="submit" class="primary-btn">
-                {{ editingEventId ? 'Gem ændringer' : 'Opret event' }}
-              </button>
-
-              <!-- Ny annuller-knap -->
-              <button type="button" class="secondary-btn" @click="resetForm">
-              Annuller
-              </button>
-              
-            </form>
-          </div>
-
-          <!-- Kolonne 3: Oversigt over events -->
-          <div class="column list-column">
-            <h4>Kommende events</h4>
-            <div class="events-list">
-              <div v-if="!eventsList.length" class="no-events">Der er endnu ingen events.</div>
-
-              <div v-for="event in eventsList" :key="event.id" class="event-item">
-                <img v-if="event.image" :src="imageUrl(event.image)" :alt="event.title" class="event-img" />
-                <div class="event-info">
-                  <p class="event-title">{{ event.title }}</p>
-                  <p class="event-date">{{ event.date }}</p>
-                  <p class="event-categories" v-if="event.categories?.length">{{ event.categories.join(', ') }}</p>
-                  <p class="event-labels" v-if="event.specialLabel?.length">{{ event.specialLabel.join(', ') }}</p>
-                </div>
-                <div class="event-actions">
-                  <button @click="updateEvent(event)">Opdater</button>
-                  <button @click="deleteEvent(event.id)">Slet</button>
-                </div>
-              </div>
             </div>
           </div>
 
+          <label>Om eventet</label>
+          <input v-model="om" type="text" placeholder="Beskriv kort eventet" required />
+
+          <label>Pris i kr.</label>
+          <input v-model="pris" placeholder="Pris" required />
+
+          <label>Billede (vælg fra dropdown)</label>
+          <select v-model="image">
+            <option value="">-- Vælg billede --</option>
+            <option v-for="img in availableImages" :key="img" :value="img">{{ img }}</option>
+          </select>
+
+          <label><b>Kategorier:</b></label>
+          <div class="checkbox-group">
+            <label v-for="cat in possibleCategories" :key="cat">
+              <input type="checkbox" :value="cat" v-model="selectedCategories" /> {{ cat }}
+            </label>
+          </div>
+
+          <label><b>Speciallabels:</b></label>
+          <div class="checkbox-group">
+            <label v-for="lab in possibleLabels" :key="lab">
+              <input type="checkbox" :value="lab" v-model="selectedLabels" /> {{ lab }}
+            </label>
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" class="primary-btn">
+              {{ editingEventId ? 'Gem ændringer' : 'Opret event' }}
+            </button>
+            <button type="button" class="secondary-btn" @click="resetForm">
+              Annuller
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Events kolonne -->
+      <div class="column list-column">
+
+        <!-- Kommende events -->
+        <div class="event-box scroll-box upcoming-box">
+          <h4>Kommende events</h4>
+          <div class="events-list">
+            <div v-if="!upcomingEvents.length" class="no-events">Ingen kommende events.</div>
+            <div v-for="event in upcomingEvents" :key="event.id" class="event-item">
+              <img v-if="event.image" :src="imageUrl(event.image)" :alt="event.title" class="event-img" />
+              <div class="event-info two-column">
+                <p class="event-title">{{ event.title }}</p>
+                <p v-if="event.kunstner"><strong>Kunstner:</strong> {{ event.kunstner }}</p>
+                <p v-if="event.sted"><strong>Sted:</strong> {{ event.sted }}</p>
+                <p v-if="event.date"><strong>Dato:</strong> {{ event.date }}</p>
+                <p v-if="event.time"><strong>Klokken:</strong> {{ event.time }}</p>
+                <p v-if="event.pris"><strong>Pris:</strong> {{ event.pris }} kr.</p>
+                <p v-if="event.categories?.length"><strong>Kategorier:</strong> {{ event.categories.join(', ') }}</p>
+                <p v-if="event.specialLabel?.length">
+                  <strong>Speciallabels:</strong> {{ event.specialLabel.filter(l => visibleLabels.includes(l)).join(', ') }}
+                </p>
+              </div>
+              <div class="event-actions">
+                <button @click="updateEvent(event)">Opdater</button>
+                <button @click="deleteEvent(event.id)">Slet</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
-    </template>
 
-    <style scoped>
-    .container {
-      display: flex;
-      gap: 2rem;
-      padding: 2rem;
-      align-items: flex-start;
-    }
+        <!-- Udløbne events -->
+        <div class="event-box scroll-box expired-box" style="margin-top:2rem;">
+          <h4>Udløbne events</h4>
+          <div class="events-list">
+            <div v-if="!expiredEvents.length" class="no-events">Ingen udløbne events.</div>
+            <div v-for="event in expiredEvents" :key="event.id" class="event-item expired">
+              <img v-if="event.image" :src="imageUrl(event.image)" :alt="event.title" class="event-img" />
+              <div class="event-info">
+                <p class="event-title">{{ event.title }}</p>
+                <p class="event-date">{{ event.date }}</p>
+              </div>
+              <div class="event-actions">
+                <button @click="updateEvent(event)">Opdater</button>
+                <button @click="deleteEvent(event.id)">Slet</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    /* Kolonner */
-    .column {
-      flex: 1 1 0;
-      background-color: #f5f5f5;
-      padding: 1rem;
-      border-radius: 8px;
-      box-sizing: border-box;
-    }
+      </div>
+    </div>
+  </section>
+</template>
 
-    /* Overskrifter */
-    .column h4 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Links kolonne */
-    .link-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .link-btn a {
-      display: block;
-      padding: 0.5rem 1rem;
-      background-color: #84754e;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      text-align: center;
-    }
-
-    .link-btn a:hover {
-      background-color: #a49364;
-    }
-
-    /* Formular kolonne */
-    .form-column form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .form-column input,
-    .form-column select {
-      padding: 0.4rem;
-      border: 1px solid #84754e;
-      border-radius: 5px;
-    }
-
-    .primary-btn {
-      padding: 0.35rem 0.6rem;
-      font-size: 0.8rem;
-      background-color: #84754e;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .primary-btn:hover {
-      background-color: #a49364;
-    }
-
-    .secondary-btn {
-      padding: 0.35rem 0.6rem;
-      font-size: 0.8rem;
-      background-color: #ccc;   /* neutral farve */
-      color: #333;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 0.4rem;
-    }
-
-    .secondary-btn:hover {
-      background-color: #aaa;
-    }
-
-    .pris-wrapper {
-  position: relative;
+<style scoped>
+.container {
   display: flex;
-  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: flex-start;
 }
 
-    .pris-wrapper input {
-    padding-right: 2.5rem; /* plads til 'kr.' */
-    }
+.column {
+  flex: 1 1 0;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
 
-    .pris-label {
-      position: absolute;
-      right: 10px;
-      color: #333;
-      font-size: 0.85rem;
-    }
+.column h4 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
 
-    /* Checkbox grupper */
-    .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
+.link-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.85rem;
-    }
+.link-btn a {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: #84754e;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-align: center;
+}
 
-    /* Events kolonne */
-    .list-column {
-      overflow-y: auto;
-      max-height: 60vh;
-    }
+.link-btn a:hover {
+  background-color: #a49364;
+}
 
-    .events-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+.form-column form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
 
-    .no-events {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #555;
-    }
+.form-column input,
+.form-column select {
+  padding: 0.4rem;
+  border: 1px solid #84754e;
+  border-radius: 5px;
+}
 
-    .event-item {
-      background-color: #fff;
-      border-radius: 6px;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
 
-    .event-img {
-      width: 100%;
-      max-width: 200px;
-      height: auto;
-      border-radius: 6px;
-      object-fit: cover;
-    }
+.primary-btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background-color: #84754e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
 
-    .event-info p {
-      margin: 0;
-      font-size: 0.85rem;
-    }
+.primary-btn:hover {
+  background-color: #a49364;
+}
 
-    .event-title {
-      font-weight: 600;
-    }
+.secondary-btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
 
-    .event-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
+.secondary-btn:hover {
+  background-color: #aaa;
+}
 
-    .event-actions button {
-      padding: 0.25rem 0.5rem;
-      background-color: #84754e;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
+.date-time-wrapper {
+  display: flex;
+  gap: 1rem;
+}
 
-    .event-actions button:hover {
-      background-color: #a49364;
-    }
+.date-field,
+.time-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-    /* Responsiv */
-    @media (max-width: 1024px) {
-      .container {
-        flex-direction: column;
-      }
-      .event-img {
-        max-width: 100%;
-      }
-    }
-    </style>
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.no-events {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.event-item {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.event-img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.event-info p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.event-title {
+  font-weight: 600;
+}
+
+.event-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.event-actions button {
+  padding: 0.25rem 0.5rem;
+  background-color: #84754e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.event-actions button:hover {
+  background-color: #a49364;
+}
+
+.event-box {
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.upcoming-box {
+  background: #ffffff;
+}
+
+.expired-box {
+  background: #dcdcdc;
+}
+
+.scroll-box {
+  max-height: 350px; 
+  overflow-y: auto;
+}
+
+.expired-box .event-item {
+  background-color: #e0e0e0;
+  color: #666666;
+}
+
+.expired-box .event-item .event-title {
+  color: #555555;
+}
+
+/* Skjul links kolonne på mobil */
+@media (max-width: 768px) {
+  .link-buttons {
+    display: none;
+  }
+}
+
+/* Container og kolonner */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 1rem; /* mindre mellemrum */
+    padding: 1rem;
+  }
+
+  .column {
+    width: 100%;
+    padding: 0.8rem;
+  }
+}
+
+/* Event billeder og info */
+@media (max-width: 768px) {
+  .event-item {
+    flex-direction: column;
+    padding: 0.6rem;
+  }
+
+  .event-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-info.two-column {
+    grid-template-columns: 1fr; /* single column på mobil */
+    gap: 0.5rem;
+  }
+
+  .event-actions {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Ekstra finjustering til meget små skærme */
+@media (max-width: 480px) {
+  .form-column input,
+  .form-column select {
+    font-size: 0.85rem;
+  }
+
+  .primary-btn, .secondary-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .link-btn a {
+    font-size: 0.8rem;
+  }
+}
+
+</style>

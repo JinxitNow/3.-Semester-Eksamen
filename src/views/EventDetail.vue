@@ -71,6 +71,12 @@ onMounted(async () => {
           >
             {{ lab }}
           </span>
+          <p v-if="event.specialLabel?.length">
+            <strong>Kørestolsegnet:</strong> {{ event.specialLabel.includes('Kørestolsegnet') ? 'ja' : 'nej' }}
+          </p>
+          <p v-if="event.specialLabel?.length">
+            <strong>Nummererede siddepladser:</strong> {{ event.specialLabel.includes('Nummererede siddepladser') ? 'ja' : 'nej' }}
+          </p>
         </div>
       </div>
 
