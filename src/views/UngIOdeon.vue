@@ -1,9 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import Hero from "../components/Hero.vue";
-import JoinUsSection from "../components/JoinUsSection.vue";
 import EventKalender from "../components/Eventkalender.vue";
-import GratisSection from "../components/GratisSection.vue";   
 import Registration from "../components/Registration.vue";
 import InfoBoxes from "../components/InfoBoxes.vue";
 const showYouthEvents = ref(true);
@@ -31,7 +29,7 @@ Få rabatter på events, mad og drikkevarer i cafeen, og mange andre ting som me
     <section id="event-feed" class="event-feed">
     <EventKalender :showYouthEvents="showYouthEvents" />
     </section>
-    
+
 <br></br>
 
      <InfoBoxes
