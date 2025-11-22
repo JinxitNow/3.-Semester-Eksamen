@@ -31,7 +31,7 @@ function closeHeader() {
 
       <ul class="topbar-links second-row">
         <li><a href="#">Kalender</a></li>
-        <li><a href="#">Ung i ODEON</a></li>
+        <li><a href="https://sem-eksamen-adb47.web.app">Ung i ODEON</a></li>
         <li><a href="#">Mad & Drikke</a></li>
         <li><a href="#">Konference & Møde</a></li>
       </ul>
@@ -39,9 +39,12 @@ function closeHeader() {
 
     <!-- Main row -->
     <div class="main-row">
-      <div class="logo-container">
-        <img class="header-logo" :src="Logo" alt="ODEON logo" />
-      </div>
+     <div class="logo-container">
+  <a href="https://sem-eksamen-adb47.web.app">
+    <img class="header-logo" :src="Logo" alt="ODEON logo" />
+  </a>
+</div>
+
       <button class="burger" @click="toggleHeader" aria-label="Menu">☰</button>
     </div>
 
@@ -55,7 +58,7 @@ function closeHeader() {
       <li><a href="#" @click="closeHeader">Om ODEON</a></li>
       <li><a href="#" @click="closeHeader">FAQ</a></li>
       <li><a href="#" @click="closeHeader">Kalender</a></li>
-      <li><a href="#" @click="closeHeader">Ung i ODEON</a></li>
+     <li><a href="https://sem-eksamen-adb47.web.app" @click="closeHeader">Ung i ODEON</a></li>
       <li><a href="#" @click="closeHeader">Mad & Drikke</a></li>
       <li><a href="#" @click="closeHeader">Konference & Møde</a></li>
     </ul>
