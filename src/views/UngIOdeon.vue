@@ -83,8 +83,5 @@ watch(showForm, async (newVal) => {
   margin-bottom: 5rem; /* justér til 2rem eller 4rem efter smag */
 }
 
-/* Event feed margin */
-.event-feed {
-  margin: 2rem 0;
-}
+
 </style>
