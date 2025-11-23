@@ -2,23 +2,41 @@
   <div class="membership-wrapper">
     <section class="membership-section">
       <div class="text-column">
-        <h2>Bliv en del af Ung i Odeon</h2>
-        <p class="intro">
-          Er du mellem 18 og 35 år? Så kan du gratis blive medlem af Ung i Odeon – et fællesskab for unge, hvor du får adgang til særlige fordele og oplevelser.
-        </p>
-        <ul class="benefits">
-          <li>Gratis medlemskab – ingen skjulte gebyrer</li>
-          <li>Eksklusive rabatter på udvalgte shows og arrangementer</li>
-          <li>10 % rabat på menuer i Odeons café</li>
-          <li>Tilbud fra Odeons samarbejdspartnere</li>
-          <li>Aktiviteter og events for alle medlemmer</li>
-          <li>Gratis arrangementer for forældre</li>
-        </ul>
-        <button @click="$emit('signup')">TILMELD DIG NU</button>
+        <div class="text-content">
+          <h2>Bliv en del af <i>Ung i Odeon</i></h2>
+
+          <!-- MOBILBILLEDE -->
+          <div class="mobile-image">
+            <div class="image-wrapper">
+              <img :src="myImage" alt="Ung i Odeon" />
+            </div>
+          </div>
+
+          <p class="intro">
+            Er du mellem 18 og 35 år? Så kan du gratis blive medlem af Ung i Odeon – et fællesskab for unge, hvor du får adgang til særlige fordele og oplevelser.
+          </p>
+
+          <h3 class="subheading">Det får du som medlem:</h3>
+          <ul class="benefits">
+            <li><strong>Gratis medlemskab</strong> – ingen skjulte gebyrer</li>
+            <li><strong>Rabatter</strong> på udvalgte shows og arrangementer</li>
+            <li><strong>10 % rabat</strong> på menuer i Odeons café</li>
+            <li><strong>Tilbud</strong> fra Odeons samarbejdspartnere</li>
+            <li><strong>Events</strong> og aktiviteter for alle medlemmer</li>
+            <li><strong>Gratis arrangementer</strong> for forældre</li>
+          </ul>
+
+          <div class="button-wrapper">
+            <button @click="$emit('signup')">TILMELD DIG NU</button>
+          </div>
+        </div>
       </div>
 
+      <!-- DESKTOPBILLEDE -->
       <div class="image-column">
-         <img :src="myImage" alt="Café Odeon" />
+        <div class="image-wrapper">
+          <img :src="myImage" alt="Ung i Odeon" />
+        </div>
       </div>
     </section>
   </div>
@@ -29,83 +47,155 @@ import myImage from '../assets/img/ungiodeon.webp'
 </script>
 
 <style scoped>
+/* === WRAPPER === */
 .membership-wrapper {
   background: #E4E3E1;
   width: 100vw;
   margin-left: -3.8rem;
   margin-right: -3.8rem;
-  padding: 3.8rem;
+  padding: 2.5rem;
   box-sizing: border-box;
 }
 
+/* === LAYOUT === */
 .membership-section {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding-block: 2rem;
-  min-height: 100vh;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
 }
 
 .text-column {
+  padding: 0 1.5rem;
   color: #796535;
-  max-width: 600px;
-  padding-right: 1.8rem;
 }
 
+.text-content {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* === TYPOGRAFI === */
 h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  font-weight: 700;
 }
 
 .intro {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.subheading {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .benefits {
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-.benefits li {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+/* === KNAP === */
+.button-wrapper {
+  margin-top: 0.8rem;
 }
 
 button {
-  padding: .7rem 1.4rem;
+  padding: 0.8rem 1.6rem;
   background: #796535;
   color: white;
   border: none;
+  font-weight: 300;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
+button:hover {
+  background: #5f512a;
+}
+
+/* === BILLEDE === */
 .image-column {
-  width: 100%;
+  display: none; /* skjul desktop-billedet på mobil */
 }
 
-.image-column img {
+.image-wrapper {
   width: 100%;
-  object-fit: cover;
-  display: block;
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
   border-radius: 6px;
 }
 
-/* Desktop layout */
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-image {
+  display: block;
+}
+
+/* Kun mobil: begræns højden til ca. 200px */
+@media (max-width: 899px) {
+  .mobile-image .image-wrapper {
+    max-height: 200px;
+    height: 200px; /* fast højde */
+  }
+}
+
+/* === DESKTOP === */
 @media (min-width: 900px) {
   .membership-section {
     flex-direction: row;
+    align-items: stretch; /* tekst og billede samme højde */
     justify-content: space-between;
+    gap: 2rem;
+    padding-block: 1.5rem;
+    min-height: 350px;
+    padding-right: 1.8rem;
+    padding-left: 1.8rem;
+  }
+
+  .text-column {
+    flex: 1;
+    padding: 0;
+    display: flex;
     align-items: center;
-    gap: 3rem;
-    padding-block: 4rem;
+  }
+
+  .text-content {
+    margin: 0;
   }
 
   .image-column {
-    max-width: 600px;
+    display: block;
+    flex: 1; /* billede fylder samme som tekst */
+    max-width: none;
+  }
+
+  .image-wrapper {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .image-wrapper img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mobile-image {
+    display: none; /* skjul mobilbilledet på desktop */
   }
 }
 </style>

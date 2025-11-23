@@ -56,12 +56,8 @@
                 <input type="checkbox" v-model="acceptTerms" />
                 Accepter <router-link to="/handelsbetingelser">handelsbetingelser</router-link>
               </label>
-
-              <label class="checkbox">
-                <input type="checkbox" v-model="acceptPolicy" />
-                Ja tak til nyhedsbrev
-              </label>
-
+<br></br>
+              
               <button type="submit" :disabled="loading">
                 TILMELD
                 <span v-if="loading" class="spinner"></span>
@@ -241,6 +237,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   accent-color: #84754e;
 }
 
+
+
 button {
   margin-top: 1rem;
   padding: .7rem 1.4rem;
@@ -269,22 +267,27 @@ button:disabled {
 @keyframes spin { to { transform: rotate(360deg);} }
 
 @media (min-width: 900px) {
-
-.form-grid {
+  .form-grid {
     grid-template-columns: 1fr 1fr; /* to kolonner */
     gap: 1rem 1.5rem;
   }
 
+
+  
   .registration-section {
     flex-direction: row;
     justify-content: space-between;
-    gap: 3rem;
-    padding-block: 4rem;
+    align-items: stretch;     /* tekst og billede samme højde */
+    gap: 2rem;
+    padding-block: 1.5rem;    /* samme som membership */
+    margin-left: -1.5rem;
+    min-height: 350px;        /* samme højde som membership */
   }
 
   .image-column {
     display: block;
-    max-width: 600px;
+    flex: 1;                  /* billede fylder samme som tekst */
+    max-width: none;
   }
 
   .image-column img {
@@ -297,5 +300,16 @@ button:disabled {
   .mobile-image {
     display: none;
   }
+
+  .form-bottom {
+    flex-direction: row;       /* side om side */
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  button {
+    margin-top: 0;             /* knappen justeres ind */
+  }
+
 }
 </style>
