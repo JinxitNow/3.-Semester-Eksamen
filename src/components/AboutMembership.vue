@@ -3,7 +3,7 @@
     <section class="membership-section">
       <div class="text-column">
         <div class="text-content">
-          <h2>Bliv en del af <i>Ung i Odeon</i></h2>
+          <h2>Bliv en del af <i>Ung i ODEON</i></h2>
 
           <!-- MOBILBILLEDE -->
           <div class="mobile-image">
@@ -13,15 +13,15 @@
           </div>
 
           <p class="intro">
-            Er du mellem 18 og 35 år? Så kan du gratis blive medlem af Ung i Odeon – et fællesskab for unge, hvor du får adgang til særlige fordele og oplevelser.
+            Er du mellem 18 og 35 år? Så kan du gratis blive medlem af Ung i ODEON – et fællesskab for unge, hvor du får adgang til særlige fordele og oplevelser.
           </p>
 
           <h3 class="subheading">Det får du som medlem:</h3>
           <ul class="benefits">
             <li><strong>Gratis medlemskab</strong> – ingen skjulte gebyrer</li>
             <li><strong>Rabatter</strong> på udvalgte shows og arrangementer</li>
-            <li><strong>10 % rabat</strong> på menuer i Odeons café</li>
-            <li><strong>Tilbud</strong> fra Odeons samarbejdspartnere</li>
+            <li><strong>10 % rabat</strong> på menuer i ODEON café</li>
+            <li><strong>Tilbud</strong> fra ODEONs samarbejdspartnere</li>
             <li><strong>Events</strong> og aktiviteter for alle medlemmer</li>
             <li><strong>Gratis arrangementer</strong> for forældre</li>
           </ul>
@@ -133,8 +133,7 @@ button:hover {
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 6px;
-}
+ }
 
 .image-wrapper img {
   width: 100%;
