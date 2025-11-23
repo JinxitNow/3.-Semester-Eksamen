@@ -146,11 +146,17 @@ onMounted(fetchEvents)
 
 <template>
   <section class="login-event-page">
+
+     <div class="event-adm">
+        <h2>Administration af events</h2>
+        <p class="eventadm-subtitle">Opret, se, opdater eller slet events</p>
+      </div>
+
     <div class="container">
 
-     <LoginShortcuts />
+    <LoginShortcuts />
 
-      <!-- Formular kolonne -->
+     
       <div class="column form-column">
         <h4>{{ editingEventId ? 'Rediger event' : 'Opret nyt event' }}</h4>
         <form @submit.prevent="submitEvent">
@@ -266,6 +272,8 @@ onMounted(fetchEvents)
 </template>
 
 <style scoped>
+
+
 .container {
   display: flex;
   gap: 2rem;
@@ -486,6 +494,22 @@ onMounted(fetchEvents)
     width: 100%;
     padding: 0.8rem;
   }
+
+  @media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .dashboard-heading {
+    text-align: center;
+  }
+}
 }
 
 /* Event billeder og info */
@@ -538,5 +562,27 @@ onMounted(fetchEvents)
     font-size: 0.8rem;
   }
 }
+
+.event-adm {
+  width: 100%;
+  text-align: left;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
+.event-adm h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #796535;
+  margin-left: 15rem;
+}
+
+.eventadm-subtitle {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  color: #927e47;
+  margin-left: 15rem;
+ }
 
 </style>
