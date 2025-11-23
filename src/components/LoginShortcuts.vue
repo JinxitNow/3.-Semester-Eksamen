@@ -47,6 +47,7 @@ export default {
 </script>
 
 <style scoped>
+/* Sidebar styles (desktop/tablet) */
 .admin-sidebar {
   position: fixed;
   top: 160px;
@@ -57,10 +58,24 @@ export default {
   padding-left: 3.8rem;
   padding-top: 3rem;
   padding-right: 1rem;
-  z-index: 1; /* lavt z-index, så footeren kan ligge ovenpå */
+  z-index: 1000;
   border-radius: 0 16px 16px 0;
   box-shadow: 2px 0 6px rgba(0,0,0,0.1);
 }
+
+/* Mobil: skjul sidebar helt */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    display: none;
+  }
+
+  /* Fjern margin på main-indhold, så der ikke er hul */
+  .main-content {
+    margin-left: 0;
+    padding-left: 1rem; /* valgfrit, så indhold ikke klistrer til kanten */
+  }
+}
+
 
 
 .admin-sidebar nav ul {

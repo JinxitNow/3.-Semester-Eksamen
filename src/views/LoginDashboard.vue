@@ -1,23 +1,19 @@
 <script setup>
 import { useRouter } from "vue-router";
+import LoginShortcuts from '../components/LoginShortcuts.vue'
 
 const router = useRouter();
 
 function goTo(path) {
   router.push(path);
 }
-import LoginShortcuts from '../components/LoginShortcuts.vue'
-
 </script>
-
 
 <template>
   <LoginShortcuts /> 
   <section class="dashboard-page">
-    
     <h2 class="dashboard-title">Dashboard</h2>
     <div class="dashboard-grid">
-
 
       <!-- Kolonne 2: Opret Events -->
       <div class="column">
@@ -46,13 +42,10 @@ import LoginShortcuts from '../components/LoginShortcuts.vue'
 
 <style scoped>
 .dashboard-page {
-  display: flex;        /* to kolonner */
-  align-items: flex-start;
+  margin-left: 240px;   /* plads til sidebar på desktop */
   padding: 2rem;
-  gap: 2rem;            /* afstand mellem sidebar og indhold */
-background-color: #E4E3E1;
+  background-color: #E4E3E1;
 }
-
 
 .dashboard-title {
   text-align: center;
@@ -108,12 +101,6 @@ background-color: #E4E3E1;
   background-color: #a49364;
 }
 
-.dashboard-page {
-  margin-left: 240px;   /* samme bredde som din sidebar */
-  padding: 2rem;
-}
-
-
 /* Primære knapper */
 .primary-btn {
   padding: 0.6rem 1rem;
@@ -134,6 +121,13 @@ background-color: #E4E3E1;
 @media (max-width: 1024px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    margin-left: 0;   /* fjern sidebar-margin på mobil */
+    padding: 1rem;    /* lidt mindre padding */
   }
 }
 </style>

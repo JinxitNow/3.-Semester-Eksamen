@@ -74,10 +74,7 @@ export default {
 <style scoped>
 .footer {
   background-color: #efefef;
-  padding: 20px 10px 0;
-  border-top: 1px solid #947E4A;
-  position: relative; /* eller fixed hvis du vil have den altid synlig */
-  z-index: 10;        /* højere end sidebar */
+  padding: 20px 1 0px;
 }
 
 /* Mobile first: 2 kolonner */
