@@ -335,7 +335,7 @@ function goToPage(page) {
   left: 0;
   width: 220px;
   background-color: #fff;
-  border: 1px solid #84754e;
+  border: 1px solid #927E47;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   z-index: 100;
@@ -347,11 +347,11 @@ function goToPage(page) {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #84754e;
+  color: #927E47;
 }
 
 .dropdown-item:hover {
-  background-color: #84754e;
+  background-color: #927E49;
   color: #fff;
 }
 
