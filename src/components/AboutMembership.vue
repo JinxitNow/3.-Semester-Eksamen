@@ -18,12 +18,12 @@
 
           <h3 class="subheading">Det får du som medlem:</h3>
           <ul class="benefits">
-            <li><strong>Gratis medlemskab</strong> – ingen skjulte gebyrer</li>
-            <li><strong>Rabatter</strong> på udvalgte shows og arrangementer</li>
-            <li><strong>10 % rabat</strong> på menuer i ODEON café</li>
-            <li><strong>Tilbud</strong> fra ODEONs samarbejdspartnere</li>
-            <li><strong>Events</strong> og aktiviteter for alle medlemmer</li>
-            <li><strong>Gratis arrangementer</strong> for forældre</li>
+            <li><strong>- Gratis medlemskab</strong> – ingen skjulte gebyrer</li>
+            <li><strong>- Rabatter</strong> på udvalgte shows og arrangementer</li>
+            <li><strong>- 10 % rabat</strong> på menuer i ODEON café</li>
+            <li><strong>- Tilbud</strong> fra ODEONs samarbejdspartnere</li>
+            <li><strong>- Events</strong> og aktiviteter for alle medlemmer</li>
+            <li><strong>- Gratis arrangementer</strong> for forældre</li>
           </ul>
 
           <div class="button-wrapper">
