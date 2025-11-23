@@ -10,7 +10,7 @@
 
           <!-- MOBILBILLEDE -->
           <div class="mobile-image">
-            <img src="/img/event1.webp" alt="Medlemskort" />
+            <img src="/img/medlemskort.png" alt="Medlemskort" />
           </div>
 
           <!-- FORM -->
@@ -71,7 +71,7 @@
 
       <!-- DESKTOPBILLEDE -->
       <div class="image-column">
-        <img src="/img/event1.webp" alt="Medlemskort" />
+        <img src="/img/medlemskort.png" alt="Medlemskort" />
       </div>
     </section>
   </div>
@@ -180,6 +180,7 @@ async function onSubmit() {
 
 .mobile-image {
   margin-bottom: 1.5rem;
+
 }
 
 .mobile-image img {
@@ -187,7 +188,7 @@ async function onSubmit() {
   height: auto;
   object-fit: cover;
   display: block;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 .image-column {
@@ -272,8 +273,6 @@ button:disabled {
     gap: 1rem 1.5rem;
   }
 
-
-  
   .registration-section {
     flex-direction: row;
     justify-content: space-between;
@@ -285,16 +284,17 @@ button:disabled {
   }
 
   .image-column {
-    display: block;
-    flex: 1;                  /* billede fylder samme som tekst */
-    max-width: none;
+    display: flex;
+    justify-content: center;   /* centrer billedet */
+    align-items: center;
+    flex: 1;
   }
 
   .image-column img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 6px;
+    width: 80%;
+    height: auto;
+    object-fit: contain; 
+    border-radius: 10px;
   }
 
   .mobile-image {
