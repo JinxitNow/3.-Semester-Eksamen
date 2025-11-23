@@ -55,7 +55,7 @@ watch(showForm, async (newVal) => {
       Det er helt gratis. Musik, workshops og overraskelser venter på dig. Tag dine venner under armen og oplev ODEON på sit 
       mest magiske i december!"
       linkText="Se dem her"
-      linkUrl="/events/kor"
+      linkUrl="/events/gratis"
     />
 
     <br />
