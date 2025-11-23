@@ -1,51 +1,56 @@
 <script setup>
-import { ref } from "vue";
-import Hero from "../components/Hero.vue";
-import EventKalender from "../components/Eventkalender.vue";
-import Registration from "../components/Registration.vue";
-import InfoBoxes from "../components/InfoBoxes.vue";
-const showYouthEvents = ref(true);
-</script>
+import { ref } from "vue"
+import Hero from "../components/Hero.vue"
+import EventKalender from "../components/Eventkalender.vue"
+import Registration from "../components/Registration.vue"
+import InfoBoxes from "../components/InfoBoxes.vue"
+import AboutMembership from "../components/AboutMembership.vue"
 
+const showYouthEvents = ref(true)
+const showForm = ref(false)
+</script>
 
 <template>
   <div id="app">
     <Hero />
-<br></br>
+    <br />
 
- <InfoBoxes
-  image="src/assets/img/cafe1.webp"
-  title="Biv medlem i dag og joine et stor fællesskab"
-  text="UNG I ODEON samler alle de fedeste events for dig – koncerter, foredrag, workshops og meget mere.
+    <InfoBoxes
+      image="src/assets/img/cafe1.webp"
+      title="Biv medlem i dag og joine et stor fællesskab"
+      text="UNG I ODEON samler alle de fedeste events for dig – koncerter, foredrag, workshops og meget mere.
 Hold dig opdateret og oplev, hvad der rører sig på ODEON – lige her, lige nu!
 
 Få rabatter på events, mad og drikkevarer i cafeen, og mange andre ting som medlem af UNG I ODEON!"
-  linkText="Bliv gratis medlem"
-  linkUrl="/events/kor"
-/>
+      linkText="Bliv gratis medlem"
+      linkUrl="/events/kor"
+    />
 
-
-   <!-- Event feed med id -->
+    <!-- Event feed -->
     <section id="event-feed" class="event-feed">
-    <EventKalender :showYouthEvents="showYouthEvents" />
+      <EventKalender :showYouthEvents="showYouthEvents" />
     </section>
 
-<br></br>
+    <br />
 
-     <InfoBoxes
-  image="src/assets/img/cafe1.webp"
-  title="Biv medlem i dag og joine et stor fællesskab"
-  text="UNG I ODEON samler alle de fedeste events for dig – koncerter, foredrag, workshops og meget mere.
+    <InfoBoxes
+      image="src/assets/img/cafe1.webp"
+      title="Biv medlem i dag og joine et stor fællesskab"
+      text="UNG I ODEON samler alle de fedeste events for dig – koncerter, foredrag, workshops og meget mere.
 Hold dig opdateret og oplev, hvad der rører sig på ODEON – lige her, lige nu!
 
 Få rabatter på events, mad og drikkevarer i cafeen, og mange andre ting som medlem af UNG I ODEON!"
-  linkText="Bliv gratis medlem"
-  linkUrl="/events/kor"
-/>
-  
-<br></br>
-    <Registration />
-    <br></br>
-    
+      linkText="Bliv gratis medlem"
+      linkUrl="/events/kor"
+    />
+
+    <br />
+
+    <div>
+      <AboutMembership v-if="!showForm" @signup="showForm = true" />
+      <Registration v-else />
+    </div>
+
+    <br />
   </div>
 </template>

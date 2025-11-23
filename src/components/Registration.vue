@@ -8,18 +8,13 @@
           <h2>Bliv en del af UNG I ODEON</h2>
           <p class="subtitle">Tilmeld dig gratis nu</p>
 
-          <!-- BILLEDER VISUELT INDBEDT I MOBIL -->
-          <div class="mobile-image-stack">
-            <img src="/img/event1.webp" class="hero-img" alt="Medlemskort" />
-            <div class="bottom-stack">
-              <img src="/img/choir.jpg" alt="Unge synger" />
-              <img src="/img/cafe3.jpg" alt="Café Odeon" />
-            </div>
+          <!-- MOBILBILLEDE -->
+          <div class="mobile-image">
+            <img src="/img/event1.webp" alt="Medlemskort" />
           </div>
 
           <!-- FORM -->
           <form @submit.prevent="onSubmit" class="form-grid">
-
             <div class="input-group">
               <label>Navn og Efternavn *</label>
               <input v-model="fullName" />
@@ -67,11 +62,10 @@
                 Ja tak til nyhedsbrev
               </label>
 
-        <button type="submit" :disabled="loading">
-        TILMELD
-        <span v-if="loading" class="spinner"></span>
-        </button>
-
+              <button type="submit" :disabled="loading">
+                TILMELD
+                <span v-if="loading" class="spinner"></span>
+              </button>
             </div>
           </form>
 
@@ -79,65 +73,58 @@
         </div>
       </div>
 
-      <!-- DESKTOP IMAGE COLUMN -->
+      <!-- DESKTOPBILLEDE -->
       <div class="image-column">
-        <div class="image-wrapper">
-          <img src="/img/event1.webp" class="hero-img" alt="Medlemskort" />
-          <div class="bottom-stack">
-            <img src="/img/choir.jpg" alt="Unge synger" />
-            <img src="/img/cafe3.jpg" alt="Café Odeon" />
-          </div>
-        </div>
+        <img src="/img/event1.webp" alt="Medlemskort" />
       </div>
-
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import emailjs from "@emailjs/browser";
-import { database } from "../firebase";
-import { ref as dbRef, push, set } from "firebase/database";
+import { ref } from "vue"
+import emailjs from "@emailjs/browser"
+import { database } from "../firebase"
+import { ref as dbRef, push, set } from "firebase/database"
 
-const fullName = ref("");
-const birthday = ref("");
-const address1 = ref("");
-const address2 = ref("");
-const email = ref("");
-const phone = ref("");
-const acceptTerms = ref(false);
-const acceptPolicy = ref(false);
-const message = ref("");
-const loading = ref(false);
+const fullName = ref("")
+const birthday = ref("")
+const address1 = ref("")
+const address2 = ref("")
+const email = ref("")
+const phone = ref("")
+const acceptTerms = ref(false)
+const acceptPolicy = ref(false)
+const message = ref("")
+const loading = ref(false)
 
-const errors = ref({});
+const errors = ref({})
 
 function validate() {
-  errors.value = {};
-  if (!fullName.value) errors.value.fullName = "Udfyld dit fulde navn.";
-  if (!birthday.value) errors.value.birthday = "Vælg din fødselsdag.";
-  if (!address1.value) errors.value.address1 = "Udfyld din adresse.";
-  if (!address2.value) errors.value.address2 = "Udfyld postnummer og by.";
-  if (!email.value.includes("@")) errors.value.email = "Udfyld en gyldig email.";
-  if (!phone.value) errors.value.phone = "Udfyld mobilnummer.";
-  if (!acceptTerms.value) errors.value.acceptTerms = "Du skal acceptere handelsbetingelserne.";
-  return Object.keys(errors.value).length === 0;
+  errors.value = {}
+  if (!fullName.value) errors.value.fullName = "Udfyld dit fulde navn."
+  if (!birthday.value) errors.value.birthday = "Vælg din fødselsdag."
+  if (!address1.value) errors.value.address1 = "Udfyld din adresse."
+  if (!address2.value) errors.value.address2 = "Udfyld postnummer og by."
+  if (!email.value.includes("@")) errors.value.email = "Udfyld en gyldig email."
+  if (!phone.value) errors.value.phone = "Udfyld mobilnummer."
+  if (!acceptTerms.value) errors.value.acceptTerms = "Du skal acceptere handelsbetingelserne."
+  return Object.keys(errors.value).length === 0
 }
 
 function generateCode(len = 6) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join("")
 }
 
 async function onSubmit() {
-  if (!validate()) return;
+  if (!validate()) return
 
-  loading.value = true;
+  loading.value = true
   try {
-    const membersRef = dbRef(database, "members");
-    const newMember = push(membersRef);
-    const code = generateCode();
+    const membersRef = dbRef(database, "members")
+    const newMember = push(membersRef)
+    const code = generateCode()
 
     await set(newMember, {
       fullName: fullName.value,
@@ -148,7 +135,7 @@ async function onSubmit() {
       phone: phone.value,
       membershipCode: code,
       createdAt: Date.now(),
-    });
+    })
 
     await emailjs.send(
       "service_viiagc2",
@@ -160,27 +147,26 @@ async function onSubmit() {
         member_id: newMember.key,
       },
       "NBxFLic-Wi_ObTiV8"
-    );
+    )
 
-    message.value = "Du er nu medlem! Tjek din email.";
+    message.value = "Du er nu medlem! Tjek din email."
   } catch {
-    message.value = "Der skete en fejl. Prøv igen.";
+    message.value = "Der skete en fejl. Prøv igen."
   }
-  loading.value = false;
+  loading.value = false
 }
 </script>
 
 <style scoped>
-/*************** FULL WIDTH BACKGROUND ***************/
 .registration-wrapper {
   background: #E4E3E1;
   width: 100vw;
   margin-left: -3.8rem;
   margin-right: -3.8rem;
   padding: 3.8rem;
+  box-sizing: border-box;
 }
 
-/*************** LAYOUT ***************/
 .registration-section {
   display: flex;
   flex-direction: column;
@@ -191,66 +177,52 @@ async function onSubmit() {
 .form-column {
   max-width: 600px;
   color: #796535;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  box-sizing: border-box;
 }
 
-.mobile-image-stack {
-  display: flex;
-  flex-direction: column;
-  gap: .3rem;
+.mobile-image {
   margin-bottom: 1.5rem;
-  padding-right: 1.8rem;  /* højre padding */
-  box-sizing: border-box; /* gør at padding tæller med i bredden */
 }
 
-.mobile-image-stack img {
+.mobile-image img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
+  border-radius: 6px;
 }
 
-.mobile-image-stack img,
-.image-column img {
-  width: 100%;
-  object-fit: cover;
+.image-column {
+  display: none;
 }
 
-.bottom-stack {
-  display: flex;
-  gap: .3rem;
-  height: 200px;              /* fast højde på mobil */
-  
-}
-
-.bottom-stack img {
-  flex: 1;                    /* begge billeder deler pladsen ligeligt */
-  object-fit: cover;          /* beskær så de fylder hele højden */
-  height: 100%;               /* match containerens højde */
-}
-
-
-/*************** FORM ***************/
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;   /* mobil: én kolonne */
   gap: 1rem .5rem;
+  width: 100%;                 /* fyld hele bredden */
+  box-sizing: border-box;       /* inkluder padding i bredden */
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   gap: .1rem;
+  width: 100%;                  /* input fylder hele kolonnen */
 }
 
 input {
+  width: 100%;                  /* input fylder hele containeren */
   padding: 10px;
   border: 1px solid #ccc;
   font-size: 15px;
   background: #fff;
   color: #4B4B4B;
+  box-sizing: border-box;       /* undgå overflow */
 }
 
-/* DATE INPUT STYLING */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: brightness(0.55) sepia(1) saturate(0.5) hue-rotate(10deg);
   cursor: pointer;
@@ -291,20 +263,18 @@ button:disabled {
   border-radius: 50%;
   display: inline-block;
   animation: spin .9s linear infinite;
-  margin-left: 8px; /* hvis spinneren er til højre */
+  margin-left: 8px;
 }
 
 @keyframes spin { to { transform: rotate(360deg);} }
 
-/* Mobil: skjul desktop-billeder */
-@media (max-width: 899px) {
-  .image-column {
-    display: none;
-  }
-}
-
-/*************** DESKTOP ***************/
 @media (min-width: 900px) {
+
+.form-grid {
+    grid-template-columns: 1fr 1fr; /* to kolonner */
+    gap: 1rem 1.5rem;
+  }
+
   .registration-section {
     flex-direction: row;
     justify-content: space-between;
@@ -312,22 +282,20 @@ button:disabled {
     padding-block: 4rem;
   }
 
-  .form-grid {
-    gap: 1rem 1.5rem; /* row-gap 1rem, column-gap 1.5rem */
-  }
-
-
   .image-column {
-    display: flex;
+    display: block;
     max-width: 600px;
   }
 
-  .mobile-image-stack {
-    display: none;
+  .image-column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
   }
 
-  .bottom-stack {
-    height: 200px;
+  .mobile-image {
+    display: none;
   }
 }
 </style>
