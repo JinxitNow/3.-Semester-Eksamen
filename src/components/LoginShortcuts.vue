@@ -9,7 +9,7 @@
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/medlems">
+          <RouterLink to="/medlem">
             <img src="/icons/members.png" alt="Medlemsliste" class="icon" />
             Medlemsliste
           </RouterLink>
