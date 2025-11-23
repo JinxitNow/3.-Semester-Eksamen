@@ -6,7 +6,6 @@ import Registration from "../components/Registration.vue"
 import InfoBoxes from "../components/InfoBoxes.vue"
 import AboutMembership from "../components/AboutMembership.vue"
 
-const showYouthEvents = ref(true)
 const showForm = ref(false)
 </script>
 
@@ -28,7 +27,7 @@ Få rabatter på events, mad og drikkevarer i cafeen, og mange andre ting som me
 
     <!-- Event feed -->
     <section id="event-feed" class="event-feed">
-      <EventKalender :showYouthEvents="showYouthEvents" />
+      <EventKalender/>
     </section>
 
     <br />

@@ -19,7 +19,7 @@
     <div class="hero-container">
       <div class="hero-content">
         <h1>UNG I ODEON</h1>
-        <button>SE UDVALGTE EVENTS</button>
+        <a href="#event-feed" class="hero-button">SE UDVALGTE EVENTS</a>
       </div>
     </div>
   </div>
@@ -114,48 +114,43 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
-/* Tekst og knap */
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 260px;
-}
-
-.hero-content h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #796535;
-  line-height: 1.1;
-}
-
-.hero-content button {
+/* Hero-knap (mobile first) */
+.hero-content .hero-button {
+  display: inline-block;
   padding: 12px 24px;
   background-color: #947e4a;
   color: white;
   border: none;
+  border-radius: 6px;
   font-size: 0.95rem;
-  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* DESKTOP */
+.hero-content .hero-button:hover {
+  background-color: #a08b5d;
+  transform: translateY(-2px);
+}
+
+.hero-content .hero-button:active {
+  transform: translateY(0);
+}
+
+/* Tablet / desktop */
 @media (min-width: 768px) {
-  .hero-wrapper {
-    height: 480px;
-  }
-
-  .hero-content {
-    max-width: 600px;
-  }
-
-  .hero-content h1 {
-    font-size: 3rem;
-  }
-
-  .hero-content button {
+  .hero-content .hero-button {
     padding: 14px 32px;
     font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content .hero-button {
+    padding: 16px 36px;
+    font-size: 1.1rem;
   }
 }
 </style>

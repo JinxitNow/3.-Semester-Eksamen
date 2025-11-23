@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import Eventcard from "../components/Eventcard.vue";
 
 const events = ref([]);
 const favorites = ref([]);
@@ -51,55 +50,3 @@ const removeFavorite = (eventId) => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.favorite-feed {
-  padding: 2rem;
-}
-
-
-.favorites-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-right: 3rem;
-}
-
-.favorites-title {
-  color: #84754e;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: default;
-}
-
-
-.event-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.2rem;
-}
-
-
-.remove-btn {
-  background: #84754e;
-  color: #0b0b0b;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-
-}
-
-.remove-btn:hover {
-  background: #a08b5d;
-}
-
-/*Hvis ingen favoritter er valgt */
-.favorite-feed .empty-message {
-  text-align: center;
-  color: #84754e !important; /* !important tvinger farven */
-  font-size: 1.2rem;
-  margin-top: 2rem;
-}
-</style>
