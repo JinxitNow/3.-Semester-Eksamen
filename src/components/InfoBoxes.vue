@@ -85,13 +85,13 @@ export default {
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: 550;
-  color: #796535;
+  color: #927E47;
 }
 
 .info-box p {
   font-size: 16px;
   font-weight: 200;
-  color: #796535;
+  color: #927E47;
 }
 
 /* Link styling - underline kun */
@@ -99,7 +99,7 @@ export default {
   display: inline-block;
   margin-top: 0.5rem;
   font-weight: 550;
-  color: #796535;
+  color: #927E47;
   text-decoration: underline;
   cursor: pointer;
 }

@@ -235,7 +235,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   align-items: center;
   gap: 7px;
-  accent-color: #84754e;
+  accent-color: #927E47;
 }
 
 
@@ -243,7 +243,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 button {
   margin-top: 1rem;
   padding: .7rem 1.4rem;
-  background: #796535;
+  background: #927E47;
   color: white;
   border: none;
   cursor: pointer;

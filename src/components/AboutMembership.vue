@@ -67,7 +67,7 @@ import myImage from '../assets/img/ungiodeon.webp'
 
 .text-column {
   padding: 0 1.5rem;
-  color: #796535;
+  color: #927e47;
 }
 
 .text-content {
@@ -111,7 +111,7 @@ h2 {
 
 button {
   padding: 0.8rem 1.6rem;
-  background: #796535;
+  background: #927E47;
   color: white;
   border: none;
   font-weight: 300;

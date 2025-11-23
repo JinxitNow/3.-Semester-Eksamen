@@ -210,12 +210,12 @@ function goToPage(page) {
 
 /* Aktiv filter farve */
 .action-btn.active {
-  background-color: #84754e !important;
+  background-color: #927E47 !important;
   color: white !important;
   font-weight: bold;
 }
 .dropdown-item.active {
-  background-color: #84754e !important;
+  background-color: #927E47 !important;
   color: white !important;
   font-weight: bold;
 }
@@ -246,19 +246,19 @@ function goToPage(page) {
 }
 
 .checkbox-container input[type="checkbox"] {
-  accent-color: #84754e;
+  accent-color: #927E47;
   width: 16px;
   height: 16px;
 }
 
 .checkbox-text {
-  color: #84754e;
+  color: #927E47;
   font-size: 0.8rem;
 }
 
 .action-btn,
 .favorites-btn {
-  background-color: #84754e;
+  background-color: #927E47;
   color: #fff;
   border-radius: 8px;
   padding: 8px 10px;
