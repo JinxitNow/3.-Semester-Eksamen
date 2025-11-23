@@ -5,7 +5,7 @@ import { database } from '../firebase.js'
 import { ref as dbRef, onValue } from "firebase/database"
 
 // State
-const showAll = ref(false)                // Checkbox "Vis alle"
+const showAll = ref(false)
 const selectedCategory = ref("")          // Dropdown filter, "" = Ingen filter → vis "Unge"
 const currentPage = ref(0)
 const eventsPerPage = 6

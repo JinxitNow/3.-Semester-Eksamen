@@ -1,30 +1,3 @@
-<template>
-  <div class="hero-wrapper">
-    <!-- Slideshow i fuld bredde -->
-    <div class="slideshow">
-      <transition name="fade">
-        <img
-          :src="images[currentIndex]"
-          :key="images[currentIndex]"
-          class="slide-image"
-          alt="slideshow image"
-        />
-      </transition>
-    </div>
-
-    <!-- Overlay i fuld bredde -->
-    <div class="hero-overlay"></div>
-
-    <!-- Indhold med korrekt padding -->
-    <div class="hero-container">
-      <div class="hero-content">
-        <h1>UNG I ODEON</h1>
-        <a href="#event-feed" class="hero-button">SE UDVALGTE EVENTS</a>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
@@ -54,6 +27,35 @@ onBeforeUnmount(() => {
   clearInterval(interval);
 });
 </script>
+
+<template>
+  <div class="hero-wrapper">
+    <!-- Slideshow i fuld bredde -->
+    <div class="slideshow">
+      <transition name="fade">
+        <img
+          :src="images[currentIndex]"
+          :key="images[currentIndex]"
+          class="slide-image"
+          alt="slideshow image"
+        />
+      </transition>
+    </div>
+
+    <!-- Overlay i fuld bredde -->
+    <div class="hero-overlay"></div>
+
+    <!-- Indhold med korrekt padding -->
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>UNG I ODEON</h1>
+        <a href="#event-feed" class="hero-button">SE UDVALGTE EVENTS</a>
+      </div>
+    </div>
+  </div>
+</template>
+
+
 
 <style scoped>
 /* Wrapper der sikrer fuld bredde baggrund */
