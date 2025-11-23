@@ -106,6 +106,9 @@ export default {
   width: 16px;
   height: 16px;
   vertical-align: middle;
-  margin-right: 6px; /* lille afstand til teksten */
+  margin-right: 6px;   /* afstand til teksten */
+  position: relative;
+  top: -2px;           /* rykker ikonet 2px op */
 }
+
 </style>

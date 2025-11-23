@@ -6,78 +6,87 @@ export default {
 
 <template>
   <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>Åbningstider</h3>
-        <p><strong>Café Odeon:</strong><br />Man–Fre: 08:00–18:00<br />Lør–Søn: 10:00–16:00</p>
-        <p><strong>ODEON:</strong><br />Man–Fre: 08:00–22:00<br />Lør–Søn: 10:00–22:00</p>
-      </div>
+    <div class="footer-inner">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Åbningstider</h3>
+          <p><strong>Café Odeon:</strong><br />Man–Fre: 08:00–18:00<br />Lør–Søn: 10:00–16:00</p>
+          <p><strong>ODEON:</strong><br />Man–Fre: 08:00–22:00<br />Lør–Søn: 10:00–22:00</p>
+        </div>
 
-      <div class="footer-section contact-section">
-        <h3>Kontakt</h3>
-        <p>Odeons Kvarter 1<br />5000 Odense C</p>
-        <p>Mail: <a href="mailto:odeon@comwell.com">odeon@comwell.com</a></p>
-        <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
-        <p>CVR: 29516200</p>
-
-        <div class="meetings-section">
-          <h4>Møder & konferencer</h4>
-          <p>Mail: <a href="mailto:konference.odense@comwell.com">konference.odense@comwell.com</a></p>
+        <div class="footer-section contact-section">
+          <h3>Kontakt</h3>
+          <p>Odeons Kvarter 1<br />5000 Odense C</p>
+          <p>Mail: <a href="mailto:odeon@comwell.com">odeon@comwell.com</a></p>
           <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
+          <p>CVR: 29516200</p>
+
+          <div class="meetings-section">
+            <h4>Møder & konferencer</h4>
+            <p>Mail: <a href="mailto:konference.odense@comwell.com">konference.odense@comwell.com</a></p>
+            <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
+          </div>
         </div>
-      </div>
 
-      <div class="footer-section">
-        <h3>Følg med</h3>
-        <ul>
-          <li><a href="#">Presse</a></li>
-          <li><a href="#">Nyhedsbrev</a></li>
-        </ul>
-        <div class="social-icons">
-          <a href="#">Facebook</a>
-          <a href="#">Instagram</a>
+        <div class="footer-section">
+          <h3>Følg med</h3>
+          <ul>
+            <li><a href="#">Presse</a></li>
+            <li><a href="#">Nyhedsbrev</a></li>
+          </ul>
+          <div class="social-icons">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+          </div>
         </div>
-      </div>
 
-      <div class="footer-section">
-        <h3>Genveje</h3>
-        <ul>
-          <li><a href="#">Om ODEON</a></li>
-          <li><a href="#">Historie</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Mad og drikke</a></li>
-          <li><a href="#">Konference og møder</a></li>
-          <li><a href="#">Fester</a></li>
-          <li><a href="#">Overnatning</a></li>
-        </ul>
-      </div>
+        <div class="footer-section">
+          <h3>Genveje</h3>
+          <ul>
+            <li><a href="#">Om ODEON</a></li>
+            <li><a href="#">Historie</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Mad og drikke</a></li>
+            <li><a href="#">Konference og møder</a></li>
+            <li><a href="#">Fester</a></li>
+            <li><a href="#">Overnatning</a></li>
+          </ul>
+        </div>
 
-      <div class="footer-section">
-        <h3>Politikker</h3>
-        <ul>
-          <li><a href="#">Privatlivspolitik</a></li>
-          <li><a href="#">Cookiepolitik</a></li>
-          <li><a href="#">Billedpolitik</a></li>
-        </ul>
-      </div>
+        <div class="footer-section">
+          <h3>Politikker</h3>
+          <ul>
+            <li><a href="#">Privatlivspolitik</a></li>
+            <li><a href="#">Cookiepolitik</a></li>
+            <li><a href="#">Billedpolitik</a></li>
+          </ul>
+        </div>
 
-      <div class="footer-section">
-        <h3>Sponsoraftale</h3>
-        <p>ODEON er sponsoreret af Albani</p>
+        <div class="footer-section">
+          <h3>Sponsoraftale</h3>
+          <p>ODEON er sponsoreret af Albani</p>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
-
-
 <style scoped>
 .footer {
   background-color: #efefef;
-  padding: 20px 1 0px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  width: 100vw;          /* fylder hele viewport-bredden */
+  position: relative;
+  left: -3.8rem;          /* neutraliser global body padding */
 }
 
-/* Mobile first: 2 kolonner */
+.footer-inner {
+  padding-left: 3.8rem;   /* behold indholdets padding */
+  padding-right: 3.8rem;
+  padding-top: 40px;      /* ekstra luft oppe */
+  padding-bottom: 20px;
+}
+
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -99,13 +108,6 @@ export default {
   font-weight: 550;
   color: #796535;
 }
-
-/* Kun Åbningstider-kolonnen */
-.footer-section:first-child p {
-  margin-bottom: 6px; /* eller juster til det ser ens ud */
-  line-height: 1.9;   /* evt. lidt højere for bedre spacing */
-}
-
 
 /* Tekst og links */
 .footer-section p,
@@ -152,7 +154,6 @@ export default {
 /* Desktop: 6 kolonner */
 @media (min-width: 1024px) {
   .footer-container {
-    display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 40px;
   }
