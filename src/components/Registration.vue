@@ -285,9 +285,10 @@ button:disabled {
 
   .image-column {
     display: flex;
-    justify-content: center;   /* centrer billedet */
+    justify-content: flex-end;   /* centrer billedet */
     align-items: center;
     flex: 1;
+    padding-right: 2.0rem;
   }
 
   .image-column img {
@@ -295,6 +296,7 @@ button:disabled {
     height: auto;
     object-fit: contain; 
     border-radius: 10px;
+    
   }
 
   .mobile-image {
