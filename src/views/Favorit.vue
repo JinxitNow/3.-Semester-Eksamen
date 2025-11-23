@@ -115,7 +115,7 @@ const goBack = () => {
 .back-btn {
   background: none;
   border: 1px solid #84754e;
-  color: #84754e;
+  color: #927E47;
   padding: 0.4rem 1rem;
   border-radius: 6px;
   cursor: pointer;

@@ -143,7 +143,7 @@ watch(() => props.id, (newId) => {
 }
 
 .back-btn {
-  background: #84754e;
+  background: #927E47;
   color: #fff;
   border: none;
   padding: 0.3rem 0.6rem;
@@ -189,7 +189,7 @@ watch(() => props.id, (newId) => {
 }
 
 .buy-now-btn {
-  background-color: #84754e;
+  background-color: #927E47;
   color: white;
   border: none;
   padding: 0.6rem 1rem;

@@ -377,13 +377,13 @@ function goToPage(page) {
 .arrow-left {
   border-width: 8px 12px 8px 0;
   border-style: solid;
-  border-color: transparent #84754e transparent transparent;
+  border-color: transparent #927E47 transparent transparent;
 }
 
 .arrow-right {
   border-width: 8px 0 8px 12px;
   border-style: solid;
-  border-color: transparent transparent transparent #84754e;
+  border-color: transparent transparent transparent #927E47;
 }
 
 .arrow-left.disabled,
@@ -402,7 +402,7 @@ function goToPage(page) {
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
-  color: #84754e;
+  color: #927E47;
   display: flex;
   align-items: center;
 }
