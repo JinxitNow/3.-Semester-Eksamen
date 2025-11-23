@@ -4,10 +4,19 @@
     <div class="info-box" ref="box">
       <h3>{{ title }}</h3>
       <p>{{ text }}</p>
-      <a :href="linkUrl" class="info-link">{{ linkText }} ></a>
+      
+      <!-- Klik-event hvis man vil åbne Registration direkte -->
+   <router-link
+  :to="linkUrl || '#'"
+  class="info-button"
+  @click.prevent="$emit('click')"
+>
+  {{ linkText }}
+</router-link>
+
     </div>
 
-    <!-- Baggrundsbillede der starter ved midten af infoboksen -->
+    <!-- Baggrundsbillede -->
     <div
       class="image-side"
       :style="{
@@ -44,31 +53,29 @@ export default {
       if (!box || !wrapper) return;
       const boxWidth = box.offsetWidth;
       wrapper.style.setProperty('--box-width', `${boxWidth}px`);
-      wrapper.style.setProperty('--left-padding', '3.8rem'); // matcher global body-padding
+      wrapper.style.setProperty('--left-padding', '3.8rem');
     }
   }
 };
 </script>
 
 <style scoped>
-/* Ydre wrapper: fuld bredde, relativ til at kunne positionere billedet */
+/* --- beholder din CSS som før --- */
 .info-box-wrapper {
   position: relative;
   width: 100%;
   min-height: 360px;
   margin-bottom: 2rem;
-  /* variabler opdateres fra JS for præcis placering */
-  --box-width: 420px;     /* fallback hvis JS ikke når at køre */
-  --left-padding: 3.8rem; /* global body padding */
+  --box-width: 420px;
+  --left-padding: 3.8rem;
 }
 
-/* Infoboksen: lodret centreret, men fastholder venstre padding */
 .info-box {
   background-color: #E4E3E1;
   max-width: 420px;
   padding: 1.8rem;
-  position: absolute;       /* ændret fra relative */
-  top: 50%;                 /* lodret centrum */
+  position: absolute;
+  top: 50%;
   transform: translateY(-50%);
   z-index: 2;
   border: none;
@@ -77,41 +84,42 @@ export default {
 .info-box h3 {
   margin-bottom: 10px;
   font-size: 20px;
-  font-weight: 550; /* matcher dit look */
+  font-weight: 550;
   color: #796535;
 }
 
 .info-box p {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 200;
   color: #796535;
 }
 
-/* Link styling */
-.info-link {
+/* Link styling - underline kun */
+.info-button {
   display: inline-block;
-  margin-top: 8px;
-  font-weight: 400;
-  text-decoration: underline;
+  margin-top: 0.5rem;
+  font-weight: 550;
   color: #796535;
-  transition: color 0.3s ease;
+  text-decoration: underline;
+  cursor: pointer;
 }
-.info-link:hover { color: #947e4a; }
 
-/* Billedet ligger absolut og starter ved midten af infoboksen */
+.info-button:hover {
+  color: #947e4a;
+}
+
+/* Billede absolut */
 .image-side {
   position: absolute;
   top: 0;
   right: 0;
-  bottom: 0; /* fylder hele wrapper-højden */
-  /* left sættes dynamisk via inline style: calc(var(--left-padding) + var(--box-width)/2) */
+  bottom: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1;
 }
 
-/* Lys overlay på billede */
 .image-overlay {
   position: absolute;
   inset: 0;
@@ -119,14 +127,12 @@ export default {
   pointer-events: none;
 }
 
-/* Mobile: billede først, centreret, samme bredde som infoboksen */
 @media (max-width: 767px) {
   .info-box-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: unset;
-    margin-bottom: 2rem;
   }
 
   .image-side {
@@ -139,9 +145,8 @@ export default {
 
     width: 100%;
     max-width: 420px;
-    height: 200px; /* 👈 FIX – giver plads til billedet */
+    height: 200px;
     margin: 0 auto 12px;
-
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -161,12 +166,9 @@ export default {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
-    padding: 1.4rem;
   }
 }
 
-
-/* Tablet/desktop: lidt mere luft, men samme princip */
 @media (min-width: 768px) {
   .info-box-wrapper {
     min-height: 400px;

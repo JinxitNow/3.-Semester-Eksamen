@@ -4,9 +4,17 @@ import EventCard from './Eventcard.vue'
 import { database } from '../firebase.js'
 import { ref as dbRef, onValue } from "firebase/database"
 
+// --- Tilføjet prop pga filter i "læs mere"---
+const props = defineProps({
+  initialCategoryFilter: {
+    type: String,
+    default: ""   // tom = ingen filter
+  }
+})
+
 // State
 const showAll = ref(false)
-const selectedCategory = ref("")          // Dropdown filter, "" = Ingen filter → vis "Unge"
+const selectedCategory = ref(props.initialCategoryFilter)
 const currentPage = ref(0)
 const eventsPerPage = 6
 
@@ -92,6 +100,7 @@ const filteredEvents = computed(() => {
     e.categories?.includes(selectedCategory.value) && new Date(e.dateForSort || e.date) >= now
   )
 })
+
 
 // Pagination
 const maxPage = computed(() => Math.ceil(filteredEvents.value.length / eventsPerPage))
