@@ -42,7 +42,6 @@ watch(showForm, async (newVal) => {
         @click="showForm = true"
       />
     </div>
-    
 <div class="section-spacing"></div>
     <!-- Event feed -->
     <section id="event-feed" class="event-feed section-spacing">
@@ -82,6 +81,5 @@ watch(showForm, async (newVal) => {
 .section-spacing {
   margin-bottom: 5rem; /* justér til 2rem eller 4rem efter smag */
 }
-
 
 </style>
