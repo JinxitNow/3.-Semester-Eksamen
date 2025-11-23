@@ -111,6 +111,13 @@ function prevPage() {
 function goToPage(page) {
   currentPage.value = page
 }
+
+const props = defineProps({
+  showYouthEvents: {
+    type: Boolean,
+    default: false
+  }
+});
 </script>
 
 <template>
