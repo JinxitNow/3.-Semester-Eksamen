@@ -76,8 +76,6 @@ export default {
   }
 }
 
-
-
 .admin-sidebar nav ul {
   list-style: none;
   padding: 0;

@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { database } from '../firebase.js'
 import { ref as dbRef, push, set, onValue, remove, update } from 'firebase/database'
-
+import LoginShortcuts from '../components/LoginShortcuts.vue'   // 👈 shortcuts import
 // Dagens dato uden klokkeslæt
 const today = new Date().setHours(0, 0, 0, 0)
 
@@ -148,13 +148,7 @@ onMounted(fetchEvents)
   <section class="login-event-page">
     <div class="container">
 
-      <!-- Links kolonne -->
-      <div class="link-buttons">
-        <div class="link-btn"><router-link to="/dashboard">Forside</router-link></div>
-        <div class="link-btn"><router-link to="/medlems">Medlemsinformationer</router-link></div>
-        <div class="link-btn"><router-link to="/statistik">Statistik</router-link></div>
-        <div class="link-btn"><router-link to="/vejledninger">Brugervejledninger</router-link></div>
-      </div>
+     <LoginShortcuts />
 
       <!-- Formular kolonne -->
       <div class="column form-column">
@@ -277,6 +271,7 @@ onMounted(fetchEvents)
   gap: 2rem;
   padding: 2rem;
   align-items: flex-start;
+  margin-left: 240px;
 }
 
 .column {
@@ -495,6 +490,10 @@ onMounted(fetchEvents)
 
 /* Event billeder og info */
 @media (max-width: 768px) {
+.container {
+  margin-left: 0;
+}
+
   .event-item {
     flex-direction: column;
     padding: 0.6rem;
