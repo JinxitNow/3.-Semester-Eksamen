@@ -20,10 +20,10 @@ function handleBuyNow() {
   if (ticketClicked.value) return
   ticketClicked.value = true
   showTicketMessage.value = true
-  ticketMessage.value = "Du omdirigeres nu til Ticketmaster, vent venligst"
+  ticketMessage.value = "Du omdirigeres nu til billetudbyder, vent venligst"
 
   setTimeout(() => {
-    ticketMessage.value = "Desværre, Ticketmaster holder ferielukket, prøv igen en anden dag"
+    ticketMessage.value = "Desværre, der er ferielukket, prøv igen en anden dag"
   }, 5000)
 }
 
@@ -103,15 +103,16 @@ watch(() => props.id, (newId) => {
         </div>
       </div>
 
-      <!-- Køb nu-knap -->
+      <!-- Køb nu-knap kun hvis eventet ikke er gratis -->
       <button 
+        v-if="!event.specialLabel?.map(l => l.toLowerCase()).includes('gratis')"
         class="buy-now-btn" 
         @click="handleBuyNow" 
         :disabled="ticketClicked"
-      >
+         >
         Køb nu
       </button>
-      <p v-if="showTicketMessage" class="ticket-message">{{ ticketMessage }}</p>
+            <p v-if="showTicketMessage" class="ticket-message">{{ ticketMessage }}</p>
 
       <!-- Tilbage-knap -->
       <router-link to="/" class="back-btn">⬅ Tilbage til forsiden</router-link>
