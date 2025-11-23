@@ -160,46 +160,46 @@ onMounted(fetchEvents)
       <div class="column form-column">
         <h4>{{ editingEventId ? 'Rediger event' : 'Opret nyt event' }}</h4>
         <form @submit.prevent="submitEvent">
-          <label>Titel</label>
+          <label>Titel*</label>
           <input v-model="title" placeholder="Event titel" required />
 
           <label>Kunstner</label>
-          <input v-model="kunstner" placeholder="Kunstner" required />
+          <input v-model="kunstner" placeholder="Kunstner"/>
 
-          <label>Lokation</label>
+          <label>Lokation*</label>
           <input v-model="sted" placeholder="Sted" required />
 
           <div class="date-time-wrapper">
             <div class="date-field">
-              <label>Dato</label>
+              <label>Dato*</label>
               <input v-model="date" type="date" required />
             </div>
             <div class="time-field">
-              <label>Klokken</label>
+              <label>Klokken*</label>
               <input v-model="time" type="time" required />
             </div>
           </div>
 
-          <label>Om eventet</label>
+          <label>Om eventet*</label>
           <input v-model="om" type="text" placeholder="Beskriv kort eventet" required />
 
-          <label>Pris i kr.</label>
+          <label>Pris i kr.*</label>
           <input v-model="pris" placeholder="Pris" required />
 
-          <label>Billede (vælg fra dropdown)</label>
+          <label>Billede (vælg fra dropdown)*</label>
           <select v-model="image">
             <option value="">-- Vælg billede --</option>
             <option v-for="img in availableImages" :key="img" :value="img">{{ img }}</option>
           </select>
 
-          <label><b>Kategorier:</b></label>
+          <label><b>Kategorier*:</b></label>
           <div class="checkbox-group">
             <label v-for="cat in possibleCategories" :key="cat">
               <input type="checkbox" :value="cat" v-model="selectedCategories" /> {{ cat }}
             </label>
           </div>
 
-          <label><b>Speciallabels:</b></label>
+          <label><b>Speciallabels*:</b></label>
           <div class="checkbox-group">
             <label v-for="lab in possibleLabels" :key="lab">
               <input type="checkbox" :value="lab" v-model="selectedLabels" /> {{ lab }}

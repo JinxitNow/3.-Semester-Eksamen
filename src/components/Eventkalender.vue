@@ -5,19 +5,17 @@ import { database } from '../firebase.js'
 import { ref as dbRef, onValue } from "firebase/database"
 
 // State
-const showYouthEvents = ref(false)
+const showAll = ref(false)                // Checkbox "Vis alle"
+const selectedCategory = ref("")          // Dropdown filter, "" = Ingen filter → vis "Unge"
 const currentPage = ref(0)
 const eventsPerPage = 6
 
 // Dropdown
 const showDropdown = ref(false)
-const selectedCategory = ref(null)
 const dropdownRef = ref(null)
 
 // Events fra Firebase
 const events = ref([])
-
-// Dynamiske kategorier
 const categories = ref([])
 
 // Dropdown-funktioner
@@ -26,9 +24,22 @@ function toggleDropdown() {
 }
 
 function selectCategory(cat) {
-  selectedCategory.value = cat
+  // Toggle kategori: klik igen for at deselect
+  if (selectedCategory.value === cat) {
+    selectedCategory.value = ""
+  } else {
+    selectedCategory.value = cat
+  }
   showDropdown.value = false
+  showAll.value = false      // Filter trumfer checkbox
   currentPage.value = 0
+}
+
+// Checkbox-funktion
+function handleShowAll() {
+  if (showAll.value) {
+    selectedCategory.value = ""   // Nulstil dropdown-filter
+  }
 }
 
 // Luk dropdown hvis klik udenfor
@@ -63,27 +74,23 @@ onUnmounted(() => {
 
 // Filtrer events
 const filteredEvents = computed(() => {
-  const now = new Date() // dagens dato
+  const now = new Date()
 
-  let filtered = events.value
-    // Kun events der ikke er udløbet
-    .filter(e => {
-      const eventDate = new Date(e.dateForSort || e.date)
-      return eventDate >= now
-    })
-
-  // Filter for "unge" events
-  if (!showYouthEvents.value) {
-    filtered = filtered.filter(e => e.categories?.includes('Unge'))
+  if (showAll.value) {
+    return events.value.filter(e => new Date(e.dateForSort || e.date) >= now)
   }
 
-  // Filter efter valgt kategori
-  if (selectedCategory.value) {
-    filtered = filtered.filter(e => e.categories?.includes(selectedCategory.value))
+  // Ingen filter → vis "Unge"
+  if (selectedCategory.value === "") {
+    return events.value.filter(e =>
+      e.categories?.includes("Unge") && new Date(e.dateForSort || e.date) >= now
+    )
   }
 
-  // Sorter efter dato
-  return filtered.sort((a, b) => new Date(a.dateForSort || a.date) - new Date(b.dateForSort || b.date))
+  // Filter valgt
+  return events.value.filter(e =>
+    e.categories?.includes(selectedCategory.value) && new Date(e.dateForSort || e.date) >= now
+  )
 })
 
 // Pagination
@@ -106,25 +113,27 @@ function goToPage(page) {
 }
 </script>
 
-
 <template>
-  <!-- Titel uden global padding -->
   <div class="eventkalender-title-wrapper">
     <h2>Kommende events</h2>
-    <p>Hvor unge mødes og minder skabes. Koncerter, workshops og oplevelser du ikke vil gå glip af. <br>Her finder ud de kommende events særligt for unge i alderen 18-35 år.</br> </p>
+    <p>Hvor unge mødes og minder skabes. Koncerter, workshops og oplevelser du ikke vil gå glip af. <br>Her finder du de kommende events særligt for unge i alderen 18-35 år.</br> </p>
   </div>
 
   <div class="filters-container">
     <div class="left">
       <label class="checkbox-container">
-        <input type="checkbox" v-model="showYouthEvents" />
+        <input type="checkbox" v-model="showAll" @change="handleShowAll" />
         <span class="checkbox-text">Vis alle events</span>
       </label>
     </div>
 
     <div class="right" ref="dropdownRef">
       <div class="filter-dropdown">
-        <button class="action-btn" @click.stop="toggleDropdown">
+        <button
+          class="action-btn"
+          :class="{ active: selectedCategory !== '' }"
+          @click.stop="toggleDropdown"
+        >
           FILTER ▼
         </button>
 
@@ -133,6 +142,7 @@ function goToPage(page) {
             v-for="cat in categories"
             :key="cat"
             class="dropdown-item"
+            :class="{ active: selectedCategory === cat }"
             @click="selectCategory(cat)"
           >
             {{ cat }}
@@ -189,6 +199,18 @@ function goToPage(page) {
   margin-top: 1rem;
 }
 
+/* Aktiv filter farve */
+.action-btn.active {
+  background-color: #84754e !important;
+  color: white !important;
+  font-weight: bold;
+}
+.dropdown-item.active {
+  background-color: #84754e !important;
+  color: white !important;
+  font-weight: bold;
+}
+
 /* --- MOBILE FIRST --- */
 .filters-container {
   display: flex;
@@ -208,7 +230,6 @@ function goToPage(page) {
   gap: 0.5rem;
 }
 
-/* checkbox */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -226,7 +247,6 @@ function goToPage(page) {
   font-size: 0.8rem;
 }
 
-/* Buttons */
 .action-btn,
 .favorites-btn {
   background-color: #84754e;
@@ -383,7 +403,6 @@ function goToPage(page) {
   color: #fff;
 }
 
-/* Skjul specialLabel i Eventkalender.vue */
 .event-card .special-label {
   display: none !important;
 }
