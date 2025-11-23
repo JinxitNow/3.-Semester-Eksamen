@@ -171,7 +171,7 @@ export default {
 
 @media (min-width: 768px) {
   .info-box-wrapper {
-    min-height: 400px;
+    min-height: 500px;
   }
 }
 </style>
