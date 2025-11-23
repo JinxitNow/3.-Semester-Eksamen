@@ -99,6 +99,13 @@ export default {
   color: #796535;
 }
 
+/* Kun Åbningstider-kolonnen */
+.footer-section:first-child p {
+  margin-bottom: 6px; /* eller juster til det ser ens ud */
+  line-height: 1.9;   /* evt. lidt højere for bedre spacing */
+}
+
+
 /* Tekst og links */
 .footer-section p,
 .footer-section li,
