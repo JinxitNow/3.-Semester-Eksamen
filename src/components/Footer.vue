@@ -2,39 +2,23 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
-        <h3>Genveje</h3>
-        <ul>
-          <li><a href="#">Om ODEON</a></li>
-          <li><a href="#">Historie</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Mad og drikke</a></li>
-          <li><a href="#">Konference og møder</a></li>
-          <li><a href="#">Fester</a></li>
-          <li><a href="#">Overnatning</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h3>Kontakt</h3>
-        <p>Odeons Kvarter 1<br />5000 Odense C</p>
-        <p>Mail: <a href="mailto:odeon@comwell.com">odeon@comwell.com</a></p>
-        <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
-        <p>CVR: 29516200</p>
-      </div>
-
-      <div class="footer-section">
         <h3>Åbningstider</h3>
         <p><strong>Café Odeon:</strong><br />Man–Fre: 08:00–18:00<br />Lør–Søn: 10:00–16:00</p>
         <p><strong>ODEON:</strong><br />Man–Fre: 08:00–22:00<br />Lør–Søn: 10:00–22:00</p>
       </div>
 
-      <div class="footer-section">
-        <h3>Politikker</h3>
-        <ul>
-          <li><a href="#">Privatlivspolitik</a></li>
-          <li><a href="#">Cookiepolitik</a></li>
-          <li><a href="#">Billedpolitik</a></li>
-        </ul>
+      <div class="footer-section contact-section">
+        <h3>Kontakt</h3>
+        <p>Odeons Kvarter 1<br />5000 Odense C</p>
+        <p>Mail: <a href="mailto:odeon@comwell.com">odeon@comwell.com</a></p>
+        <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
+        <p>CVR: 29516200</p>
+
+        <div class="meetings-section">
+          <h4>Møder & konferencer</h4>
+          <p>Mail: <a href="mailto:konference.odense@comwell.com">konference.odense@comwell.com</a></p>
+          <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
+        </div>
       </div>
 
       <div class="footer-section">
@@ -49,18 +33,31 @@
         </div>
       </div>
 
-      <!-- Samlet wrapper til sponsorat + møder -->
-      <div class="footer-pair">
-        <div class="footer-section">
-          <h3>Sponsoraftale</h3>
-          <p>ODEON er sponsoreret af Albani</p>
-        </div>
+      <div class="footer-section">
+        <h3>Genveje</h3>
+        <ul>
+          <li><a href="#">Om ODEON</a></li>
+          <li><a href="#">Historie</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Mad og drikke</a></li>
+          <li><a href="#">Konference og møder</a></li>
+          <li><a href="#">Fester</a></li>
+          <li><a href="#">Overnatning</a></li>
+        </ul>
+      </div>
 
-        <div class="footer-section">
-          <h3>Møder & konferencer</h3>
-          <p>Mail: <a href="mailto:konference.odense@comwell.com">konference.odense@comwell.com</a></p>
-          <p>Telefon: <a href="tel:+4566147800">66 14 78 00</a></p>
-        </div>
+      <div class="footer-section">
+        <h3>Politikker</h3>
+        <ul>
+          <li><a href="#">Privatlivspolitik</a></li>
+          <li><a href="#">Cookiepolitik</a></li>
+          <li><a href="#">Billedpolitik</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Sponsoraftale</h3>
+        <p>ODEON er sponsoreret af Albani</p>
       </div>
     </div>
   </footer>
@@ -75,22 +72,30 @@ export default {
 <style scoped>
 .footer {
   background-color: #efefef;
-  padding: 40px 0;
+  padding: 20px 1 0px;
   border-top: 1px solid #947E4A;
 }
 
-/* Mobile first: grid med 2 kolonner */
+/* Mobile first: 2 kolonner */
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 50px;
 }
 
-/* Titler */
+/* Sektionstitler */
 .footer-section h3 {
   margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 550px;
+  font-size: 18px;
+  font-weight: 550;
+  color: #796535;
+}
+
+.footer-section h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 550;
   color: #796535;
 }
 
@@ -98,9 +103,9 @@ export default {
 .footer-section p,
 .footer-section li,
 .footer-section a {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.3;
   color: #796535;
 }
 
@@ -133,38 +138,23 @@ export default {
 }
 
 .social-icons a {
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* Wrapper til sponsorat + møder */
-.footer-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-/* Desktop: flex layout */
+/* Desktop: 6 kolonner */
 @media (min-width: 1024px) {
   .footer-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 40px;
-    justify-content: space-between;
   }
 
   .footer-section {
-    flex: 1 1 200px;
-    min-width: 200px;
+    min-width: 0;
   }
 
-  .footer-pair {
-    display: flex;
-    gap: 40px;
-    width: 100%;
-  }
-
-  .footer-pair .footer-section {
-    flex: 1 1 200px;
+  .contact-section .meetings-section {
+    margin-top: 10px;
   }
 }
 </style>
