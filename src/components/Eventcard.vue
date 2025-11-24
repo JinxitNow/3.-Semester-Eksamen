@@ -109,17 +109,7 @@ function formatDate(dateString) {
         {{ isFavorite ? "❤️" : "🤍" }}
       </button>
 
-      <!-- KALENDERKNAP → Reminder.vue -->
-      <button
-        v-if="showCalendar"
-        class="calendar-btn"
-        @click.stop="addToCalendar"
-        aria-label="Tilføj til kalender"
-        type="button"
-      >
-        📅
-      </button>
-    </div>
+      </div>
 
     <!-- TEKST → EventDetail -->
     <div class="event-info" @click="goToDetail">
@@ -177,8 +167,7 @@ function formatDate(dateString) {
 }
 
 
-.favorite-btn,
-.calendar-btn {
+.favorite-btn {
   position: absolute;
   top: 8px;
   background: none;
@@ -193,12 +182,6 @@ function formatDate(dateString) {
   justify-content: center;
   z-index: 10;
 }
-
-.favorite-btn { right: 10px; }
-.calendar-btn { right: 38px; }
-
-.favorite-btn:hover,
-.calendar-btn:hover { transform: scale(1.15); }
 
 /* --- TEKST + SPECIAL LABEL --- */
 .event-info {
@@ -255,8 +238,7 @@ function formatDate(dateString) {
     object-fit: cover;
   }
 }
-  .favorite-btn,
-  .calendar-btn {
+  .favorite-btn{
     width: 40px;
     height: 40px;
     font-size: 1.5rem;
@@ -283,10 +265,9 @@ function formatDate(dateString) {
 }
 
   .favorite-btn { right: 10px; }
-  .calendar-btn { right: 48px; }
-
-  .favorite-btn:hover,
-  .calendar-btn:hover { transform: scale(1.15); }
+  
+  .favorite-btn:hover {
+     transform: scale(1.15); }
 
   .special-label {
     width: 110px;
