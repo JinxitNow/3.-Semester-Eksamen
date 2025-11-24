@@ -1,22 +1,29 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import Eventcard from './Eventcard.vue'
+import EventCard from './Eventcard.vue'
 import { database } from '../firebase.js'
-import { getDatabase, ref as dbRef, onValue } from "firebase/database"
+import { ref as dbRef, onValue } from "firebase/database"
 
-const showYouthEvents = ref(false)
+// --- Tilføjet prop pga filter i "læs mere"---
+const props = defineProps({
+  initialCategoryFilter: {
+    type: String,
+    default: ""   // tom = ingen filter
+  }
+})
+
+// State
+const showAll = ref(false)
+const selectedCategory = ref(props.initialCategoryFilter)
 const currentPage = ref(0)
 const eventsPerPage = 6
 
 // Dropdown
 const showDropdown = ref(false)
-const selectedCategory = ref(null)
 const dropdownRef = ref(null)
 
 // Events fra Firebase
 const events = ref([])
-
-// Dynamiske kategorier
 const categories = ref([])
 
 // Dropdown-funktioner
@@ -25,9 +32,22 @@ function toggleDropdown() {
 }
 
 function selectCategory(cat) {
-  selectedCategory.value = cat
+  // Toggle kategori: klik igen for at deselect
+  if (selectedCategory.value === cat) {
+    selectedCategory.value = ""
+  } else {
+    selectedCategory.value = cat
+  }
   showDropdown.value = false
+  showAll.value = false      // Filter trumfer checkbox
   currentPage.value = 0
+}
+
+// Checkbox-funktion
+function handleShowAll() {
+  if (showAll.value) {
+    selectedCategory.value = ""   // Nulstil dropdown-filter
+  }
 }
 
 // Luk dropdown hvis klik udenfor
@@ -62,18 +82,25 @@ onUnmounted(() => {
 
 // Filtrer events
 const filteredEvents = computed(() => {
-  let filtered = events.value
+  const now = new Date()
 
-  if (!showYouthEvents.value) {
-    filtered = filtered.filter(e => e.categories?.includes('Unge'))
+  if (showAll.value) {
+    return events.value.filter(e => new Date(e.dateForSort || e.date) >= now)
   }
 
-  if (selectedCategory.value) {
-    filtered = filtered.filter(e => e.categories?.includes(selectedCategory.value))
+  // Ingen filter → vis "Unge"
+  if (selectedCategory.value === "") {
+    return events.value.filter(e =>
+      e.categories?.includes("Unge") && new Date(e.dateForSort || e.date) >= now
+    )
   }
 
-  return filtered.sort((a, b) => new Date(a.dateForSort || a.date) - new Date(b.dateForSort || b.date))
+  // Filter valgt
+  return events.value.filter(e =>
+    e.categories?.includes(selectedCategory.value) && new Date(e.dateForSort || e.date) >= now
+  )
 })
+
 
 // Pagination
 const maxPage = computed(() => Math.ceil(filteredEvents.value.length / eventsPerPage))
@@ -92,177 +119,203 @@ function prevPage() {
 
 function goToPage(page) {
   currentPage.value = page
-}
+};
 </script>
 
 <template>
-  <div class="event-kalender-container">
+  <div class="eventkalender-title-wrapper">
     <h2>Kommende events</h2>
-    <p>Her finder du spændende events særligt for unge</p>
+    <p>Hvor unge mødes og minder skabes. Koncerter, workshops og oplevelser du ikke vil gå glip af. <br>Her finder du de kommende events særligt for unge i alderen 18-35 år.</br> </p>
+  </div>
 
-    <div class="filters-container">
+  <div class="filters-container">
+    <div class="left">
       <label class="checkbox-container">
-        <input type="checkbox" v-model="showYouthEvents" />
+        <input type="checkbox" v-model="showAll" @change="handleShowAll" />
         <span class="checkbox-text">Vis alle events</span>
       </label>
+    </div>
 
-      <div class="buttons-right" ref="dropdownRef">
-        <div class="filter-dropdown">
-          <button class="action-btn" @click.stop="toggleDropdown">
-            FILTER ▼
-          </button>
+    <div class="right" ref="dropdownRef">
+      <div class="filter-dropdown">
+        <button
+          class="action-btn"
+          :class="{ active: selectedCategory !== '' }"
+          @click.stop="toggleDropdown"
+        >
+          FILTER ▼
+        </button>
 
-          <div v-if="showDropdown" class="dropdown-menu">
-            <div
-              v-for="cat in categories"
-              :key="cat"
-              class="dropdown-item"
-              @click="selectCategory(cat)"
-            >
-              {{ cat }}
-            </div>
+        <div v-if="showDropdown" class="dropdown-menu">
+          <div
+            v-for="cat in categories"
+            :key="cat"
+            class="dropdown-item"
+            :class="{ active: selectedCategory === cat }"
+            @click="selectCategory(cat)"
+          >
+            {{ cat }}
           </div>
         </div>
-
-        <router-link to="/favoritter" class="favorites-btn action-btn">
-          ❤️ MINE FAVORITTER
-        </router-link>
-      </div>
-    </div>
-
-    <div class="event-list" v-if="paginatedEvents.length">
-  <router-link
-    v-for="event in paginatedEvents"
-    :key="event.id"
-    :to="{ name: 'EventDetail', params: { id: event.id } }"
-    class="event-link"
-  >
-    <Eventcard :event="event" />
-  </router-link>
-</div>
-
-
-    <p v-else class="no-events">Der desværre ikke nogle events at vise, kom igen senere</p>
-
-    <div class="pagination" v-if="paginatedEvents.length">
-      <span
-        @click="prevPage"
-        :class="{ disabled: currentPage === 0 }"
-        class="arrow-left"
-      ></span>
-
-      <div class="page-numbers">
-        <span
-          v-for="page in maxPage"
-          :key="page"
-          @click="goToPage(page - 1)"
-          :class="{ active: currentPage === page - 1 }"
-          class="page-num"
-        >
-          {{ page }}
-        </span>
       </div>
 
-      <span
-        @click="nextPage"
-        :class="{ disabled: currentPage >= maxPage - 1 }"
-        class="arrow-right"
-      ></span>
+      <router-link to="/favoritter" class="favorites-btn">❤️ MINE FAVORITTER</router-link>
     </div>
+  </div>
+
+  <div class="event-list" v-if="paginatedEvents.length">
+    <EventCard
+      v-for="event in paginatedEvents"
+      :key="event.id"
+      :event="event"
+    />
+  </div>
+
+  <p v-else class="no-events">Der er desværre ikke nogle events at vise, kom igen senere</p>
+
+  <div class="pagination" v-if="paginatedEvents.length">
+    <span
+      @click="prevPage"
+      :class="{ disabled: currentPage === 0 }"
+      class="arrow-left"
+    ></span>
+
+    <div class="page-numbers">
+      <span
+        v-for="page in maxPage"
+        :key="page"
+        @click="goToPage(page - 1)"
+        :class="{ active: currentPage === page - 1 }"
+        class="page-num"
+      >
+        {{ page }}
+      </span>
+    </div>
+
+    <span
+      @click="nextPage"
+      :class="{ disabled: currentPage >= maxPage - 1 }"
+      class="arrow-right"
+    ></span>
   </div>
 </template>
 
-<style>
+<style scoped>
+.event-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Aktiv filter farve */
+.action-btn.active {
+  background-color: #927E47 !important;
+  color: white !important;
+  font-weight: bold;
+}
+.dropdown-item.active {
+  background-color: #927E47 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
 /* --- MOBILE FIRST --- */
 .filters-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 0 1rem;
-}
-
-.buttons-right {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.action-btn {
-  background-color: #84754e;
-  color: #fff;
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-  font-weight: 300;
-  text-align: left;
-  font-size: 0.8rem;
-  cursor: pointer;
-  display: flex;
   align-items: center;
-  padding-left: 10px;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.favorites-btn.action-btn {
-  text-decoration: none;
+.left {
+  order: 1;
 }
 
-.action-btn:hover {
-  background-color: #a49364;
+.right {
+  order: 2;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .checkbox-container {
-  order: 2;
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .checkbox-container input[type="checkbox"] {
-  accent-color: #84754e;
-  width: 18px;
-  height: 18px;
+  accent-color: #927E47;
+  width: 16px;
+  height: 16px;
 }
 
-.checkbox-container .checkbox-text {
-  font-size: 0.9rem;
-  color: #84754e;
+.checkbox-text {
+  color: #927E47;
+  font-size: 0.8rem;
 }
 
-.event-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  padding: 0 1rem;
-}
-
-.event-link {
+.action-btn,
+.favorites-btn {
+  background-color: #927E47;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 32px;
+  text-align: center;
+  white-space: nowrap;
   text-decoration: none;
-  color: inherit;
-  display: block;
 }
 
+.action-btn:hover,
+.favorites-btn:hover {
+  background-color: #a49364;
+}
 
-/* --- DESKTOP --- */
+/* --- TABLET / DESKTOP --- */
 @media (min-width: 768px) {
   .filters-container {
     flex-direction: row;
     justify-content: flex-end;
-    gap: 2rem;
-    padding: 0 2rem;
-  }
-
-  .checkbox-container {
-    order: initial;
-    width: auto;
-  }
-
-  .buttons-right {
-    width: auto;
-    justify-content: flex-end;
+    align-items: center;
     gap: 1rem;
+  }
+
+  .right {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .checkbox-text {
+    font-size: 0.9rem;
+  }
+
+  .action-btn,
+  .favorites-btn {
+    width: 150px;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+}
+
+.event-list {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .action-btn,
+  .favorites-btn {
+    width: 180px;
+    height: 40px;
+    font-size: 0.9rem;  
+    margin-right: 10px;
   }
 
   .event-list {
@@ -270,53 +323,22 @@ function goToPage(page) {
   }
 }
 
-@media (min-width: 481px) {
-  .buttons-right {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .action-btn,
-  .favorites-btn {
-    background-color: #84754e;
-    color: #fff;
-    border-radius: 8px;
-    font-weight: 300;
-    font-size: 0.9rem;
-    height: 40px;
-    padding-left: 15px;
-    padding-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-decoration: none;
-    cursor: pointer;
-    min-width: 160px;
-    transition: background-color 0.3s ease;
-  }
-
-  .action-btn:hover,
-  .favorites-btn:hover {
-    background-color: #a49364;
-  }
-}
-
-/* Dropdown styling */
 .filter-dropdown {
   position: relative;
   display: inline-block;
+  z-index: 50;
 }
 
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 200px;
+  width: 220px;
   background-color: #fff;
-  border: 1px solid #84754e;
+  border: 1px solid #927E47;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  z-index: 10;
+  z-index: 100;
   display: flex;
   flex-direction: column;
 }
@@ -324,16 +346,15 @@ function goToPage(page) {
 .dropdown-item {
   padding: 8px 12px;
   cursor: pointer;
-  font-size: 0.8rem;
-  color: #84754e;
+  font-size: 0.9rem;
+  color: #927E47;
 }
 
 .dropdown-item:hover {
-  background-color: #84754e;
+  background-color: #927E49;
   color: #fff;
 }
 
-/* Pagination styling */
 .pagination {
   display: flex;
   justify-content: center;
@@ -344,21 +365,25 @@ function goToPage(page) {
 
 .arrow-left,
 .arrow-right {
-  width: 0;
-  height: 0;
-  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px; 
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
 
 .arrow-left {
   border-width: 8px 12px 8px 0;
-  border-color: transparent #84754e transparent transparent;
+  border-style: solid;
+  border-color: transparent #927E47 transparent transparent;
 }
 
 .arrow-right {
   border-width: 8px 0 8px 12px;
-  border-color: transparent transparent transparent #84754e;
+  border-style: solid;
+  border-color: transparent transparent transparent #927E47;
 }
 
 .arrow-left.disabled,
@@ -370,25 +395,24 @@ function goToPage(page) {
 .page-numbers {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .page-num {
   cursor: pointer;
-  font-size: 1rem;
-  color: #84754e;
   padding: 4px 8px;
   border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #927E47;
+  display: flex;
+  align-items: center;
 }
 
 .page-num.active {
-  font-weight: bold;
+  background: #84754e;
   color: #fff;
-  background-color: #84754e;
 }
 
-.page-num:hover {
-  background-color: #a49364;
-  color: #fff;
+.event-card .special-label {
+  display: none !important;
 }
 </style>
