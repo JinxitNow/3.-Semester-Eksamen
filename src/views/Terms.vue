@@ -1,3 +1,28 @@
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const goHome = () => {
+  router.push("/");
+};
+
+const scrollTo = (id) => {
+  const container = document.querySelector(".terms-content");
+  const target = document.getElementById(id);
+
+  if (container && target) {
+    const containerTop = container.getBoundingClientRect().top;
+    const targetTop = target.getBoundingClientRect().top;
+    const scrollOffset = targetTop - containerTop + container.scrollTop;
+
+    container.scrollTo({
+      top: scrollOffset,
+      behavior: "smooth",
+    });
+  }
+};
+</script>
+
 <template>
   <div class="terms-layout">
     <!-- Indholdsfortegnelse inkl. tilbage-knap -->
@@ -76,32 +101,6 @@
     </div>
   </div>
 </template>
-
-
-<script setup>
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-const goHome = () => {
-  router.push("/");
-};
-
-const scrollTo = (id) => {
-  const container = document.querySelector(".terms-content");
-  const target = document.getElementById(id);
-
-  if (container && target) {
-    const containerTop = container.getBoundingClientRect().top;
-    const targetTop = target.getBoundingClientRect().top;
-    const scrollOffset = targetTop - containerTop + container.scrollTop;
-
-    container.scrollTo({
-      top: scrollOffset,
-      behavior: "smooth",
-    });
-  }
-};
-</script>
 
 <style scoped>
 html, body {

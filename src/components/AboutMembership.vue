@@ -1,3 +1,7 @@
+<script setup>
+import myImage from '../assets/img/ungiodeon.webp'
+</script>
+
 <template>
   <div class="membership-wrapper">
     <section class="membership-section">
@@ -42,9 +46,7 @@
   </div>
 </template>
 
-<script setup>
-import myImage from '../assets/img/ungiodeon.webp'
-</script>
+
 
 <style scoped>
 /* === WRAPPER === */

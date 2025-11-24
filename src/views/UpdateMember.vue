@@ -1,3 +1,49 @@
+<script setup>
+import { ref, onMounted } from "vue"
+import { useRoute } from "vue-router"
+import { database } from "../firebase"
+import { ref as dbRef, get, update } from "firebase/database"
+
+const route = useRoute()
+const memberId = route.query.memberId
+
+const member = ref(null)
+const message = ref("")
+const loading = ref(false)
+
+onMounted(async () => {
+  if (!memberId) {
+    message.value = "Ingen medlem fundet."
+    return
+  }
+  const snapshot = await get(dbRef(database, "members/" + memberId))
+  if (snapshot.exists()) {
+    member.value = snapshot.val()
+  } else {
+    message.value = "Medlem ikke fundet."
+  }
+})
+
+async function saveChanges() {
+  if (!member.value) return
+  loading.value = true
+  try {
+    await update(dbRef(database, "members/" + memberId), {
+      fullName: member.value.fullName,
+      birthday: member.value.birthday,
+      address1: member.value.address1,
+      address2: member.value.address2,
+      email: member.value.email,
+      phone: member.value.phone,
+    })
+    message.value = "Dine oplysninger er opdateret!"
+  } catch (err) {
+    message.value = "Der skete en fejl. Prøv igen."
+  }
+  loading.value = false
+}
+</script>
+
 <template>
   <section class="update-member">
     <h2>Opdater dine oplysninger</h2>
@@ -44,52 +90,6 @@
     <p v-else>{{ message }}</p>
   </section>
 </template>
-
-<script setup>
-import { ref, onMounted } from "vue"
-import { useRoute } from "vue-router"
-import { database } from "../firebase"
-import { ref as dbRef, get, update } from "firebase/database"
-
-const route = useRoute()
-const memberId = route.query.memberId
-
-const member = ref(null)
-const message = ref("")
-const loading = ref(false)
-
-onMounted(async () => {
-  if (!memberId) {
-    message.value = "Ingen medlem fundet."
-    return
-  }
-  const snapshot = await get(dbRef(database, "members/" + memberId))
-  if (snapshot.exists()) {
-    member.value = snapshot.val()
-  } else {
-    message.value = "Medlem ikke fundet."
-  }
-})
-
-async function saveChanges() {
-  if (!member.value) return
-  loading.value = true
-  try {
-    await update(dbRef(database, "members/" + memberId), {
-      fullName: member.value.fullName,
-      birthday: member.value.birthday,
-      address1: member.value.address1,
-      address2: member.value.address2,
-      email: member.value.email,
-      phone: member.value.phone,
-    })
-    message.value = "Dine oplysninger er opdateret!"
-  } catch (err) {
-    message.value = "Der skete en fejl. Prøv igen."
-  }
-  loading.value = false
-}
-</script>
 
 <style scoped>
 .update-member {

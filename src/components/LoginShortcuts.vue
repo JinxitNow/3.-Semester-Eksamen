@@ -1,3 +1,12 @@
+<script>
+import { RouterLink } from 'vue-router'
+
+export default {
+  name: 'AdminSidebar',
+  components: { RouterLink }
+}
+</script>
+
 <template>
   <aside class="admin-sidebar">
     <nav>
@@ -37,15 +46,6 @@
     </nav>
   </aside>
 </template>
-
-<script>
-import { RouterLink } from 'vue-router'
-
-export default {
-  name: 'AdminSidebar',
-  components: { RouterLink }
-}
-</script>
 
 <style scoped>
 /* Sidebar styles (desktop/tablet) */

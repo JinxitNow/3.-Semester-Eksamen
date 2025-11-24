@@ -1,3 +1,33 @@
+<script>
+export default {
+  name: 'InfoBoxes',
+  props: {
+    image: { type: String, required: true },
+    title: { type: String, required: true },
+    text: { type: String, required: true },
+    linkText: { type: String, default: 'Læs mere' },
+    linkUrl: { type: String, default: '#' }
+  },
+  mounted() {
+    this.updateBoxWidth();
+    window.addEventListener('resize', this.updateBoxWidth);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.updateBoxWidth);
+  },
+  methods: {
+    updateBoxWidth() {
+      const box = this.$refs.box;
+      const wrapper = this.$refs.wrapper;
+      if (!box || !wrapper) return;
+      const boxWidth = box.offsetWidth;
+      wrapper.style.setProperty('--box-width', `${boxWidth}px`);
+      wrapper.style.setProperty('--left-padding', '3.8rem');
+    }
+  }
+};
+</script>
+
 <template>
   <section class="info-box-wrapper" ref="wrapper">
     <!-- Infoboks -->
@@ -28,36 +58,6 @@
     </div>
   </section>
 </template>
-
-<script>
-export default {
-  name: 'InfoBoxes',
-  props: {
-    image: { type: String, required: true },
-    title: { type: String, required: true },
-    text: { type: String, required: true },
-    linkText: { type: String, default: 'Læs mere' },
-    linkUrl: { type: String, default: '#' }
-  },
-  mounted() {
-    this.updateBoxWidth();
-    window.addEventListener('resize', this.updateBoxWidth);
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.updateBoxWidth);
-  },
-  methods: {
-    updateBoxWidth() {
-      const box = this.$refs.box;
-      const wrapper = this.$refs.wrapper;
-      if (!box || !wrapper) return;
-      const boxWidth = box.offsetWidth;
-      wrapper.style.setProperty('--box-width', `${boxWidth}px`);
-      wrapper.style.setProperty('--left-padding', '3.8rem');
-    }
-  }
-};
-</script>
 
 <style scoped>
 /* --- beholder din CSS som før --- */

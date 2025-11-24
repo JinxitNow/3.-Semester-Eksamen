@@ -1,14 +1,3 @@
-<template>
-  <div style="border:1px solid #ccc; padding:1em; margin:1em;">
-    <h2>Beskeder</h2>
-    <ul>
-      <li v-for="msg in messages" :key="msg.id">{{ msg.text }}</li>
-    </ul>
-    <input v-model="newMessage" placeholder="Skriv en besked..." />
-    <button @click="sendMessage">Send</button>
-  </div>
-</template>
-
 <script setup>
 import { ref as vueRef, onMounted } from 'vue'
 import { ref, set, onValue } from 'firebase/database'
@@ -35,3 +24,14 @@ function sendMessage() {
   newMessage.value = ''
 }
 </script>
+
+<template>
+  <div style="border:1px solid #ccc; padding:1em; margin:1em;">
+    <h2>Beskeder</h2>
+    <ul>
+      <li v-for="msg in messages" :key="msg.id">{{ msg.text }}</li>
+    </ul>
+    <input v-model="newMessage" placeholder="Skriv en besked..." />
+    <button @click="sendMessage">Send</button>
+  </div>
+</template>

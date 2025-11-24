@@ -1,82 +1,3 @@
-<template>
-  <div class="registration-wrapper">
-    <section class="registration-section">
-      
-      <!-- FORM COLUMN -->
-      <div class="form-column">
-        <div class="form-wrapper">
-          <h2>Bliv en del af UNG I ODEON</h2>
-          <p class="subtitle">Tilmeld dig gratis nu</p>
-
-          <!-- MOBILBILLEDE -->
-          <div class="mobile-image">
-            <img src="/img/medlemskort.png" alt="Medlemskort" />
-          </div>
-
-          <!-- FORM -->
-          <form @submit.prevent="onSubmit" class="form-grid">
-            <div class="input-group">
-              <label>Navn og Efternavn *</label>
-              <input v-model="fullName" />
-              <p v-if="errors.fullName" class="error-msg">{{ errors.fullName }}</p>
-            </div>
-
-            <div class="input-group">
-              <label>Fødselsdag *</label>
-              <input v-model="birthday" type="date" />
-              <p v-if="errors.birthday" class="error-msg">{{ errors.birthday }}</p>
-            </div>
-
-            <div class="input-group">
-              <label>Adresse *</label>
-              <input v-model="address1" />
-              <p v-if="errors.address1" class="error-msg">{{ errors.address1 }}</p>
-            </div>
-
-            <div class="input-group">
-              <label>Postnummer og By *</label>
-              <input v-model="address2" />
-              <p v-if="errors.address2" class="error-msg">{{ errors.address2 }}</p>
-            </div>
-
-            <div class="input-group">
-              <label>Email *</label>
-              <input v-model="email" type="email" />
-              <p v-if="errors.email" class="error-msg">{{ errors.email }}</p>
-            </div>
-
-            <div class="input-group">
-              <label>Mobilnummer *</label>
-              <input v-model="phone" type="tel" />
-              <p v-if="errors.phone" class="error-msg">{{ errors.phone }}</p>
-            </div>
-
-            <div class="form-bottom">
-              <label class="checkbox">
-                <input type="checkbox" v-model="acceptTerms" />
-                Accepter <router-link to="/handelsbetingelser">handelsbetingelser</router-link>
-              </label>
-<br></br>
-              
-              <button type="submit" :disabled="loading">
-                TILMELD
-                <span v-if="loading" class="spinner"></span>
-              </button>
-            </div>
-          </form>
-
-          <p v-if="message" class="message">{{ message }}</p>
-        </div>
-      </div>
-
-      <!-- DESKTOPBILLEDE -->
-      <div class="image-column">
-        <img src="/img/medlemskort.png" alt="Medlemskort" />
-      </div>
-    </section>
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue"
 import emailjs from "@emailjs/browser"
@@ -155,6 +76,85 @@ async function onSubmit() {
 }
 
 </script>
+
+<template>
+  <div class="registration-wrapper">
+    <section class="registration-section">
+      
+      <!-- FORM COLUMN -->
+      <div class="form-column">
+        <div class="form-wrapper">
+          <h2>Bliv en del af UNG I ODEON</h2>
+          <p class="subtitle">Tilmeld dig gratis nu</p>
+
+          <!-- MOBILBILLEDE -->
+          <div class="mobile-image">
+            <img src="/img/medlemskort.png" alt="Medlemskort" />
+          </div>
+
+          <!-- FORM -->
+          <form @submit.prevent="onSubmit" class="form-grid">
+            <div class="input-group">
+              <label>Navn og Efternavn *</label>
+              <input v-model="fullName" />
+              <p v-if="errors.fullName" class="error-msg">{{ errors.fullName }}</p>
+            </div>
+
+            <div class="input-group">
+              <label>Fødselsdag *</label>
+              <input v-model="birthday" type="date" />
+              <p v-if="errors.birthday" class="error-msg">{{ errors.birthday }}</p>
+            </div>
+
+            <div class="input-group">
+              <label>Adresse *</label>
+              <input v-model="address1" />
+              <p v-if="errors.address1" class="error-msg">{{ errors.address1 }}</p>
+            </div>
+
+            <div class="input-group">
+              <label>Postnummer og By *</label>
+              <input v-model="address2" />
+              <p v-if="errors.address2" class="error-msg">{{ errors.address2 }}</p>
+            </div>
+
+            <div class="input-group">
+              <label>Email *</label>
+              <input v-model="email" type="email" />
+              <p v-if="errors.email" class="error-msg">{{ errors.email }}</p>
+            </div>
+
+            <div class="input-group">
+              <label>Mobilnummer *</label>
+              <input v-model="phone" type="tel" />
+              <p v-if="errors.phone" class="error-msg">{{ errors.phone }}</p>
+            </div>
+
+            <div class="form-bottom">
+              <label class="checkbox">
+                <input type="checkbox" v-model="acceptTerms" />
+                Accepter <router-link to="/handelsbetingelser">handelsbetingelser</router-link>
+              </label>
+<br></br>
+              
+              <button type="submit" :disabled="loading">
+                TILMELD
+                <span v-if="loading" class="spinner"></span>
+              </button>
+            </div>
+          </form>
+
+          <p v-if="message" class="message">{{ message }}</p>
+        </div>
+      </div>
+
+      <!-- DESKTOPBILLEDE -->
+      <div class="image-column">
+        <img src="/img/medlemskort.png" alt="Medlemskort" />
+      </div>
+    </section>
+  </div>
+</template>
 
 <style scoped>
 .registration-wrapper {
