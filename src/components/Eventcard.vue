@@ -165,7 +165,7 @@ function formatDate(dateString) {
   position: absolute;
   top: 8px;
   background: none;
-  border: none;
+  border-radius: 6px;
   font-size: 1.25rem;
   cursor: pointer;
   color: #927E47;
@@ -213,7 +213,7 @@ function formatDate(dateString) {
   background-color: #927E47;
   color: white;
   font-size: 0.6rem;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0.3rem 0.5rem;
   width: 100px;
   height: 40px;
@@ -236,6 +236,7 @@ function formatDate(dateString) {
     width: 40px;
     height: 40px;
     font-size: 1.5rem;
+    border-radius: 6px;
   }
 
   .event-title { font-size: 1.2rem; }
@@ -246,6 +247,7 @@ function formatDate(dateString) {
     width: 120px;
     font-size: 0.8rem;
     padding: 0.4rem;
+    border-radius: 6px;
   }
 }
 
