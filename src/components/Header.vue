@@ -1,138 +1,179 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Logo from '../assets/logo/logo_rgb_main_transparent.png'
 
-const headerOpen = ref(false)
+const menuOpen = ref(false)
 
-function toggleHeader() {
-  headerOpen.value = !headerOpen.value
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
 }
 
-function closeHeader() {
-  headerOpen.value = false
+function closeMenu() {
+  menuOpen.value = false
 }
+
+// Luk menu automatisk ved resize til desktop
+function handleResize() {
+  if (window.innerWidth > 861) {
+    menuOpen.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+})
 </script>
 
 <template>
-  <header class="main-header">
-    <!-- Topbar -->
-    <div class="topbar">
-      <ul class="topbar-links">
-        <li><router-link to="/login">Log in</router-link></li>
-        <li><a href="#">Nyheder/nyhedsbrev</a></li>
-        <li><a href="#">Hotel</a></li>
-        <li><a href="#">Venue Specs</a></li>
-        <li><a href="#">Praktisk Info</a></li>
-        <li><a href="#">Om ODEON</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
+  <header class="header-wrapper">
+    <!-- Fade baggrund -->
+    <div class="header-background"></div>
 
-      <div class="header-divider"></div>
+    <!-- Indhold -->
+    <div class="header-container">
+      <!-- Topbar -->
+      <div class="topbar">
+        <ul class="link-row">
+          <li><router-link to="/login">Log ind</router-link></li>
+          <li><a href="#">Nyheder/nyhedsbrev</a></li>
+          <li><a href="#">Hotel</a></li>
+          <li><a href="#">Venue Specs</a></li>
+          <li><a href="#">Praktisk Info</a></li>
+          <li><a href="#">Om ODEON</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
 
-      <ul class="topbar-links second-row">
-        <li><a href="#">Kalender</a></li>
-        <li><a href="https://sem-eksamen-adb47.web.app">Ung i ODEON</a></li>
-        <li><a href="#">Mad & Drikke</a></li>
-        <li><a href="#">Konference & Møde</a></li>
-      </ul>
+        <div class="divider-line"></div>
+
+        <ul class="link-row second">
+          <li><a href="#">Kalender</a></li>
+          <li><a href="https://sem-eksamen-adb47.web.app">Ung i ODEON</a></li>
+          <li><a href="#">Mad & Drikke</a></li>
+          <li><a href="#">Konference & Møde</a></li>
+        </ul>
+      </div>
+
+      <!-- Main row -->
+      <div class="main-row">
+        <div class="logo-container">
+          <a href="/">
+            <img :src="Logo" alt="ODEON logo" class="header-logo" />
+          </a>
+        </div>
+
+        <button class="burger" @click="toggleMenu" aria-label="Menu">
+          {{ menuOpen ? '✕' : '☰' }}
+        </button>
+      </div>
     </div>
 
-    <!-- Main row -->
-    <div class="main-row">
-     <div class="logo-container">
-  <a href="https://sem-eksamen-adb47.web.app">
-    <img class="header-logo" :src="Logo" alt="ODEON logo" />
-  </a>
-</div>
-
-      <button class="burger" @click="toggleHeader" aria-label="Menu">☰</button>
-    </div>
-
-    <!-- Mobile menu -->
-    <ul class="topbar-links mobile" :class="{ open: headerOpen }">
-      <li><router-link to="/login" @click="closeHeader">Log in</router-link></li>
-      <li><a href="#" @click="closeHeader">Nyheder/nyhedsbrev</a></li>
-      <li><a href="#" @click="closeHeader">Hotel</a></li>
-      <li><a href="#" @click="closeHeader">Venue Specs</a></li>
-      <li><a href="#" @click="closeHeader">Praktisk Info</a></li>
-      <li><a href="#" @click="closeHeader">Om ODEON</a></li>
-      <li><a href="#" @click="closeHeader">FAQ</a></li>
-      <li><a href="#" @click="closeHeader">Kalender</a></li>
-     <li><a href="https://sem-eksamen-adb47.web.app" @click="closeHeader">Ung i ODEON</a></li>
-      <li><a href="#" @click="closeHeader">Mad & Drikke</a></li>
-      <li><a href="#" @click="closeHeader">Konference & Møde</a></li>
-    </ul>
+    <!-- Mobilmenu -->
+    <nav class="mobile-menu" :class="{ open: menuOpen }">
+      <router-link to="/login" @click="closeMenu">Log ind</router-link>
+      <a href="#" @click="closeMenu">Nyheder/nyhedsbrev</a>
+      <a href="#" @click="closeMenu">Hotel</a>
+      <a href="#" @click="closeMenu">Venue Specs</a>
+      <a href="#" @click="closeMenu">Praktisk Info</a>
+      <a href="#" @click="closeMenu">Om ODEON</a>
+      <a href="#" @click="closeMenu">FAQ</a>
+      <a href="#" @click="closeMenu">Kalender</a>
+      <a href="https://sem-eksamen-adb47.web.app" @click="closeMenu">Ung i ODEON</a>
+      <a href="#" @click="closeMenu">Mad & Drikke</a>
+      <a href="#" @click="closeMenu">Konference & Møde</a>
+    </nav>
   </header>
 </template>
 
 <style scoped>
-.main-header {
+
+@media (min-width: 861px) {
+  .header-logo {
+    margin-left: -20px; /* mindre negativ margin = flytter til højre */
+  }
+}
+
+.header-wrapper {
   position: fixed;
   top: 0;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
   z-index: 1000;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  height: 140px;
+  background: linear-gradient(to bottom, #efefef 40%, rgba(239, 239, 239, 0) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
 
-  /* fade starter tidligere, så links "svæver" */
-  background: linear-gradient(
-    to bottom,
-    #EFEFEF 40%,               /* solid farve kun til ca. under teksten */
-    rgba(239, 239, 239, 0) 100% /* fade resten */
-  );
-
+.header-container {
+  position: relative;
+  z-index: 1;
+  padding-left: 3.8rem;
+  padding-right: 3.8rem;
   box-sizing: border-box;
-  padding-right: 8.7rem;
 }
 
 .topbar {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 0.5rem;
 }
 
-.topbar-links {
+.link-row {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
   list-style: none;
   margin: 0;
-  padding: 0.5rem 1rem;
-  gap: 2rem;
+  padding: 0;
+  justify-content: flex-end;
 }
 
-.topbar-links li a {
-  color: #947E4A;
-  text-decoration: none;
-  font-weight: 600;
+.link-row li a,
+.link-row li router-link {
   font-size: 0.85rem;
+  font-weight: 600;
+  color: #947e4a;
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.topbar-links li a:hover {
+.link-row li a:hover {
   color: #7d6a3e;
 }
 
-.header-divider {
-  width: 100%;
+.divider-line {
   height: 1px;
-  background-color: #947E4A;
+  background-color: #947e4a;
+  width: 100%;
 }
 
 .main-row {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  box-sizing: border-box;
+  align-items: flex-end;
+  padding: 0.5rem 0;
 }
 
 .logo-container {
   flex-shrink: 0;
-  display: flex;
-  align-items: flex-end; /* presser logoet ned mod linjen */
 }
 
 .header-logo {
   height: 90px;
-  margin-top: -60px; /* flytter logoet lidt op */
+  margin-top: -60px;
   margin-left: -45px;
 }
 
@@ -140,72 +181,44 @@ function closeHeader() {
   display: none;
   background: none;
   border: none;
-  font-size: 1.7rem;
-  color: #947E4A;
+  font-size: 1.8rem;
+  color: #947e4a;
   cursor: pointer;
 }
 
-/* ==== Mobil styling ==== */
-@media (max-width: 861px) {
-  .topbar-links { display: none; }
-
-  .main-row { padding: 1rem 0; }
-  .burger { display: block; font-size: 1.8rem; }
-
-  .logo-container { margin-right: 1rem; }
-  .header-logo { height: 65px; margin-top: -4px; }
-  .header-divider { display: none; }
-
-  /* Burger menu container */
-.topbar-links.mobile {
+/* Mobilmenu */
+.mobile-menu {
   display: none;
   flex-direction: column;
-  width: 100%;
-  background-color: #EFEFEF;
-  padding: 0.5rem 0;
-  border-top: 1px solid #947E4A;
-
-  max-height: 80vh;          /* fylder max 80% af skærmhøjden */
-  overflow-y: auto;          /* gør det muligt at scrolle */
-  -webkit-overflow-scrolling: touch; /* smooth scroll på iOS */
+  background-color: #efefef;
+  padding: 1rem 3.8rem;
+  position: relative;
+  z-index: 2;
 }
 
-
-.topbar-links.mobile.open {
+.mobile-menu.open {
   display: flex;
 }
 
-
-  /* Menu items */
- .topbar-links.mobile li {
-  width: 100%;
-  padding: 0.5rem 1rem; /* mindre padding */
+.mobile-menu a,
+.mobile-menu router-link {
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #947e4a;
+  text-decoration: none;
+  text-align: left;
 }
 
-  .topbar-links.mobile li:last-child {
-    border-bottom: none;
+/* Responsivitet */
+@media (max-width: 861px) {
+  .link-row,
+  .divider-line {
+    display: none;
   }
 
-  .topbar-links.mobile li a {
-    font-size: 0.85rem; /* lidt mindre tekst */
-    font-weight: 600;
-    color: #947E4A;
+  .burger {
     display: block;
-    width: 100%;
-    text-decoration: none; 
-    line-height: 0.7;     /* tættere linjeafstand */
   }
-
-
-  .topbar-links.mobile li a:hover {
-    background-color: rgba(148, 126, 74, 0.1); /* diskret hover */
-    border-radius: 4px;
-  }
-}
-
-
-/* ==== Desktop styling ==== */
-@media (min-width: 861px) {
-  .topbar-links.mobile { display: none; }
 }
 </style>
