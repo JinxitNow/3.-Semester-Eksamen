@@ -90,7 +90,7 @@ const goBack = () => {
   border: none;
   color: white;
   padding: 0.4rem 0.8rem;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.8rem;
 }

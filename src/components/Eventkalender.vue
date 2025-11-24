@@ -227,6 +227,7 @@ function goToPage(page) {
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  border-radius: 6px;
 }
 
 .left {
@@ -260,7 +261,7 @@ function goToPage(page) {
 .favorites-btn {
   background-color: #927E47;
   color: #fff;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 8px 10px;
   font-size: 0.75rem;
   cursor: pointer;
@@ -401,7 +402,7 @@ function goToPage(page) {
 .page-num {
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #927E47;
   display: flex;
   align-items: center;

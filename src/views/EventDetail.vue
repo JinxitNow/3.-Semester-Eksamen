@@ -161,7 +161,7 @@ watch(() => props.id, (newId) => {
   text-decoration: none;
   align-self: flex-end;
   margin-top: 1rem;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
 }
 
 .back-btn:hover {
