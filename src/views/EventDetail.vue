@@ -81,7 +81,7 @@ watch(() => props.id, (newId) => {
     <div class="event-details-box">
       <h2>{{ event.title }}</h2>
 
-      <p v-if="event.kunstner"><b>Kunstner:</b> {{ event.kunstner }}</p>
+      <p v-if="event.title2"><b>Tite2:</b> {{ event.title2 }}</p>
       <p v-if="event.sted"><b>Lokation:</b> {{ event.sted }}</p>
       <p v-if="event.date">
         <b>Dato:</b> {{ event.date }}
@@ -103,16 +103,25 @@ watch(() => props.id, (newId) => {
         </div>
       </div>
 
-      <!-- Køb nu-knap kun hvis eventet ikke er gratis -->
-      <button 
+      <!-- Køb nu + Reminder link -->
+      <div 
+        class="action-row"
         v-if="!event.specialLabel?.map(l => l.toLowerCase()).includes('gratis')"
-        class="buy-now-btn" 
-        @click="handleBuyNow" 
-        :disabled="ticketClicked"
-         >
-        Køb nu
-      </button>
-            <p v-if="showTicketMessage" class="ticket-message">{{ ticketMessage }}</p>
+      >
+        <button 
+          class="buy-now-btn" 
+          @click="handleBuyNow" 
+          :disabled="ticketClicked"
+        >
+          Køb nu
+        </button>
+
+        <router-link :to="{ name: 'Reminder' }" class="reminder-link">
+          Få en påmindelse
+        </router-link>
+      </div>
+
+      <p v-if="showTicketMessage" class="ticket-message">{{ ticketMessage }}</p>
 
       <!-- Tilbage-knap -->
       <router-link to="/" class="back-btn">⬅ Tilbage til forsiden</router-link>
@@ -196,7 +205,6 @@ watch(() => props.id, (newId) => {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  margin-top: 0.5rem;
 }
 
 .buy-now-btn:disabled {
@@ -283,5 +291,25 @@ watch(() => props.id, (newId) => {
   .related-item {
     width: 200px; /* fast bredde på større skærme */
   }
+}
+
+/* Action row styling */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.reminder-link {
+  font-size: 0.9rem;
+  color: #927E47;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.reminder-link:hover {
+  color: #a49364;
 }
 </style>

@@ -40,7 +40,7 @@ const title = ref('')
 const date = ref('')
 const time = ref('')
 const image = ref('') // blank start
-const kunstner = ref('')
+const title2 = ref('')
 const sted = ref('')
 const om = ref('')
 const pris = ref('')
@@ -62,7 +62,7 @@ function fetchEvents() {
       date: val.date || '',
       time: val.time || '',
       image: val.image || '',
-      kunstner: val.kunstner || '',
+      title2: val.title2 || '',
       sted: val.sted || '',
       om: val.om || '',
       pris: val.pris || '',
@@ -81,7 +81,7 @@ async function submitEvent() {
     date: date.value,
     time: time.value,
     image: image.value,
-    kunstner: kunstner.value,
+    title2: title2.value,
     sted: sted.value,
     om: om.value,
     pris: pris.value,
@@ -112,7 +112,7 @@ function updateEvent(event) {
   date.value = event.date || ''
   time.value = event.time || ''
   image.value = event.image || ''
-  kunstner.value = event.kunstner || ''
+  title2.value = event.title2 || ''
   sted.value = event.sted || ''
   om.value = event.om || ''
   pris.value = event.pris || ''
@@ -127,7 +127,7 @@ function resetForm() {
   date.value = ''
   time.value = ''
   image.value = ''
-  kunstner.value = ''
+  title2.value = ''
   sted.value = ''
   om.value = ''
   pris.value = ''
@@ -163,9 +163,8 @@ onMounted(fetchEvents)
           <label>Titel*</label>
           <input v-model="title" placeholder="Event titel" required />
 
-          <label>Kunstner</label>
-          <input v-model="kunstner" placeholder="Kunstner"/>
-
+          <label>Titel 2</label>
+          <input v-model="title2" placeholder="Titel 2" />
           <label>Lokation*</label>
           <input v-model="sted" placeholder="Sted" required />
 
@@ -229,7 +228,7 @@ onMounted(fetchEvents)
               <img v-if="event.image" :src="imageUrl(event.image)" :alt="event.title" class="event-img" />
               <div class="event-info two-column">
                 <p class="event-title">{{ event.title }}</p>
-                <p v-if="event.kunstner"><strong>Kunstner:</strong> {{ event.kunstner }}</p>
+                <p v-if="event.title2"><strong>Title 2:</strong> {{ event.title2 }}</p>
                 <p v-if="event.sted"><strong>Sted:</strong> {{ event.sted }}</p>
                 <p v-if="event.date"><strong>Dato:</strong> {{ event.date }}</p>
                 <p v-if="event.time"><strong>Klokken:</strong> {{ event.time }}</p>

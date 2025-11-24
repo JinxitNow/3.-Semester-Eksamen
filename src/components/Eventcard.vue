@@ -55,11 +55,6 @@ function toggleFavorite() {
   }
 }
 
-/* KALENDER → Reminder.vue */
-function addToCalendar() {
-  router.push("/reminder");
-}
-
 /* NAVIGATION TIL EventDetail */
 function goToDetail() {
   router.push({ name: "EventDetail", params: { id: event.value.id } });
@@ -116,7 +111,6 @@ function formatDate(dateString) {
       <div class="event-main">
         <p class="event-date">{{ formatDate(event.date) }}</p>
         <h3 class="event-title">{{ event.title }}</h3>
-        <p v-if="event.kunstner" class="event-artist">{{ event.kunstner }}</p>
       </div>
 
       <div v-if="event.specialLabel?.length" class="special-label">
