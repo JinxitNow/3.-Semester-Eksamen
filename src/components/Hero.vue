@@ -145,14 +145,12 @@ onBeforeUnmount(() => {
 @media (min-width: 768px) {
   .hero-content .hero-button {
     padding: 14px 32px;
-    font-size: 1.05rem;
-  }
+    }
 }
 
 @media (min-width: 1024px) {
   .hero-content .hero-button {
     padding: 16px 36px;
-    font-size: 1.1rem;
   }
 }
 </style>

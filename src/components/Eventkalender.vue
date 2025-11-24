@@ -208,7 +208,6 @@ function goToPage(page) {
   margin-top: 1rem;
 }
 
-/* Aktiv filter farve */
 .action-btn.active {
   background-color: #927E47 !important;
   color: white !important;
@@ -221,12 +220,17 @@ function goToPage(page) {
 }
 
 /* --- MOBILE FIRST --- */
+
+.eventkalender-title-wrapper p {
+  font-size: 16px;
+}
+
 .filters-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   border-radius: 6px;
 }
 
@@ -254,7 +258,7 @@ function goToPage(page) {
 
 .checkbox-text {
   color: #927E47;
-  font-size: 0.8rem;
+  font-size: 16px;
 }
 
 .action-btn,

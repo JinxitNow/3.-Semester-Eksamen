@@ -80,7 +80,6 @@ import myImage from '../assets/img/ungiodeon.webp'
 
 /* === TYPOGRAFI === */
 h2 {
-  font-size: 1.7rem;
   font-weight: 700;
 }
 
@@ -100,7 +99,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 16px;
   line-height: 1.5;
 }
 

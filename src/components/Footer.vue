@@ -10,7 +10,7 @@ export default {
       <div class="footer-container">
         <div class="footer-section">
           <h3>Åbningstider</h3>
-          <p><strong>Café Odeon:</strong><br />Man–Fre: 08:00–18:00<br />Lør–Søn: 10:00–16:00</p>
+          <p><strong>Café ODEON:</strong><br />Man–Fre: 08:00–18:00<br />Lør–Søn: 10:00–16:00</p>
           <p><strong>ODEON:</strong><br />Man–Fre: 08:00–22:00<br />Lør–Søn: 10:00–22:00</p>
         </div>
 
@@ -165,5 +165,10 @@ export default {
   .contact-section .meetings-section {
     margin-top: 10px;
   }
+
+  /* Ekstra linjeafstand kun i Åbningstider-kolonnen */
+  .footer-section:first-child p {
+  line-height: 1.8;
+}
 }
 </style>

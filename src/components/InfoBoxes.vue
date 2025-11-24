@@ -2,7 +2,7 @@
   <section class="info-box-wrapper" ref="wrapper">
     <!-- Infoboks -->
     <div class="info-box" ref="box">
-      <h3>{{ title }}</h3>
+      <h2>{{ title }}</h2>
       <p>{{ text }}</p>
       
       <!-- Klik-event hvis man vil åbne Registration direkte -->
@@ -81,16 +81,13 @@ export default {
   border: none;
 }
 
-.info-box h3 {
+.info-box h2 {
   margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 550;
   color: #927E47;
 }
 
 .info-box p {
   font-size: 16px;
-  font-weight: 200;
   color: #927E47;
 }
 
