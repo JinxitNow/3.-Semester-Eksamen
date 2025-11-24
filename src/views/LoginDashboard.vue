@@ -18,6 +18,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  
   <section class="dashboard-page">
     <div class="dashboard-header">
       <LoginShortcuts />
@@ -27,31 +28,33 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div class="dashboard-grid">
-      <div class="column">
-        <h3>Medlemsliste</h3>
-        <p>Administrer medlemmer: se, opdater, tilføj eller slet</p>
-        <button class="primary-btn" @click="goTo('/medlems')">Gå til Medlemsliste</button>
-      </div>
+ <div class="dashboard-grid">
+  <div class="column">
+    <h3>Medlemsliste</h3>
+    <p>Administrer medlemmer: se, opdater, tilføj eller slet</p>
+    <button class="primary-btn" @click="goTo('/medlem')">Gå til Medlemsliste</button>
+  </div>
 
-      <div class="column">
-        <h3>Events</h3>
-        <p>Se på, opret, opdater eller slet events</p>
-        <button class="primary-btn" @click="goTo('/login-event')">Gå til Events</button>
-      </div>
+  <div class="column">
+    <h3>Events</h3>
+    <p>Se på, opret, opdater eller slet events</p>
+    <button class="primary-btn" @click="goTo('/login-event')">Gå til Events</button>
+  </div>
 
-      <div class="column">
-        <h3>Statistikker</h3>
-        <p>Se på statistikker</p>
-        <button class="primary-btn" @click="goTo('/statistik')">Gå til Statistikker</button>
-      </div>
+  <div class="column">
+    <h3>Statistikker</h3>
+    <p>Se på statistikker</p>
+    <!-- Denne route findes ikke endnu -->
+    <button class="primary-btn" @click="goTo('/statistik')">Gå til Statistikker</button>
+  </div>
 
-      <div class="column">
-        <h3>Produktmanual</h3>
-        <p>Se på hvordan du kan bruge kampagne- og login-siden</p>
-        <button class="primary-btn" @click="goTo('/vejledninger')">Gå til Manual</button>
-      </div>
-    </div>
+  <div class="column">
+    <h3>Produktmanual</h3>
+    <p>Se på hvordan du kan bruge kampagne- og login-siden</p>
+    <button class="primary-btn" @click="goTo('/tutorials')">Gå til Manual</button>
+  </div>
+</div>
+
   </section>
 </template>
 

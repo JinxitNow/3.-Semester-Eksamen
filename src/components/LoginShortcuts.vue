@@ -21,13 +21,14 @@
           </RouterLink>
         </li>
         <li>
+          <!-- Denne route findes ikke endnu – lav evt. Statistics.vue -->
           <RouterLink to="/statistik">
             <img src="/icons/statistics.png" alt="Statistikker" class="icon" />
             Statistikker
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/vejledninger">
+          <RouterLink to="/tutorials">
             <img src="/icons/manual.png" alt="Produktmanual" class="icon" />
             Produktmanual
           </RouterLink>
@@ -69,10 +70,9 @@ export default {
     display: none;
   }
 
-  /* Fjern margin på main-indhold, så der ikke er hul */
   .main-content {
     margin-left: 0;
-    padding-left: 1rem; /* valgfrit, så indhold ikke klistrer til kanten */
+    padding-left: 1rem;
   }
 }
 
@@ -99,14 +99,12 @@ export default {
   color: #947e4a;
 }
 
-/* Kun ikon-størrelse, ingen designændring */
 .icon {
   width: 16px;
   height: 16px;
   vertical-align: middle;
-  margin-right: 6px;   /* afstand til teksten */
+  margin-right: 6px;
   position: relative;
-  top: -2px;           /* rykker ikonet 2px op */
+  top: -2px;
 }
-
 </style>

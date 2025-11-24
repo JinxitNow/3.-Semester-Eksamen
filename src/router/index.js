@@ -9,8 +9,11 @@ import Reminder from "../views/Reminder.vue";
 import EventDetail from "../views/EventDetail.vue";
 import Terms from "../views/Terms.vue"; 
 import EventGratis from "../views/EventGratis.vue";
-import AdminRegistrations from "../views/LoginRegistration.vue"; // 👈 Admin view
-import UpdateMember from "../views/UpdateMember.vue"; // 👈 Nyt view til kunder
+import AdminRegistrations from "../views/LoginRegistration.vue"; 
+import UpdateMember from "../views/UpdateMember.vue"; 
+
+// 👇 NYT VIEW
+import LoginTutorialDashboard from "../views/LoginTutorialDashboard.vue";
 
 const routes = [
   { path: "/", name: "UngIOdeon", component: UngIOdeon },
@@ -22,8 +25,11 @@ const routes = [
   { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true },
   { path: "/handelsbetingelser", name: "Terms", component: Terms },
   { path: "/events/gratis", name: "EventGratis", component: EventGratis },
-  { path: "/medlem", name: "AdminRegistrations", component: AdminRegistrations }, // Admin route
-  { path: "/update-member", name: "UpdateMember", component: UpdateMember }, // 👈 Ny route til kunder
+  { path: "/medlem", name: "AdminRegistrations", component: AdminRegistrations },
+  { path: "/update-member", name: "UpdateMember", component: UpdateMember },
+
+  // 👇 NY ROUTE TIL DASHBOARD TUTORIAL
+  { path: "/tutorials", name: "LoginTutorialDashboard", component: LoginTutorialDashboard },
 ];
 
 const router = createRouter({
