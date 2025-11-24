@@ -123,6 +123,7 @@ async function onSubmit() {
     const code = generateCode()
 
     await set(newMember, {
+      id: newMember.key,              // 👈 gem ID
       fullName: fullName.value,
       birthday: birthday.value,
       address1: address1.value,
@@ -141,6 +142,7 @@ async function onSubmit() {
         to_email: email.value,
         membership_code: code,
         member_id: newMember.key,
+        update_link: `https://sem-eksamen-adb47.web.app/update-member?memberId=${newMember.key}` // 👈 nyt link
       },
       "NBxFLic-Wi_ObTiV8"
     )
@@ -151,6 +153,7 @@ async function onSubmit() {
   }
   loading.value = false
 }
+
 </script>
 
 <style scoped>
