@@ -103,23 +103,25 @@ watch(() => props.id, (newId) => {
         </div>
       </div>
 
-      <!-- Køb nu + Reminder link -->
-      <div 
-        class="action-row"
-        v-if="!event.specialLabel?.map(l => l.toLowerCase()).includes('gratis')"
-      >
-        <button 
-          class="buy-now-btn" 
-          @click="handleBuyNow" 
-          :disabled="ticketClicked"
-        >
-          Køb nu
-        </button>
+        <!-- Køb nu + Reminder link -->
+        <div class="action-row">
 
-        <router-link :to="{ name: 'Reminder' }" class="reminder-link">
-          Få en påmindelse
-        </router-link>
-      </div>
+            <!-- Køb nu – kun hvis ikke gratis -->
+            <button 
+              v-if="!event.specialLabel?.map(l => l.toLowerCase()).includes('gratis')"
+              class="buy-now-btn" 
+              @click="handleBuyNow" 
+              :disabled="ticketClicked"
+            >
+              Køb nu
+            </button>
+
+            <!-- Reminder – altid -->
+            <router-link :to="{ name: 'Reminder' }" class="reminder-link">
+              Få en påmindelse
+            </router-link>
+
+          </div>
 
       <p v-if="showTicketMessage" class="ticket-message">{{ ticketMessage }}</p>
 
