@@ -225,6 +225,10 @@ function goToPage(page) {
   font-size: 16px;
 }
 
+.eventkalender-title-wrapper h2 {
+  font-size: 22px;
+}
+
 .filters-container {
   display: flex;
   flex-direction: column;

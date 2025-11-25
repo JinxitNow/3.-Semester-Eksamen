@@ -84,6 +84,7 @@ export default {
 .info-box h2 {
   margin-bottom: 10px;
   color: #927E47;
+  font-size: 22px;
 }
 
 .info-box p {

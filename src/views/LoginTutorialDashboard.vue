@@ -97,7 +97,6 @@ const faqs = [
 ];
 
 </script>
-
 <style scoped>
 body.dashboard-active {
   padding-left: 0 !important;
@@ -142,21 +141,24 @@ body.dashboard-active {
 .manual-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 2rem; /* større afstand mellem knapper */
+  margin-bottom: 3rem;
+  justify-content: flex-start;
 }
 
 .primary-btn {
-  padding: 0.7rem 1.5rem;
+  padding: 1rem 2rem;
   background-color: #947e4a;
   color: #FBFBFB;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 300;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 1.1rem;
   transition: background-color 0.3s ease, transform 0.1s ease;
-  min-width: 160px;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .primary-btn:hover {
@@ -171,9 +173,8 @@ body.dashboard-active {
 .faq-section h3 {
   font-size: 1.4rem;
   color: #796535;
-  margin-bottom: 0.8rem; /* før: 1.5rem */
+  margin-bottom: 0.8rem; /* tættere på spørgsmålene */
 }
-
 
 .faq-item {
   margin-bottom: 0.5rem;
@@ -188,21 +189,26 @@ body.dashboard-active {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  gap: 0.5rem; /* stabil afstand mellem tekst og pil */
 }
-
-.faq-arrow svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
- display: block;
-}
-
 
 .faq-question-text {
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 500; /* ikke for tyk */
   color: #947e4a;
+}
+
+.faq-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.faq-arrow.open {
+  transform: rotate(180deg); /* roter pilen op når åbnet */
 }
 
 .faq-answer {
@@ -220,7 +226,6 @@ body.dashboard-active {
   background-color: #947e4a;
   opacity: 0.3;
 }
-
 
 /* Responsiv */
 @media (max-width: 1024px) {

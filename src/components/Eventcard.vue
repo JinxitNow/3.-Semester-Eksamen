@@ -197,7 +197,7 @@ function formatDate(dateString) {
 
 .event-title {
   font-size: 1rem;
-  color: ##927E47;
+  color: #927E47;
   font-weight: bold;
   margin: 0 0 0.25rem;
 }

@@ -81,18 +81,24 @@ import myImage from '../assets/img/ungiodeon.webp'
 }
 
 /* === TYPOGRAFI === */
+/* === TYPOGRAFI === */
 h2 {
+  font-size: 22px;       /* global størrelse */
   font-weight: 700;
+  color: #796535;        /* samme farve som resten */
+  margin-bottom: 0.5rem; /* lidt luft til intro */
 }
 
 .intro {
-  font-size: 1.05rem;
+  font-size: 16px;       /* global brødtekst størrelse */
   line-height: 1.6;
+  color: #796535;
 }
 
 .subheading {
   font-size: 1.1rem;
   font-weight: 600;
+  color: #796535;
 }
 
 .benefits {
@@ -103,7 +109,9 @@ h2 {
   gap: 0.5rem;
   font-size: 16px;
   line-height: 1.5;
+  color: #796535;
 }
+
 
 /* === KNAP === */
 .button-wrapper {

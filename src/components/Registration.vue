@@ -166,6 +166,15 @@ async function onSubmit() {
   box-sizing: border-box;
 }
 
+.form-wrapper h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #796535;
+  margin-bottom: 0.5rem;
+}
+
+
+
 .registration-section {
   display: flex;
   flex-direction: column;
@@ -241,7 +250,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   accent-color: #927E47;
 }
 
-
+.subtitle {
+  font-size: 16px;   /* global størrelse */
+  font-weight: 400;
+  color: #796535;
+  margin-bottom: 1.2rem;
+}
 
 button {
   margin-top: 1rem;
