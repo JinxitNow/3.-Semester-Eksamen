@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 
         <ul class="link-row second">
           <li><a href="#">Kalender</a></li>
-          <li><a href="https://sem-eksamen-adb47.web.app">Ung i ODEON</a></li>
+         <li><router-link to="/" @click="closeMenu">Ung i ODEON</router-link></li>
           <li><a href="#">Mad & Drikke</a></li>
           <li><a href="#">Konference & Møde</a></li>
         </ul>
@@ -60,9 +60,10 @@ onBeforeUnmount(() => {
       <!-- Main row -->
       <div class="main-row">
         <div class="logo-container">
-          <a href="/">
+          <!-- 👇 ændret til router-link -->
+          <router-link to="/">
             <img :src="Logo" alt="ODEON logo" class="header-logo" />
-          </a>
+          </router-link>
         </div>
 
         <button class="burger" @click="toggleMenu" aria-label="Menu">
@@ -81,7 +82,7 @@ onBeforeUnmount(() => {
       <a href="#" @click="closeMenu">Om ODEON</a>
       <a href="#" @click="closeMenu">FAQ</a>
       <a href="#" @click="closeMenu">Kalender</a>
-      <a href="https://sem-eksamen-adb47.web.app" @click="closeMenu">Ung i ODEON</a>
+    <router-link to="/" @click="closeMenu">Ung i ODEON</router-link>
       <a href="#" @click="closeMenu">Mad & Drikke</a>
       <a href="#" @click="closeMenu">Konference & Møde</a>
     </nav>
