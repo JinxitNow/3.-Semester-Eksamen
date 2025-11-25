@@ -10,9 +10,7 @@ import EventDetail from "../views/EventDetail.vue";
 import Terms from "../views/Terms.vue"; 
 import EventGratis from "../views/EventGratis.vue";
 import AdminRegistrations from "../views/LoginRegistration.vue"; 
-import UpdateMember from "../views/UpdateMember.vue"; 
-
-// 👇 NYT VIEW
+import UpdateMember from "../views/UpdateMember.vue";
 import LoginTutorialDashboard from "../views/LoginTutorialDashboard.vue";
 
 const routes = [
@@ -21,14 +19,16 @@ const routes = [
   { path: "/login", name: "Login", component: Login },
   { path: "/dashboard", name: "LoginDashboard", component: LoginDashboard },
   { path: "/login-event", name: "LoginEvent", component: LoginEvent },
-  { path: "/reminder", name: "Reminder", component: Reminder },
+
+  // ⭐ REMINDER SKAL HAVE ID
+  { path: "/reminder/:id", name: "Reminder", component: Reminder, props: true },
+
   { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true },
   { path: "/handelsbetingelser", name: "Terms", component: Terms },
   { path: "/events/gratis", name: "EventGratis", component: EventGratis },
   { path: "/medlem", name: "AdminRegistrations", component: AdminRegistrations },
   { path: "/update-member", name: "UpdateMember", component: UpdateMember },
 
-  // 👇 NY ROUTE TIL DASHBOARD TUTORIAL
   { path: "/tutorials", name: "LoginTutorialDashboard", component: LoginTutorialDashboard },
 ];
 

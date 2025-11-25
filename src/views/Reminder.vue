@@ -1,75 +1,151 @@
 <template>
   <div class="reminder-page">
+    <div v-if="loading" class="loading">Indlæser event...</div>
 
-    <!-- VENSTRE TEKST SEKTION -->
-    <div class="reminder-content">
+    <!-- FEJL -->
+    <div v-else-if="!event">
+      <p class="error"><strong>❌ Event ikke fundet</strong></p>
+    </div>
 
-      <h1 class="event-title">{{ eventTitle }}</h1>
+    <!-- SIDE INDHOLD -->
+    <div v-else class="reminder-content">
+
+      <h1 class="event-title">{{ event.title }}</h1>
 
       <h2 class="section-header">Om Event</h2>
 
-      <p><strong>Dato:</strong> Lørdag d. 27. December 2025</p>
-      <p><strong>Tid:</strong> 20:00 – 22:30</p>
+      <p><strong>Dato:</strong> {{ event.date }}</p>
+      <p><strong>Tid:</strong> {{ event.time || event.specialLabel?.time || "Ukendt" }}</p>
 
-      <p class="event-description">
-        Oplev Mads Langer i en magisk sommeraften-koncert under åben himmel, hvor hans mest elskede sange får nyt liv i intime, akustiske arrangementer.
-        Med sin karakteristiske stemme, nærværende tekster og varme energi inviterer Mads publikum helt tæt på.
-      </p>
+      <p class="event-description">{{ event.om }}</p>
 
-      <p class="event-description">
-        Koncerten byder på både nye numre fra det kommende album "Lightwaves" og klassikere som "3AM",
-        “Fact-Fiction” og “Flawless”. Publikum kan se frem til en aften fyldt med lys,
-        kærlighed og ægte musikalsk nærvær.
-      </p>
-
-      <!-- FORM START -->
-      <form class="reminder-form">
+      <!-- FORMULAR -->
+      <form class="reminder-form" @submit.prevent="submitReminder">
 
         <label>Fulde navn</label>
-        <input type="text" placeholder="F.eks. Anna Jensen" />
+        <input v-model="form.fullName" type="text" required placeholder="F.eks. Anna Jensen" />
 
         <label>Tlf nr</label>
-        <input type="text" placeholder="F.eks. +45 12 34 56 78" />
+        <input v-model="form.phone" type="text" required placeholder="F.eks. 12 34 56 78" />
 
         <label>Mail</label>
-        <input type="email" placeholder="F.eks. anna.jensen@email.dk" />
+        <input v-model="form.email" type="email" required placeholder="F.eks. anna@email.dk" />
 
-        <label>Vælg tidspunkt for påmindelse</label>
-        <input type="date" />
+        <label>Vælg dato for påmindelse</label>
+        <input v-model="form.remindDate" type="date" required />
 
         <!-- CHECKBOXES -->
         <div class="checkbox-group">
-          <label>
-            <input type="checkbox" />
-            Vil gerne modtage det på Mail
+          <label class="checkbox-item">
+            <input type="checkbox" v-model="form.sendMail" />
+            <span>Modtag reminder via mail</span>
           </label>
 
-          <label>
-            <input type="checkbox" />
-            Vil gerne modtage det på SMS
+          <label class="checkbox-item">
+            <input type="checkbox" v-model="form.sendSMS" />
+            <span>Modtag reminder via SMS</span>
           </label>
         </div>
 
         <button type="submit" class="submit-btn">Tilmeld reminder</button>
-
       </form>
-      <!-- FORM SLUT -->
 
     </div>
 
-    <!-- HØJRE SIDE — BILLEDE -->
-    <div class="image-wrapper">
-      <img src="/img/event1.webp" alt="Event billede" />
+    <!-- HØJRE BILLEDE -->
+    <div v-if="event" class="image-wrapper">
+      <img :src="`/img/${event.image}`" alt="" />
     </div>
-
   </div>
 </template>
 
 <script setup>
-const eventTitle = "Mads Langer";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { database } from "../firebase.js";
+import { ref as dbRef, get, push, set } from "firebase/database";
+
+const route = useRoute();
+
+// STATES
+const event = ref(null);
+const loading = ref(true);
+
+// FORM STATE
+const form = ref({
+  fullName: "",
+  email: "",
+  phone: "",
+  remindDate: "",
+  sendMail: false,
+  sendSMS: false,
+});
+
+// 🔥 HENT EVENT FRA FIREBASE
+onMounted(async () => {
+  const eventId = route.params.id;
+  if (!eventId) {
+    loading.value = false;
+    return;
+  }
+
+  const eventRef = dbRef(database, `events/${eventId}`);
+  const snapshot = await get(eventRef);
+
+  if (snapshot.exists()) {
+    event.value = snapshot.val();
+  } else {
+    event.value = null;
+  }
+
+  loading.value = false;
+});
+
+// 🔥 GEM I reminderSignups
+async function submitReminder() {
+  const signupRef = dbRef(database, "reminderSignups");
+
+  const newSignup = {
+    eventId: route.params.id,
+    eventName: event.value.title,
+    fullName: form.value.fullName,
+    email: form.value.email,
+    phone: form.value.phone,
+    remindDate: form.value.remindDate,
+    sendMail: form.value.sendMail,
+    sendSMS: form.value.sendSMS,
+    createdAt: new Date().toISOString(),
+  };
+
+  const newRef = push(signupRef);
+  await set(newRef, newSignup);
+
+  alert("Du er nu tilmeldt en reminder!");
+
+  // 🧹 RYD FORMULAR EFTER TILMELDING
+  form.value = {
+    fullName: "",
+    email: "",
+    phone: "",
+    remindDate: "",
+    sendMail: false,
+    sendSMS: false,
+  };
+}
 </script>
 
 <style scoped>
+.error {
+  font-size: 24px;
+  color: red;
+  padding: 40px;
+}
+
+.loading {
+  font-size: 20px;
+  padding: 40px;
+}
+
 .reminder-page {
   display: flex;
   justify-content: space-between;
@@ -101,21 +177,8 @@ const eventTitle = "Mads Langer";
   font-size: 16px;
 }
 
-.reminder-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.reminder-form label {
-  margin-top: 15px;
-  font-weight: bold;
-  color: #333;
-}
-
-.reminder-form input[type="text"],
-.reminder-form input[type="email"],
-.reminder-form input[type="date"] {
+/* INPUT-FELTER */
+.reminder-form input {
   width: 100%;
   padding: 12px;
   margin-top: 6px;
@@ -123,17 +186,26 @@ const eventTitle = "Mads Langer";
   border-radius: 4px;
 }
 
+/* CHECKBOX GRUPPE */
 .checkbox-group {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.checkbox-group label {
+.checkbox-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
 }
 
+.checkbox-item input {
+  width: auto;
+  height: auto;
+}
+
+/* KNAP */
 .submit-btn {
   background: #84754e;
   color: white;
@@ -142,24 +214,10 @@ const eventTitle = "Mads Langer";
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  width: 200px;
-  margin-top: 10px;
 }
 
-.submit-btn:hover {
-  opacity: 0.85;
-}
-
+/* BILLEDE */
 .image-wrapper {
   width: 45%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-wrapper img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 8px;
 }
 </style>
