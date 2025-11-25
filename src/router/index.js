@@ -12,6 +12,10 @@ import EventGratis from "../views/EventGratis.vue";
 import AdminRegistrations from "../views/LoginRegistration.vue"; 
 import UpdateMember from "../views/UpdateMember.vue";
 import LoginTutorialDashboard from "../views/LoginTutorialDashboard.vue";
+import CampaignTutorial from "../views/CampaignTutorial.vue";
+import EventTutorial from "../views/EventTutorial.vue";
+import StatisticsTutorial from "../views/StatisticsTutorial.vue";
+import MemberlistTutorial from "../views/MemberlistTutorial.vue";
 
 const routes = [
   { path: "/", name: "UngIOdeon", component: UngIOdeon },
@@ -19,17 +23,17 @@ const routes = [
   { path: "/login", name: "Login", component: Login },
   { path: "/dashboard", name: "LoginDashboard", component: LoginDashboard },
   { path: "/login-event", name: "LoginEvent", component: LoginEvent },
-
-  // ⭐ REMINDER SKAL HAVE ID
   { path: "/reminder/:id", name: "Reminder", component: Reminder, props: true },
-
   { path: "/event/:id", name: "EventDetail", component: EventDetail, props: true },
   { path: "/handelsbetingelser", name: "Terms", component: Terms },
   { path: "/events/gratis", name: "EventGratis", component: EventGratis },
   { path: "/medlem", name: "AdminRegistrations", component: AdminRegistrations },
   { path: "/update-member", name: "UpdateMember", component: UpdateMember },
-
   { path: "/tutorials", name: "LoginTutorialDashboard", component: LoginTutorialDashboard },
+  { path: "/tutorial/campaign", name: "CampaignTutorial", component: CampaignTutorial },
+  { path: "/tutorial/events", name: "EventTutorial", component: EventTutorial },
+  { path: "/tutorial/statistics", name: "StatisticsTutorial", component: StatisticsTutorial },
+  { path: "/tutorial/members", name: "MemberlistTutorial", component: MemberlistTutorial },
 ];
 
 const router = createRouter({

@@ -36,12 +36,21 @@ onUnmounted(() => {
       Er du usikker på noget? Se vores forskellige brugsvejledninger, hvor du får en introduktion til produktet samt en step-by-step-guide til, hvordan man opretter og opdaterer events eller medlemmer — og hvordan kampagnesiden “Ung i ODEON” er opbygget. På siderne finder du også videoguides, der hjælper dig trin for trin.
     </p>
 
-    <div class="manual-buttons">
-      <button class="primary-btn" @click="goTo('/tutorial/events')">Events</button>
-      <button class="primary-btn" @click="goTo('/tutorial/members')">Medlemmer</button>
-      <button class="primary-btn" @click="goTo('/tutorial/campaign')">Kampagnesiden</button>
-      <button class="primary-btn" @click="goTo('/tutorial/statistics')">Statistikker</button>
-    </div>
+ <div class="manual-buttons">
+  <button class="primary-btn" @click="goTo('/tutorial/events')">
+    Events
+  </button>
+  <button class="primary-btn" @click="goTo('/tutorial/members')">
+    Medlemmer
+  </button>
+  <button class="primary-btn" @click="goTo('/tutorial/campaign')">
+    Kampagnesiden
+  </button>
+  <button class="primary-btn" @click="goTo('/tutorial/statistics')">
+    Statistikker
+  </button>
+</div>
+
 
     <!-- FAQ Section -->
 <div class="faq-section">
