@@ -148,7 +148,7 @@ onMounted(fetchEvents)
   <section class="login-event-page">
 
      <div class="event-adm">
-        <h2>Administration af events</h2>
+        <h2>Events</h2>
         <p class="eventadm-subtitle">Opret, se, opdater eller slet events</p>
       </div>
 
@@ -272,13 +272,22 @@ onMounted(fetchEvents)
 
 <style scoped>
 
+.login-event-page {  
+  margin-left: 240px;  
+padding-right: 3.8rem;}
+
+@media (max-width: 768px) {
+  .login-event-page {
+    margin-left: 0;
+    padding-right: 3rem;
+  }
+}
 
 .container {
   display: flex;
   gap: 2rem;
   padding: 2rem;
   align-items: flex-start;
-  margin-left: 240px;
 }
 
 .column {
@@ -479,6 +488,7 @@ onMounted(fetchEvents)
   .link-buttons {
     display: none;
   }
+
 }
 
 /* Container og kolonner */
@@ -513,6 +523,15 @@ onMounted(fetchEvents)
 
 /* Event billeder og info */
 @media (max-width: 768px) {
+
+ 
+  .event-adm h2,
+  .eventadm-subtitle {
+    margin-left: 0;       /* fjern margin på mobil */
+    text-align: left;     /* sikrer venstrejustering */
+  }
+
+
 .container {
   margin-left: 0;
 }
@@ -547,6 +566,12 @@ onMounted(fetchEvents)
 
 /* Ekstra finjustering til meget små skærme */
 @media (max-width: 480px) {
+
+ .login-event-page {
+    margin-left: 0;
+    padding-right: 3.8rem;
+  }
+
   .form-column input,
   .form-column select {
     font-size: 0.85rem;
@@ -574,14 +599,13 @@ onMounted(fetchEvents)
   font-size: 24px;
   font-weight: 700;
   color: #796535;
-  margin-left: 15rem;
+  
 }
 
 .eventadm-subtitle {
   margin-top: 0.4rem;
   font-size: 1rem;
   color: #927e47;
-  margin-left: 15rem;
  }
 
 </style>

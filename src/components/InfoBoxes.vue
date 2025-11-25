@@ -72,13 +72,17 @@ export default {
 
 .info-box {
   background-color: #E4E3E1;
-  max-width: 420px;
+  max-width: 490px;
   padding: 1.8rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
   border: none;
+}
+
+.info-box a {
+    padding-bottom: 20px;
 }
 
 .info-box h2 {
