@@ -1,6 +1,15 @@
 <script>
+import facebookImg from '../assets/img/facebook.webp?url'
+import instagramImg from '../assets/img/instagram.webp?url'
+
 export default {
   name: 'FooterComponent',
+  data() {
+    return {
+      facebookImg,
+      instagramImg,
+    }
+  }
 };
 </script>
 
@@ -33,10 +42,11 @@ export default {
           <ul>
             <li><a href="#">Presse</a></li>
             <li><a href="#">Nyhedsbrev</a></li>
+            <li><a href="https://www.instagram.com/odeonodense/?hl=da">@Odeonodense</a></li>
           </ul>
           <div class="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
+            <a href="https://www.facebook.com/odeonodense/?locale=da_DK" target="_blank"><img :src="facebookImg" alt="Facebook" class="social-icon-img" /></a>
+            <a href="https://www.instagram.com/odeonodense/?hl=da" target="_blank"><img :src="instagramImg" alt="Instagram" class="social-icon-img" /></a>
           </div>
         </div>
 
@@ -149,6 +159,13 @@ export default {
 
 .social-icons a {
   font-size: 14px;
+  display: inline-block;
+}
+
+.social-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 /* Desktop: 6 kolonner */
