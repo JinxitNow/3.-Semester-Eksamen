@@ -23,6 +23,7 @@ const steps = [
 Sådan kan I nemt lave tutorials med flere bokse, og hver boks kan indeholde flere billeder med deres egen tekst.
 -->
 
+
 <script setup>
 import TutorialLayout from '../components/TutorialLayout.vue'
 
@@ -60,50 +61,10 @@ const steps = [
 </script>
 
 <template>
-  <div>
-    <!-- Tutorial layout -->
-    <TutorialLayout 
-      title="Kampagneside Tutorial" 
-      subtitle="Sidste opdatering: 27.11.2025" 
-      :steps="steps" 
-    />
+  <TutorialLayout 
+  title="Kampagneside Tutorial" 
+  :steps="steps"
+  nextRoute="/tutorial/events"
+/>
 
-    <!-- Navigation til andre tutorials -->
-    <div class="tutorial-navigation">
-      <button class="primary-btn" @click="$router.push('/tutorial/events')">
-        Se på Events tutorial
-      </button>
-      <button class="primary-btn" @click="$router.push('/tutorial/members')">
-        Se på Medlemsliste tutorial
-      </button>
-    </div>
-  </div>
 </template>
-
-<style scoped>
-.tutorial-navigation {
-  display: flex;
-  justify-content: space-between; /* venstre og højre */
-  margin: 3rem 0;
-}
-
-.primary-btn {
-  flex: 1;                /* gør dem lige brede */
-  max-width: 300px;       /* justér efter hvor brede du vil have dem */
-  text-align: center;
-  padding: 0.9rem 1.6rem;
-  background-color: #947e4a;
-  color: #FBFBFB;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.primary-btn:hover {
-  background-color: #7d6a3e;
-}
-
-</style>

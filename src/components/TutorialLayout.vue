@@ -1,12 +1,15 @@
 <script setup>
+import { RouterLink } from "vue-router";
 import { onMounted, onUnmounted } from "vue";
 import LoginShortcuts from '../components/LoginShortcuts.vue';
 
 const props = defineProps({
   title: { type: String, required: true },
   subtitle: { type: String, default: "Sidste opdatering: 27.11.2025" },
-  steps: { type: Array, required: true }
-})
+  steps: { type: Array, required: true },
+  prevRoute: { type: String, default: null },
+  nextRoute: { type: String, default: null }
+});
 
 onMounted(() => {
   document.body.classList.add("tutorial-active");
@@ -39,6 +42,13 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <!-- Knapper nederst -->
+    <div class="tutorial-actions">
+      <RouterLink v-if="prevRoute" :to="prevRoute" class="tutorial-btn">← Tilbage</RouterLink>
+      <RouterLink v-if="nextRoute" :to="nextRoute" class="tutorial-btn primary">Næste →</RouterLink>
+    </div>
+
   </section>
 </template>
 
@@ -140,5 +150,41 @@ onUnmounted(() => {
     margin-left: 0;
     padding: 1rem;
   }
+}
+
+/* Knapper nederst i layout */
+.tutorial-actions {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.tutorial-btn {
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #796535;
+  background-color: transparent;
+  color: #796535;
+  cursor: pointer;
+  transition: 0.25s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.tutorial-btn:hover {
+  background-color: #e3d7b6;
+}
+
+.tutorial-btn.primary {
+  background-color: #927e47;
+  border-color: #927e47;
+  color: white;
+}
+
+.tutorial-btn.primary:hover {
+  background-color: #a08b5d;
 }
 </style>
