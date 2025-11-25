@@ -118,7 +118,7 @@ body.dashboard-active {
 }
 
 .dashboard-heading h2 {
-  font-size: 1.8rem;
+  font-size: 22px; /* global størrelse */
   color: #796535;
   margin: 0;
 }
@@ -131,23 +131,23 @@ body.dashboard-active {
 
 /* Manual text */
 .manual-description {
-  font-size: 1rem;
+  font-size: 16px; /* global brødtekst størrelse */
   color: #796535;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem; /* lidt mere luft ned til knapper */
 }
 
 /* Buttons */
 .manual-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem; /* større afstand mellem knapper */
-  margin-bottom: 3rem;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 knapper fordelt ligeligt */
+  gap: 1.5rem; 
+  margin-bottom: 4rem; /* mere luft ned til FAQ */
 }
 
 .primary-btn {
-  padding: 1rem 2rem;
+  width: 100%;              /* knappen fylder hele sin kolonne */
+  padding: 1.2rem 0;        /* højere knapper */
   background-color: #947e4a;
   color: #FBFBFB;
   border: none;
@@ -156,7 +156,6 @@ body.dashboard-active {
   font-weight: 400;
   font-size: 1.1rem;
   transition: background-color 0.3s ease, transform 0.1s ease;
-  min-width: 200px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
@@ -240,8 +239,7 @@ body.dashboard-active {
   }
 
   .manual-buttons {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr 1fr; /* 2 per række på tablet */
   }
 }
 
@@ -249,6 +247,10 @@ body.dashboard-active {
   .dashboard-page {
     margin-left: 0;
     padding: 1rem;
+  }
+
+  .manual-buttons {
+    grid-template-columns: 1fr; /* én per række på mobil */
   }
 }
 </style>
