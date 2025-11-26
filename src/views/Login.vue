@@ -38,7 +38,7 @@ function goToAdmin() {
   align-items: center;
   min-height: 80vh;
   padding: 2rem;
-  background-color: #f7f7f7;
+  background-color: #efefefef;
 }
 
 .login-container {
