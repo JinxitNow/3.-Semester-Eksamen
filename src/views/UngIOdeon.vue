@@ -79,7 +79,7 @@ watch(showForm, async (newVal) => {
 
 /* Ens spacing mellem sektioner */
 .section-spacing {
-  margin-bottom: 5rem; /* justér til 2rem eller 4rem efter smag */
+  margin-bottom: 5rem; 
 }
 
 </style>

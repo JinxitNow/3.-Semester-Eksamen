@@ -34,6 +34,18 @@ function generateCode(len = 6) {
   return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join("")
 }
 
+function resetForm() {
+  fullName.value = ""
+  birthday.value = ""
+  address1.value = ""
+  address2.value = ""
+  email.value = ""
+  phone.value = ""
+  acceptTerms.value = false
+  acceptPolicy.value = false
+  errors.value = {}
+}
+
 async function onSubmit() {
   if (!validate()) return
 
@@ -41,41 +53,42 @@ async function onSubmit() {
   try {
     const membersRef = dbRef(database, "members")
     const newMember = push(membersRef)
-    const code = generateCode()
+    const code = generateCode() // stadig gemt i databasen, men ikke sendt i mail
 
     await set(newMember, {
-      id: newMember.key,              // 👈 gem ID
+      id: newMember.key,
       fullName: fullName.value,
       birthday: birthday.value,
       address1: address1.value,
       address2: address2.value,
       email: email.value,
       phone: phone.value,
-      membershipCode: code,
+      membershipCode: code,   // gemmes internt
       createdAt: Date.now(),
     })
 
+    // Mail indeholder kun navn, email og det personlige link
     await emailjs.send(
       "service_viiagc2",
       "template_eh1z8l6",
       {
         to_name: fullName.value,
         to_email: email.value,
-        membership_code: code,
-        member_id: newMember.key,
-        update_link: `https://sem-eksamen-adb47.web.app/update-member?memberId=${newMember.key}` // 👈 nyt link
+        update_link: `https://sem-eksamen-adb47.web.app/update-member?memberId=${newMember.key}`
       },
       "NBxFLic-Wi_ObTiV8"
     )
 
     message.value = "Du er nu medlem! Tjek din email."
+    resetForm()
   } catch {
     message.value = "Der skete en fejl. Prøv igen."
   }
   loading.value = false
 }
-
 </script>
+
+
 
 <template>
   <div class="registration-wrapper">
