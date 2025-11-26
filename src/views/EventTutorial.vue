@@ -100,10 +100,11 @@ const steps = [
 </script>
 
 <template>
- <TutorialLayout 
-  title="Event Tutorial" 
-  :steps="steps"
-  prevRoute="/tutorial/campaign"
-  nextRoute="/tutorial/statistics"
- />
+  <TutorialLayout 
+    title="Event Tutorial" 
+    :steps="steps"
+    prevRoute="/tutorial/members"    
+    nextRoute="/tutorial/statistics" 
+  />
 </template>
+

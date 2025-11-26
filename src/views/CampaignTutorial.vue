@@ -133,6 +133,7 @@ const steps = [
   <TutorialLayout 
     title="Kampagneside Tutorial" 
     :steps="steps"
-    nextRoute="/tutorial/events"
+    nextRoute="/tutorial/members" 
   />
 </template>
+

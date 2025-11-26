@@ -79,9 +79,11 @@ const steps = [
 </script>
 
 <template>
-<TutorialLayout
-  title="Medlemsliste Tutorial"
-  :steps="steps"
-  prevRoute="/tutorial/statistics"
-/>
+  <TutorialLayout
+    title="Medlemsliste Tutorial"
+    :steps="steps"
+    prevRoute="/tutorial/campaign"   
+    nextRoute="/tutorial/events"   
+  />
 </template>
+
