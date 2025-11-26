@@ -125,7 +125,7 @@ export default {
 .footer-section a {
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.4;
   color: #796535;
 }
 
