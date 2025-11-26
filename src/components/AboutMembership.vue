@@ -120,7 +120,7 @@ h2 {
 
 button {
   padding: 0.8rem 1.6rem;
-  background: #927E47;
+  background: #867541;
   color: white;
   border-radius: 6px;
   font-weight: 300;

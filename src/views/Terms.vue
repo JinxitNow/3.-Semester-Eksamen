@@ -133,7 +133,7 @@ html, body {
 .back-button button {
   width: 100%;
   text-align: left;
-  background-color: #947e4a;
+  background-color: #867541;
   color: #fbfbfb;
   border: none;
   border-radius: 6px;

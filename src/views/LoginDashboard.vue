@@ -127,7 +127,7 @@ body.dashboard-active {
 /* Knapper */
 .primary-btn {
   padding: 0.7rem 1.5rem;
-  background-color: #947e4a; /* global button farve */
+  background-color: #867541; /* global button farve */
   color: #FBFBFB;
   border: none;
   border-radius: 8px;

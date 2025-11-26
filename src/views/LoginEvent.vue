@@ -312,7 +312,7 @@ padding-right: 3.8rem;}
 .link-btn a {
   display: block;
   padding: 0.5rem 1rem;
-  background-color: #84754e;
+  background-color: #867541;
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
@@ -333,7 +333,7 @@ padding-right: 3.8rem;}
 .form-column input,
 .form-column select {
   padding: 0.4rem;
-  border: 1px solid #84754e;
+  border: 1px solid #867541;
   border-radius: 5px;
 }
 
@@ -346,7 +346,7 @@ padding-right: 3.8rem;}
 .primary-btn {
   padding: 0.35rem 0.6rem;
   font-size: 0.8rem;
-  background-color: #84754e;
+  background-color: #867541;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -443,7 +443,7 @@ padding-right: 3.8rem;}
 
 .event-actions button {
   padding: 0.25rem 0.5rem;
-  background-color: #84754e;
+  background-color: #867541;
   color: #fff;
   border: none;
   border-radius: 4px;

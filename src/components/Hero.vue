@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
 .hero-content .hero-button {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #927e47;
+  background-color: #867541;
   color: #FFFFFF;
   border: none;
   border-radius: 6px;

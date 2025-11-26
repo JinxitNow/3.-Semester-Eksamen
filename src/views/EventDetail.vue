@@ -181,7 +181,7 @@ watch(
 }
 
 .back-btn {
-  background: #927E47;
+  background: #867541;
   color: #fff;
   border: none;
   padding: 0.3rem 0.6rem;
@@ -227,7 +227,7 @@ watch(
 }
 
 .buy-now-btn {
-  background-color: #927E47;
+  background-color: #867541;
   color: white;
   border: none;
   padding: 0.6rem 1rem;

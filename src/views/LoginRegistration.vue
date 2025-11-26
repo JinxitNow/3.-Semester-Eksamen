@@ -270,7 +270,7 @@ onMounted(loadMembers)
 .input-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #796535;
+  color: #867541;
   margin-bottom: 4px;
 }
 
@@ -289,7 +289,7 @@ input {
 
 .checkbox-group label {
   font-size: 14px;
-  color: #796535;
+  color: #867541;
 }
 
 .form-buttons {
@@ -309,7 +309,7 @@ input {
 }
 
 .primary-btn {
-  background-color: #796535;
+  background-color: #867541;
   color: white;
 }
 
@@ -425,7 +425,7 @@ input {
 }
 
 .actions button:first-child {
-  background-color: #947e4a;
+  background-color: #867541;
   color: #FBFBFB;
 }
 

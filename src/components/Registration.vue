@@ -273,7 +273,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 button {
   margin-top: 1rem;
   padding: .7rem 1.4rem;
-  background: #927E47;
+  background: #867541;
   color: white;
   border-radius: 6px;
   cursor: pointer;

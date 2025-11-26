@@ -141,7 +141,7 @@ input {
 button {
   margin-top: 1rem;
   padding: 0.7rem 1.4rem;
-  background: #947e4a;
+  background: #867541;
   color: #fff;
   border: none;
   border-radius: 6px;

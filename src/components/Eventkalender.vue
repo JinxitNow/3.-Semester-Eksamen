@@ -209,12 +209,12 @@ function goToPage(page) {
 }
 
 .action-btn.active {
-  background-color: #927E47 !important;
+  background-color: #867541 !important;
   color: white !important;
   font-weight: bold;
 }
 .dropdown-item.active {
-  background-color: #927E47 !important;
+  background-color: #867541 !important;
   color: white !important;
   font-weight: bold;
 }
@@ -255,7 +255,7 @@ function goToPage(page) {
 }
 
 .checkbox-container input[type="checkbox"] {
-  accent-color: #796535;
+  accent-color: #867541;
   width: 16px;
   height: 16px;
 }
@@ -267,7 +267,7 @@ function goToPage(page) {
 
 .action-btn,
 .favorites-btn {
-  background-color: #927e47;
+  background-color: #867541;
   color: #fff;
   border-radius: 6px;
   padding: 8px 10px;
@@ -344,7 +344,7 @@ function goToPage(page) {
   left: 0;
   width: 220px;
   background-color: #fff;
-  border: 1px solid #927E47;
+  border: 1px solid #867541;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   z-index: 100;
@@ -356,7 +356,7 @@ function goToPage(page) {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #927e47;
+  color: #867541;
 }
 
 .dropdown-item:hover {
@@ -386,13 +386,13 @@ function goToPage(page) {
 .arrow-left {
   border-width: 8px 12px 8px 0;
   border-style: solid;
-  border-color: transparent #927e47 transparent transparent;
+  border-color: transparent #867541 transparent transparent;
 }
 
 .arrow-right {
   border-width: 8px 0 8px 12px;
   border-style: solid;
-  border-color: transparent transparent transparent #927e47;
+  border-color: transparent transparent transparent #867541;
 }
 
 .arrow-left.disabled,
@@ -411,13 +411,13 @@ function goToPage(page) {
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
-  color: #927e47;
+  color: #867541;
   display: flex;
   align-items: center;
 }
 
 .page-num.active {
-  background: #927e47;
+  background: #867541;
   color: #fff;
 }
 

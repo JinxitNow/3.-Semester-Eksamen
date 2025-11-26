@@ -157,7 +157,7 @@ body.dashboard-active {
 .primary-btn {
   width: 100%;              /* knappen fylder hele sin kolonne */
   padding: 1.2rem 0;        /* højere knapper */
-  background-color: #947e4a;
+  background-color: #867541;
   color: #FBFBFB;
   border: none;
   border-radius: 10px;

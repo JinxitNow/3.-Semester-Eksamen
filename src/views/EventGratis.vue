@@ -81,7 +81,7 @@ onUnmounted(() => {
 }
 
 .back-btn {
-  background: #84754e;
+  background: #867541;
   color: #fff;
   border: none;
   padding: 0.3rem 0.6rem;

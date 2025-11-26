@@ -100,7 +100,7 @@ const goBack = () => {
 }
 
 .no-favorites {
-  color: #84754e;
+  color: #867541;
   font-style: italic;
   text-align: center;
   margin-top: 2rem;
@@ -114,8 +114,8 @@ const goBack = () => {
 
 .back-btn {
   background: none;
-  border: 1px solid #84754e;
-  color: #927E47;
+  border: 1px solid #867541;
+  color: #867541;
   padding: 0.4rem 1rem;
   border-radius: 6px;
   cursor: pointer;

@@ -79,7 +79,7 @@ function goToAdmin() {
 .login-btn {
   width: 100%;
   padding: 0.7rem;
-  background-color: #84754e;
+  background-color: #867541;
   color: #fff;
   border: none;
   border-radius: 5px;

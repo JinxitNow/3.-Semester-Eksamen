@@ -165,9 +165,9 @@ onUnmounted(() => {
   padding: 12px 26px;
   font-size: 1rem;
   border-radius: 6px;
-  border: 1px solid #796535;
+  border: 1px solid #867541;
   background-color: transparent;
-  color: #796535;
+  color: #867541;
   cursor: pointer;
   transition: 0.25s ease;
   text-decoration: none;
@@ -179,8 +179,8 @@ onUnmounted(() => {
 }
 
 .tutorial-btn.primary {
-  background-color: #927e47;
-  border-color: #927e47;
+  background-color: #867541;
+  border-color: #867541;
   color: white;
 }
 

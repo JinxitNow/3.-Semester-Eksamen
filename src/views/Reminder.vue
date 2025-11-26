@@ -207,7 +207,7 @@ async function submitReminder() {
 
 /* KNAP */
 .submit-btn {
-  background: #84754e;
+  background: #867541;
   color: white;
   padding: 12px 24px;
   border: none;

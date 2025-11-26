@@ -168,7 +168,7 @@ function formatDate(dateString) {
   border-radius: 6px;
   font-size: 1.25rem;
   cursor: pointer;
-  color: #927E47;
+  color: #867541;
   width: 25px;
   height: 25px;
   display: flex;
@@ -210,7 +210,7 @@ function formatDate(dateString) {
 }
 
 .special-label {
-  background-color: #927E47;
+  background-color: #867541;
   color: white;
   font-size: 0.6rem;
   border-radius: 6px;
