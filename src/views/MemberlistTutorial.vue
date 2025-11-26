@@ -1,60 +1,78 @@
-<!--
-📘 Code Description – Tutorial Pages
-
-Denne opsætning er lavet som et fælles layout (`TutorialLayout.vue`), som alle tutorials (Campaign, Event, Statistics, Memberlist) kan bruge.
-Formålet er at vise tekst + billede par i bokse, så hvert billede har sin egen forklaring.
-
-Struktur:
-- Hver tutorial-side importerer `TutorialLayout.vue`
-- Dataen består af et `steps`-array
-- Hvert step har en `title` og en liste af `items` (tekst + billede)
-
-Eksempel:
-const steps = [
-  {
-    title: "Tilføj kampagneindhold",
-    items: [
-      { text: "Step 1: Klik på 'Tilføj indhold'.", image: "/img/event1.webp" },
-      { text: "Step 2: Upload billede og tekst.", image: "/img/event1.webp" }
-    ]
-  }
-]
-
-Sådan kan I nemt lave tutorials med flere bokse, og hver boks kan indeholde flere billeder med deres egen tekst.
--->
-
-
 <script setup>
 import TutorialLayout from '../components/TutorialLayout.vue'
 
 const steps = [
   {
-    title: "Introduktion til kampagnesiden",
+    title: "Introduktion til medlemslisten",
     items: [
-      { text: "Step 1: Gå ind på kampagnesiden via menuen.", image: "/img/event1.webp" },
-      { text: "Step 2: Læs introduktionsteksten som forklarer strukturen.", image: "/img/event1.webp" }
+      { 
+        text: "Medlemslisten er en admin‑side, hvor administrator kan se alle tilmeldte medlemmer af Ung i ODEON. Til højre vises en rullemenu med titlen 'UNG I ODEON medlemmer', og til venstre findes boksen 'Tilføj eller opdater medlem'.", 
+        image: "/img/memberlist_intro.webp" 
+      }
     ]
   },
   {
-    title: "Tilføj kampagneindhold",
+    title: "Opret nyt medlem",
     items: [
-      { text: "Step 1: Klik på 'Tilføj indhold'.", image: "/img/event1.webp" },
-      { text: "Step 2: Upload billede og tekst.", image: "/img/event1.webp" },
-      { text: "Step 3: Gem ændringerne.", image: "/img/event1.webp" }
+      { 
+        text: "Step 1: Udfyld felterne i boksen 'Tilføj eller opdater medlem' til venstre: Navn og Efternavn, Fødselsdag, Adresse, By og Postnummer, Email og Mobilnummer.", 
+        image: "/img/memberlist_add.webp" 
+      },
+      { 
+        text: "Step 2: Accepter handelsbetingelserne.", 
+        image: "/img/memberlist_terms.webp" 
+      },
+      { 
+        text: "Step 3: Klik på 'Tilføj'. Medlemmet bliver tilføjet til listen til højre, og en email sendes automatisk til den angivne adresse med medlemsinformationerne.", 
+        image: "/img/memberlist_add_confirm.webp" 
+      },
+      { 
+        text: "Hvis du ikke ønsker at tilføje medlemmet alligevel, klik på 'Annuller'. Felterne tømmes uden at tilføje medlemmet.", 
+        image: "/img/memberlist_cancel.webp" 
+      }
     ]
   },
   {
-    title: "Opdater eksisterende indhold",
+    title: "Opdater medlem",
     items: [
-      { text: "Step 1: Find indholdet du vil ændre.", image: "/img/event1.webp" },
-      { text: "Step 2: Klik på 'Rediger'.", image: "/img/event1.webp" }
+      { 
+        text: "Step 1: Find medlemmet i listen til højre og klik på 'Opdater'.", 
+        image: "/img/memberlist_update.webp" 
+      },
+      { 
+        text: "Step 2: Medlemmets informationer vises nu i boksen til venstre. Ret de ønskede oplysninger, fx adresse eller mobilnummer.", 
+        image: "/img/memberlist_update_form.webp" 
+      },
+      { 
+        text: "Step 3: Klik på 'Opdater' for at gemme ændringerne. Informationerne opdateres i listen til højre. Der sendes ikke en ny email til medlemmet ved opdatering.", 
+        image: "/img/memberlist_update_confirm.webp" 
+      },
+      { 
+        text: "Hvis du ikke ønsker at ændre oplysningerne alligevel, klik på 'Annuller'. Felterne tømmes uden at gemme ændringer.", 
+        image: "/img/memberlist_update_cancel.webp" 
+      }
     ]
   },
   {
-    title: "Slet kampagneindhold",
+    title: "Slet medlem",
     items: [
-      { text: "Step 1: Vælg indholdet du vil slette.", image: "/img/event1.webp" },
-      { text: "Step 2: Bekræft sletningen.", image: "/img/event1.webp" }
+      { 
+        text: "Step 1: Find medlemmet i listen til højre.", 
+        image: "/img/memberlist_delete.webp" 
+      },
+      { 
+        text: "Step 2: Klik på 'Slet'. Medlemmets informationer fjernes helt fra systemet.", 
+        image: "/img/memberlist_delete_confirm.webp" 
+      }
+    ]
+  },
+  {
+    title: "Automatisk tilmelding fra kampagnesiden",
+    items: [
+      { 
+        text: "Når en person tilmelder sig via kampagnesiden, tilføjes informationerne automatisk til medlemslisten. Samtidig sendes en email til personen med medlemsinformationerne.", 
+        image: "/img/memberlist_auto.webp" 
+      }
     ]
   }
 ]
@@ -66,6 +84,4 @@ const steps = [
   :steps="steps"
   prevRoute="/tutorial/statistics"
 />
-
-
 </template>
