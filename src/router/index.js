@@ -16,6 +16,7 @@ import CampaignTutorial from "../views/CampaignTutorial.vue";
 import EventTutorial from "../views/EventTutorial.vue";
 import StatisticsTutorial from "../views/StatisticsTutorial.vue";
 import MemberlistTutorial from "../views/MemberlistTutorial.vue";
+import LoginStatistics from "../views/LoginStatistics.vue"; 
 
 const routes = [
   { path: "/", name: "UngIOdeon", component: UngIOdeon },
@@ -34,6 +35,7 @@ const routes = [
   { path: "/tutorial/events", name: "EventTutorial", component: EventTutorial },
   { path: "/tutorial/statistics", name: "StatisticsTutorial", component: StatisticsTutorial },
   { path: "/tutorial/members", name: "MemberlistTutorial", component: MemberlistTutorial },
+  { path: "/statistik", name: "LoginStatistics", component: LoginStatistics }, 
 ];
 
 const router = createRouter({
