@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
 .link-row li router-link {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #947e4a;
+  color: #796535;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
 
 .divider-line {
   height: 1px;
-  background-color: #947e4a;
+  background-color: #796535;
   width: 100%;
 }
 
@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
   background: none;
   border: none;
   font-size: 1.8rem;
-  color: #947e4a;
+  color: #796535;
   cursor: pointer;
 }
 
@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
   padding: 0.6rem 0;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #947e4a;
+  color: #796535;
   text-decoration: none;
   text-align: left;
 }

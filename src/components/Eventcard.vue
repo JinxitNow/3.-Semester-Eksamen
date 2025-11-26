@@ -197,7 +197,7 @@ function formatDate(dateString) {
 
 .event-title {
   font-size: 1rem;
-  color: #927E47;
+  color: #796535;
   font-weight: bold;
   margin: 0 0 0.25rem;
 }
@@ -206,7 +206,7 @@ function formatDate(dateString) {
 .event-artist {
   font-size: 0.8rem;
   margin: 0;
-  color: #927E47;
+  color: #796535;
 }
 
 .special-label {

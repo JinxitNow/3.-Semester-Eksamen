@@ -255,19 +255,19 @@ function goToPage(page) {
 }
 
 .checkbox-container input[type="checkbox"] {
-  accent-color: #927E47;
+  accent-color: #796535;
   width: 16px;
   height: 16px;
 }
 
 .checkbox-text {
-  color: #927E47;
+  color: #796535;
   font-size: 16px;
 }
 
 .action-btn,
 .favorites-btn {
-  background-color: #927E47;
+  background-color: #927e47;
   color: #fff;
   border-radius: 6px;
   padding: 8px 10px;
@@ -356,7 +356,7 @@ function goToPage(page) {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #927E47;
+  color: #927e47;
 }
 
 .dropdown-item:hover {
@@ -386,13 +386,13 @@ function goToPage(page) {
 .arrow-left {
   border-width: 8px 12px 8px 0;
   border-style: solid;
-  border-color: transparent #927E47 transparent transparent;
+  border-color: transparent #927e47 transparent transparent;
 }
 
 .arrow-right {
   border-width: 8px 0 8px 12px;
   border-style: solid;
-  border-color: transparent transparent transparent #927E47;
+  border-color: transparent transparent transparent #927e47;
 }
 
 .arrow-left.disabled,
@@ -411,13 +411,13 @@ function goToPage(page) {
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
-  color: #927E47;
+  color: #927e47;
   display: flex;
   align-items: center;
 }
 
 .page-num.active {
-  background: #84754e;
+  background: #927e47;
   color: #fff;
 }
 

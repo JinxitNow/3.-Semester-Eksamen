@@ -73,7 +73,7 @@ export default {
 .info-box {
   background-color: #E4E3E1;
   max-width: 490px;
-  padding: 1.8rem;
+  padding: 2rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -83,17 +83,19 @@ export default {
 
 .info-box a {
     padding-bottom: 20px;
+    color: #796535;
 }
 
 .info-box h2 {
   margin-bottom: 10px;
-  color: #927E47;
+  color: #796535;
   font-size: 22px;
+  margin-top: 20px;
 }
 
 .info-box p {
   font-size: 16px;
-  color: #927E47;
+  color: #796535;
 }
 
 /* Link styling - underline kun */
