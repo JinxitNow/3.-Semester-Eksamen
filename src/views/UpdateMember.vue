@@ -9,11 +9,13 @@ const memberId = route.query.memberId
 
 const member = ref(null)
 const message = ref("")
+const messageType = ref("") // 👈 tilføjet for styling (success/error)
 const loading = ref(false)
 
 onMounted(async () => {
   if (!memberId) {
     message.value = "Ingen medlem fundet."
+    messageType.value = "error"
     return
   }
   const snapshot = await get(dbRef(database, "members/" + memberId))
@@ -21,6 +23,7 @@ onMounted(async () => {
     member.value = snapshot.val()
   } else {
     message.value = "Medlem ikke fundet."
+    messageType.value = "error"
   }
 })
 
@@ -37,8 +40,10 @@ async function saveChanges() {
       phone: member.value.phone,
     })
     message.value = "Dine oplysninger er opdateret!"
+    messageType.value = "success"
   } catch (err) {
     message.value = "Der skete en fejl. Prøv igen."
+    messageType.value = "error"
   }
   loading.value = false
 }
@@ -84,6 +89,9 @@ async function saveChanges() {
           Gem ændringer
           <span v-if="loading" class="spinner"></span>
         </button>
+
+        <!-- 👇 Feedback til brugeren -->
+        <p v-if="message" :class="['feedback', messageType]">{{ message }}</p>
       </form>
     </div>
 
@@ -158,5 +166,18 @@ button:disabled {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Feedback styling */
+.feedback {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.feedback.success {
+  color: #2e7d32; /* grøn */
+}
+.feedback.error {
+  color: #a62e2e; /* rød */
 }
 </style>
