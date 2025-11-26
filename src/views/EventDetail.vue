@@ -4,7 +4,7 @@ import { useRouter } from "vue-router"
 import { database } from "../firebase.js"
 import { ref as dbRef, get } from "firebase/database"
 
-// Vi får ID fra routeren (props: true i router/index.js)
+// Props fra router
 const props = defineProps({ id: String })
 
 const event = ref(null)
@@ -12,22 +12,27 @@ const relatedEvents = ref([])
 const router = useRouter()
 
 // Køb nu state
+const loadingTicket = ref(false)
 const showTicketMessage = ref(false)
 const ticketMessage = ref("")
 const ticketClicked = ref(false)
 
+// Handle Køb nu
 function handleBuyNow() {
   if (ticketClicked.value) return
+
   ticketClicked.value = true
+  loadingTicket.value = true
   showTicketMessage.value = true
   ticketMessage.value = "Du omdirigeres nu til billetudbyder, vent venligst"
 
   setTimeout(() => {
     ticketMessage.value = "Desværre, der er ferielukket, prøv igen en anden dag"
+    loadingTicket.value = false // spinner slukkes
   }, 5000)
 }
 
-// Funktion til at hente event + relaterede kommende events
+// Hent event + relaterede kommende events
 async function fetchEventAndRelated(id) {
   // Hent det valgte event
   const snapshot = await get(dbRef(database, "events/" + id))
@@ -39,13 +44,14 @@ async function fetchEventAndRelated(id) {
     const allEvents = allSnapshot.val()
 
     if (allEvents) {
-      const today = new Date().setHours(0,0,0,0)
+      const today = new Date().setHours(0, 0, 0, 0)
       relatedEvents.value = Object.entries(allEvents)
         .map(([evId, val]) => ({ id: evId, ...val }))
-        .filter(ev =>
-          ev.id !== id &&
-          ev.categories?.some(cat => event.value.categories.includes(cat)) &&
-          ev.date && new Date(ev.date).setHours(0,0,0,0) >= today // kun kommende events
+        .filter(
+          ev =>
+            ev.id !== id &&
+            ev.categories?.some(cat => event.value.categories.includes(cat)) &&
+            ev.date && new Date(ev.date).setHours(0, 0, 0, 0) >= today
         )
         .slice(0, 3)
     }
@@ -57,14 +63,18 @@ onMounted(() => {
   fetchEventAndRelated(props.id)
 })
 
-// Opdater event, når props.id ændres (navigering via relaterede events)
-watch(() => props.id, (newId) => {
-  ticketClicked.value = false
-  showTicketMessage.value = false
-  ticketMessage.value = ""
-  fetchEventAndRelated(newId)
-})
+// Opdater event, når props.id ændres
+watch(
+  () => props.id,
+  newId => {
+    ticketClicked.value = false
+    showTicketMessage.value = false
+    ticketMessage.value = ""
+    fetchEventAndRelated(newId)
+  }
+)
 </script>
+
 
 <template>
   <!-- Event info -->
@@ -114,7 +124,9 @@ watch(() => props.id, (newId) => {
               :disabled="ticketClicked"
             >
               Køb nu
+              <span v-if="loadingTicket" class="spinner"></span>
             </button>
+
 
             <!-- Reminder – altid -->
             <router-link :to="{ name: 'Reminder' }" class="reminder-link">
@@ -151,6 +163,21 @@ watch(() => props.id, (newId) => {
 <style scoped>
 .event-detail {
   padding: 2rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin .9s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin { 
+  to { transform: rotate(360deg); } 
 }
 
 .back-btn {
