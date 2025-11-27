@@ -185,7 +185,7 @@ onMounted(loadMembers)
           <div class="form-buttons">
             <button type="button" class="secondary-btn" @click="resetForm">Annuller</button>
             <button type="submit" class="primary-btn">
-              {{ editingId ? 'Opdater' : 'TILFØJ' }}
+              {{ editingId ? 'Opdater' : 'Tilføj' }}
               <span v-if="loading" class="spinner"></span>
             </button>
           </div>
@@ -354,6 +354,7 @@ input {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+    margin-top: 0rem;
 }
 
 .member-wrapper h3 {
@@ -440,6 +441,11 @@ input {
 
 /* DESKTOP OVERRIDES */
 @media (min-width: 769px) {
+.member-wrapper {
+  margin-top: -8rem;
+}
+
+    
   .admin-members-page {
     margin-left: 240px;
     padding: 2rem 3.8rem 2rem 0;
@@ -457,6 +463,7 @@ input {
 
   .member-wrapper {
     max-width: 550px;
+    max-height: 525px;
   }
 
   .row {
