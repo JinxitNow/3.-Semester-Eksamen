@@ -7,7 +7,7 @@ const steps = [
     items: [
       { 
         text: "Ung i ODEON er en kampagneside målrettet unge mellem 25–35 år bosat i Odense, da denne gruppe typisk har størst interesse og økonomi til at deltage i ODEONs arrangementer. Alle mellem 18 og 35 år kan dog blive medlem – uanset bopæl.", 
-        image: "/img/tutorial_intro.webp" 
+        image: "/img/forside.webp" 
       }
     ]
   },
