@@ -100,7 +100,7 @@ export default {
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  gap: 20px;
 }
 
 /* Sektionstitler */
@@ -114,7 +114,7 @@ export default {
 .footer-section h4 {
   margin-top: 15px;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 550;
   color: #796535;
 }
