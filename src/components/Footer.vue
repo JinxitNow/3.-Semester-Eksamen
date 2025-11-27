@@ -100,7 +100,7 @@ export default {
 .footer-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  gap: 30px;
 }
 
 /* Sektionstitler */
