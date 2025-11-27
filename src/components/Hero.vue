@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
   margin-right: -3.8rem;
   padding-left: 3.8rem;
   padding-right: 3.8rem;
-  height: 500px;
+  height: 400px;
   overflow: hidden;
 }
 
@@ -145,6 +145,9 @@ onBeforeUnmount(() => {
 @media (min-width: 768px) {
   .hero-content .hero-button {
     padding: 14px 32px;
+    }
+
+    .hero-wrapper {  height: 700px;
     }
 }
 

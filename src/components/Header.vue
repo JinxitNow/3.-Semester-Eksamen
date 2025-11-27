@@ -174,8 +174,8 @@ onBeforeUnmount(() => {
 
 .header-logo {
   height: 90px;
-  margin-top: -60px;
-  margin-left: -45px;
+  margin-top: -50px;
+  margin-left: -33px;
 }
 
 .burger {
