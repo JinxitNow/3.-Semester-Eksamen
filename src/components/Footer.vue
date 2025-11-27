@@ -74,7 +74,7 @@ export default {
 
         <div class="footer-section">
           <h3>Sponsoraftale</h3>
-          <p>ODEON er sponsoreret af Albani</p>
+          <p>ODEON -Sponsoreret af Albani</p>
         </div>
       </div>
     </div>
