@@ -156,89 +156,102 @@ const topCategories = computed(() => {
     </div>
   </section>
 </template>
-
 <style scoped>
 .dashboard-page {
-  margin-left: 240px;
-  padding: 2rem;
+  padding: 1rem;
   background-color: #EFEFEF;
 }
 
+/* Header */
 .dashboard-header {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+  flex-direction: column; /* mobil: stack */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .dashboard-heading h2 {
-  font-size: 1.8rem;
+  font-size: 1.4rem; /* lidt mindre på mobil */
   color: #796535;
   margin: 0;
 }
 
 .dashboard-subtitle {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #796535;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
 }
 
-/* Grid med to bokse */
+/* Grid – mobil først: én kolonne */
 .stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
 .stats-column {
   background: #fff;
   border-radius: 12px;
-  padding: 1.8rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .stats-column h3 {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   color: #796535;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   border-bottom: 2px solid #e3d7b6;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
 }
 
 .stat-item {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .label {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #796535;
   font-weight: 500;
 }
 
 .value {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #867541;
 }
 
-.sub-list {
-  list-style: none;
-  padding: 0;
-  margin: 0.3rem 0 0 0;
-}
-
 .sub-list li {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #4B4B4B;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
-/* Responsiv */
-@media (max-width: 1024px) {
+/* Tablet og op */
+@media (min-width: 768px) {
+  .dashboard-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Desktop og op */
+@media (min-width: 1200px) {
+  .dashboard-page {
+    margin-left: 240px; /* først her får vi sidebar spacing */
+    padding: 2rem;
+  }
+
+  .dashboard-heading h2 {
+    font-size: 1.8rem;
   }
 }
 </style>
