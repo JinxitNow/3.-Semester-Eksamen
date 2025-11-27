@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
   margin-right: -3.8rem;
   padding-left: 3.8rem;
   padding-right: 3.8rem;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
 }
 
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
     padding: 14px 32px;
     }
 
-    .hero-wrapper {  height: 700px;
+    .hero-wrapper {  height: 600px;
     }
 }
 

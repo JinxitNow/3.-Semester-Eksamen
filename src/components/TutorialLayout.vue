@@ -118,19 +118,21 @@ onUnmounted(() => {
 }
 
 .tutorial-image {
-  width: 420px;
-  height: 260px;
-  flex-shrink: 0;
-  overflow: hidden;
+  width: 100%;
+  max-width: 420px;   /* maks bredde */
   border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tutorial-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  height: auto;        /* bevarer proportioner */
+  object-fit: contain; /* hele billedet vises, ingen beskæring */
 }
+
 
 /* Responsiv */
 @media (max-width: 1024px) {
